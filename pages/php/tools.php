@@ -1,9 +1,9 @@
 <?php
 
-include ('connection.php');
+include 'connection.php';
 
 function send_query($query, $fetch_all=true){
-    global$pdo;
+    global $pdo;
     $stmt = $pdo->prepare($query);
     $stmt->execute();
     if($fetch_all){
