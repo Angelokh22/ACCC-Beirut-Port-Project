@@ -1,0 +1,30 @@
+.txt-center{
+    text-align: center;
+}
+
+table{
+    margin: auto;
+    width: 80%;
+    border-collapse: collapse;
+    border: none;
+}
+td,th{
+    border: 2px solid black;
+}
+.blck{
+    background-color: black;
+}
+.f1{
+    border: none;
+}
+td{
+    text-align: center;
+}
+.right{
+    float: right;
+    margin-right: 15px;
+}
+.print-btn{
+    height: 50px;
+    width: 70px;
+}

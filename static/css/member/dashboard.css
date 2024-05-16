@@ -1,0 +1,17 @@
+@media (min-width: 992px) {
+    #canvas,
+    .row:nth-child(2),
+    .row:nth-child(3) {
+        margin-top: 30px;
+    }
+
+    .edt_btn,
+    .show_btn {
+        font-size: 1.3rem;
+    }
+
+    .edt_btn:hover,
+    .show_btn:hover {
+        color: rgb(24, 58, 245);
+    }
+}

@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url('./navbar1.css');
+@import url('./main-colors.css');
+
+*{
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+}
+
+.transparent-bg {
+  background: transparent !important;
+}
+
+.off-white,
+#email-newsletter::placeholder {
+  color: var(--off-white) !important;
+}
+
+#email-newsletter:focus {
+    box-shadow: none;
+}
+
+.fa-white {
+    color: white;
+}
+
+#header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/sunset.jpg");
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    box-shadow: white;
+    box-shadow: 0px 0px 10px 0px white;
+}
+
+body{
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.5;
+    background-color: var(--main-dark);
+    color: var(--off-white);
+}
+
+h2{
+    text-align: center;
+    color:black;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color:var(--main-color);
+    text-decoration:underline;
+    
+}
+
+.col1{
+    color: var( --main-color);
+}
+
+.elementor-widget-container{
+    margin: 10px;
+    text-align: center;
+}
+
+.larger-text{
+    font-size: xx-large;
+}
+
+.contact-bg{
+    height: 60vh;
+    background-position: 50% 100%;
+    object-fit: cover;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+}
+.contact-bg h3{
+     font-size: 2.3rem;
+    font-weight: 400; 
+    color:var(--main-color);
+}
+.contact-bg h2{
+    font-size: 3rem;
+    text-transform: uppercase;
+    padding: 0.4rem 0;
+    letter-spacing: 4px;
+    color:var(--main-color);
+}

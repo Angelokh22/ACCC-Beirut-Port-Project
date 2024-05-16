@@ -1,0 +1,173 @@
+.card-inbox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #edf1f5;
+    background-clip: border-box;
+    border: 0 solid transparent;
+    border-radius: 0;
+}
+
+.mailbox-widget .custom-tab .nav-item .nav-link {
+    border: 0;
+    color: #fff;
+    border-bottom: 3px solid transparent;
+}
+
+.mailbox-widget .custom-tab .nav-item .nav-link.active {
+    background: 0 0;
+    color: #fff;
+    border-bottom: 3px solid #2cd07e;
+}
+
+.no-wrap td,
+.no-wrap th {
+    white-space: nowrap;
+}
+
+.table td,
+.table th {
+    padding: 0.9375rem 0.4rem;
+    vertical-align: top;
+    border-top: 1px solid rgba(120, 130, 140, 0.13);
+}
+
+.font-light {
+    font-weight: 300;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .badge {
+        transition: none
+    }
+}
+
+a.badge:focus,
+a.badge:hover {
+    text-decoration: none
+}
+
+.badge:empty {
+    display: none
+}
+
+.badge-pill {
+    padding-right: .6em;
+    padding-left: .6em;
+    border-radius: 10rem
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545
+}
+
+a.badge-danger:focus,
+a.badge-danger:hover {
+    color: #fff;
+    background-color: #bd2130
+}
+
+a.badge-danger.focus,
+a.badge-danger:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5);
+}
+
+
+.badge-info {
+    color: #fff;
+    background-color: #17a2b8
+}
+
+a.badge-info:focus,
+a.badge-info:hover {
+    color: #fff;
+    background-color: #117a8b
+}
+
+a.badge-info.focus,
+a.badge-info:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(23, 162, 184, .5)
+}
+
+
+.badge-success {
+    color: #fff;
+    background-color: #28a745
+}
+
+a.badge-success:focus,
+a.badge-success:hover {
+    color: #fff;
+    background-color: #1e7e34
+}
+
+a.badge-success.focus,
+a.badge-success:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .5)
+}
+
+
+.badge-warning {
+    color: #212529;
+    background-color: #ffc107
+}
+
+a.badge-warning:focus,
+a.badge-warning:hover {
+    color: #212529;
+    background-color: #d39e00
+}
+
+a.badge-warning.focus,
+a.badge-warning:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(255, 193, 7, .5)
+}
+
+
+
+
+
+#myTabContent {
+    border: 3px solid #007bff;
+    border-radius: 8px;
+}

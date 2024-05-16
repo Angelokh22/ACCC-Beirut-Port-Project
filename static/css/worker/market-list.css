@@ -1,0 +1,10 @@
+@media (min-width:992px) {
+    .card {
+        width: 18rem;
+        margin: 20px auto 0;
+    }
+
+    .btn-add {
+        margin-top: 15px;
+    }
+}

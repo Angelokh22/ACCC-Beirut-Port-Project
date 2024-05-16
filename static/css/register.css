@@ -1,0 +1,13 @@
+#togglePassword1 {
+    position: absolute;
+    bottom: 42%;
+    right: 8%;
+    transform: translateY(-50%);
+}
+
+#togglePassword2 {
+    position: absolute;
+    top: 68%;
+    right: 8%;
+    transform: translateY(-50%);
+}
