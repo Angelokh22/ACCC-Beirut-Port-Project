@@ -6,7 +6,7 @@
 
     $query = "SELECT * FROM Sessions WHERE sessionToken = '$jwt'";
 
-    $result = send_query($query, false);
+    $result = send_query($query, true, false);
     if(!$result) {
         session_destroy();
         header("Location: ../../../index.html");

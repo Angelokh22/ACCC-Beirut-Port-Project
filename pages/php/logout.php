@@ -8,7 +8,7 @@ session_start();
 $token = $_SESSION['Authorisation'];
 
 $query = "DELETE FROM Sessions WHERE sessionToken = '$token'";
-send_query($query);
+send_query($query, false, false);
 
 session_destroy();
 

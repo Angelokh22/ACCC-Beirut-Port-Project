@@ -1,7 +1,6 @@
 <?php
 
-include('tools.php');
-include ('connection.php');
+include 'tools.php';
 
 if(
     isset($_POST['email']) && $_POST['email'] !=""
@@ -15,7 +14,7 @@ if(
     $lang = $_POST['lang'];
     
     
-    if(check_input($email) != 1){// || check_input($pass, false) != 1){
+    if(check_input($email) != 1){
         header("Location: ../html/$lang/login.php?email_msg=Invalid Email");
     }
     if(check_input($pass, false) != 1){
@@ -24,7 +23,7 @@ if(
     }
 
     $query="Select * From Users where userEmail='$email' and userPassword='$pass'";
-    $result = send_query($query, false);
+    $result = send_query($query, true, false);
 
 
     if(!$result) {
@@ -51,7 +50,7 @@ if(
     $_SESSION['Authorisation'] = $jwt;
     
     $query = "INSERT INTO Sessions (userID, sessionToken, startTime, expTime) VALUES ($id, '$jwt', $startTime, $expTime);";
-    send_query($query, false);
+    send_query($query, false, false);
 
 
     if($role == '1'){

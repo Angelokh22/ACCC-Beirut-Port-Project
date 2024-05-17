@@ -26,8 +26,8 @@ if(
         header("Location:../html/$lang/register.php?username_msg=Username isn't your full name!");
     }
 
-    $query = "SELECT * FROM Users WHERE userEmail = '$email'";
-    $result = send_query($query);
+    $query = "SELECT * FROM Users WHERE userEmail = '$email';";
+    $result = send_query($query, true, false);
 
     if($result){
         header("Location:../html/$lang/register.php?email_msg=This Email is already in use!");
@@ -42,10 +42,10 @@ if(
     }
 
     $query = "INSERT INTO Users (userName, userRole, userEmail, userPassword) VALUES ('$username', 3, '$email', '$password');";
-    send_query($query, false);
+    send_query($query, false, false);
 
     $query = "SELECT * FROM Users WHERE userEmail = '$email';";
-    $result = send_query($query, false);
+    $result = send_query($query, true, false);
 
     // print_r($result);
 
@@ -65,7 +65,7 @@ if(
     $jwt = create_jwt(json_encode($payload));
 
     $query = "INSERT INTO Sessions (userID, sessionToken, startTime, expTime) VALUES ($id, '$jwt', $startTime, $expTime);";
-    send_query($query, false);
+    send_query($query, false, false);
 
     session_start();
     $_SESSION['Authorisation'] = $jwt;
