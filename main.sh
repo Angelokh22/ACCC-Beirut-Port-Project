@@ -6,4 +6,4 @@ sudo apt install php libapache2-mod-php php-mysql -y
 sudo apt install php-pdo-mysql -y
 sudo sed -i 's|/var/www|/workspaces/ACCC-Beirut-Port-Project|g' /etc/apache2/apache2.conf
 sudo sed -i 's|/var/www/html|/workspaces/ACCC-Beirut-Port-Project|g' /etc/apache2/sites-available/000-default.conf
-sudo update-rc.d apache2 defaults
+sudo service apache2 start
