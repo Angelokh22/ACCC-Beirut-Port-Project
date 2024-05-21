@@ -49,9 +49,21 @@
                                 <a class="nav-link" href="./index_ar.html">AR</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./pages/html/en/login.php">Sign IN
+                                <!-- <a class="nav-link" href="./pages/html/en/login.php">Sign IN
                                     <i class="fa-solid fa-sign-in"></i>
-                                </a>
+                                </a> -->
+                                <?php 
+                                    session_start();
+
+                                    if($_SESSION['Authorisation']) {
+                                        echo '<a class="nav-link" href="./pages/html/admin/dashboard.php">Dashboard</a>';
+                                    }
+                                    else {
+                                        echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN
+                                        <i class="fa-solid fa-sign-in"></i>
+                                    </a>';
+                                    }
+                                ?>
                             </li>
                         </ul>
                     </div>

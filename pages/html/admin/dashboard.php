@@ -9,7 +9,7 @@
     $result = send_query($query, true, false);
     if(!$result) {
         session_destroy();
-        header("Location: ../../../index.html");
+        header("Location: ../../../index.php");
     }
 
 ?>
@@ -42,7 +42,7 @@
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
-                <a class="navbar-brand theme-text" href="../../../index.html">
+                <a class="navbar-brand theme-text" href="../../../">
                     <img src="../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
@@ -64,7 +64,7 @@
                                     echo $result['name'];
                                 ?>
                                 </span></span></li>
-                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="./edit profile/editprofile.php">Edit Profile</a></li>
                                 <li>
                                     <a class="dropdown-item" href="../../php/logout.php">Log Out</a>
                                 </li>

@@ -27,7 +27,7 @@
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
-                <a class="navbar-brand theme-text" href="../../../../index.html">
+                <a class="navbar-brand theme-text" href="../../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
@@ -72,7 +72,7 @@
                             </div>
                         </li>
                         <li class="mt-3">
-                            <a href="dashboard.html" class="nav-link px-3 active">
+                            <a href="../dashboard.php" class="nav-link px-3">
                                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                                 <span>Dashboard</span>
                             </a>
@@ -100,7 +100,7 @@
                             <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="./orders/import-order.html" class="nav-link px-3">
+                                        <a href="../orders/import-order.html" class="nav-link px-3">
                                             <span class="me-2">
                                                 <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-arrow-left fa-xs"></i>
@@ -108,7 +108,7 @@
                                             </span>
                                             <span>Imported Orders</span>
                                         </a>
-                                        <a href="./orders/export-order.html" class="nav-link px-3">
+                                        <a href="../orders/export-order.html" class="nav-link px-3">
                                             <span class="me-2">
                                                 <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-box"></i>
@@ -135,7 +135,7 @@
                             <div class="collapse" id="marketplace">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="./marketplace/marketplace-list.html" class="nav-link px-3">
+                                        <a href="../marketplace/marketplace-list.html" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
@@ -160,19 +160,19 @@
                             <div class="collapse" id="users">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="./users/admin.html" class="nav-link px-3">
+                                        <a href="../users/admin.html" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-user-shield"></i>
                                             </span>
                                             <span>Admin</span>
                                         </a>
-                                        <a href="./users/worker.html" class="nav-link px-3">
+                                        <a href="../users/worker.html" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-helmet-safety"></i>
                                             </span>
                                             <span>Workers</span>
                                         </a>
-                                        <a href="./users/user.html" class="nav-link px-3">
+                                        <a href="../users/user.html" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-user"></i>
                                             </span>
@@ -183,7 +183,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="./tracking/tracking.html" class="nav-link px-3">
+                            <a href="../tracking/tracking.html" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>
@@ -199,7 +199,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="./database/send-query.html" class="nav-link px-3">
+                            <a href="../database/send-query.html" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="fa-regular fa-keyboard"></i>
                                 </span>
