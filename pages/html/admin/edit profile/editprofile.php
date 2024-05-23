@@ -1,3 +1,33 @@
+<?php
+
+    include ("../../../php/tools.php");
+
+    session_start();
+
+    $jwt = $_SESSION["Authorisation"];
+    if(!$jwt){
+        header("Location:../../../../index.php");
+    }
+
+
+    $session_result = send_query("SELECT * FROM Sessions WHERE sessionToken = '$jwt'", true, false);
+    if(!$session_result){
+        session_destroy();
+        header("Location:../../../../index.php");
+    }
+    $userid = $session_result[0]['userID'];
+    $user_result = send_query("SELECT * FROM Users WHERE userID = $userid", true, true)[0];
+
+
+    $adresse_result = send_query("SELECT * FROM Adresses WHERE userID = $userid", true, true);
+    $is_adresse = false;
+    if($adresse_result){
+        $is_adresse= true;
+    }
+        
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +37,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
         integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
@@ -228,31 +262,31 @@
                 <div class="row col-md-6  mt-5">
                     <div class="col-md-12">
                         <label for="inputfn" class="form-label">FullName:</label>
-                        <input type="text" class="form-control" id="inputfn">
+                        <input type="text" class="form-control" id="inputfn" value="<?php echo $user_result['userName']; ?>">
                     </div>
                     <div class="col-12 mt-5">
                         <label for="inputEmail" class="form-label">Email:</label>
-                        <input type="text" class="form-control" id="inputEmail">
+                        <input type="text" class="form-control" id="inputEmail" value="<?php echo $user_result['userEmail']; ?>">
                     </div>
                     <div class="col-12 mt-5">
                         <div style="border: 1px solid lightgray; border-radius: 8px; padding: 5px 0;">
-                            <form action="">
+                            <!-- <form action="../../../php/change_pass.php" method="post"> -->
                                 <div class="mx-2">
-                                    <label for="inputOldPassword" class="form-label">Old Password:</label>
-                                    <input type="text" class="form-control" id="inputOldPassword">
+                                    <label for="oldPass" class="form-label">Old Password:</label>
+                                    <input type="text" class="form-control" id="oldPass" placeholder="Enter Old Password">
                                 </div>
                                 <div class="mx-2">
-                                    <label for="inputNewPassword" class="form-label">New Password:</label>
-                                    <input type="text" class="form-control" id="inputNewPassword">
+                                    <label for="newPass" class="form-label">New Password:</label>
+                                    <input type="text" class="form-control" id="newPass" placeholder="Enter New Password">
                                 </div>
                                 <div class="mx-2">
-                                    <label for="inputConfPassword" class="form-label">Confirm Password:</label>
-                                    <input type="text" class="form-control" id="inputConfPassword">
+                                    <label for="confPass" class="form-label">Confirm Password:</label>
+                                    <input type="text" class="form-control" id="confPass" placeholder="Confirm New Password">
                                 </div>
                                 <div class="mt-2 mx-2">
-                                    <button type="submit" class="btn btn-primary">Change Password</button>
+                                    <button class="btn btn-primary" onclick="change_pass()">Change Password</button>
                                 </div>
-                            </form>
+                            <!-- </form> -->
                         </div>
                     </div>
                 </div>
@@ -261,23 +295,23 @@
                         <div style="border: 1px solid lightgray; border-radius: 8px; padding: 5px 0;">
                             <div class="mx-2 mt-4">
                                 <label for="inputCity" class="form-label">City:</label>
-                                <input type="text" class="form-control" id="inputCity">
+                                <input type="text" class="form-control" id="inputCity" required value="<?php if($is_adresse) echo $adresse_result[0]['city']?>"> 
                             </div>
                             <div class="mx-2 mt-4">
                                 <label for="inputTown" class="form-label">Town:</label>
-                                <input type="text" class="form-control" id="inputTown">
+                                <input type="text" class="form-control" id="inputTown" required value="<?php if($is_adresse) echo $adresse_result[0]['town']?>">
                             </div>
                             <div class="mx-2 mt-4">
                                 <label for="inputPostalCode" class="form-label">Postal Code:</label>
-                                <input type="text" class="form-control" id="inputPostalCode">
+                                <input type="text" class="form-control" id="inputPostalCode" required value="<?php if($is_adresse) echo $adresse_result[0]['postalCode']?>">
                             </div>
                             <div class="mt-2 mx-2 mt-4">
                                 <label for="inputAddress1" class="form-label">Address 1:</label>
-                                <input type="text" class="form-control" id="inputAddress1">
+                                <input type="text" class="form-control" id="inputAddress1" required value="<?php if($is_adresse) echo $adresse_result[0]['adresse']?>">
                             </div>
                             <div class="mt-2 mx-2 mt-4 mb-4">
                                 <label for="inputAddress2" class="form-label">Address 2 (Optinal):</label>
-                                <input type="text" class="form-control" id="inputAddress2">
+                                <input type="text" class="form-control" id="inputAddress2" value="<?php if($is_adresse) echo $adresse_result[0]['adresse2']?>">
                             </div>
                         </div>
                     </div>
@@ -285,7 +319,7 @@
 
                 <div class="row col-md-12 mt-5">
                     <div class="col-12 text-center">
-                        <button class="btn btn-primary">Save Changes</button>
+                        <button class="btn btn-primary" onclick="save_changes()" data-bs-toggle="modal" data-bs-target="#profileEdit">Save Changes</button>
                     </div>
                 </div>
                 
@@ -293,6 +327,24 @@
         </main>
     </section>
     <!-- Edit Profile End -->
+
+    <!-- Update Modal Start -->
+    <section>
+
+        <div class="modal fade" id="profileEdit" tabindex="-1" aria-labelledby="profileEditLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+    <!-- Update Modal End -->
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
@@ -306,6 +358,86 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../static/js/admin/script.js"></script>
+    <script>
+        function save_changes(){
+            var fullname = document.getElementById("inputfn").value;
+            var email = document.getElementById("inputEmail").value;
+            var city = document.getElementById("inputCity").value;
+            var town = document.getElementById("inputTown").value;
+            var postalcode = document.getElementById("inputPostalCode").value;
+            var adresse1 = document.getElementById("inputAddress1").value;
+            var adresse2 = document.getElementById("inputAddress2").value;
+
+            fetch(
+                "../../../php/save_changes.php",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        fullname: fullname,
+                        email: email,
+                        city: city,
+                        town: town,
+                        postalCode: postalcode,
+                        adresse1: adresse1,
+                        adresse2: adresse2
+                    })
+                }
+            )
+            .then((response) => response.text())
+            .then((text) => {
+                if(text == "OK") {
+                    document.getElementsByClassName("modal-body")[0].innerHTML = `
+                    <p>Profile Informations has been updated <span class="text-success">SUCCESSFULLY!</span></p>
+                    `
+                }
+                else {
+                    document.getElementsByClassName("modal-body")[0].innerHTML = `
+                    <p>Profile Informations <span class="text-danger">HAS NOT</span> been updated.</p>
+                    `
+                }
+                $("#profileEdit").modal();
+            })
+
+        }
+
+        function change_pass() {
+            var OldPass = document.getElementById("oldPass").value;
+            var NewPass = document.getElementById("newPass").value;
+            var ConfPass = document.getElementById("confPass").value;
+
+            fetch(
+                "../../../php/change_pass.php",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        oldPass: OldPass,
+                        newPass: NewPass,
+                        confPass: ConfPass
+                    })
+                }
+            )
+            .then((response) => response.text())
+            .then((text) => {
+                $("#profileEdit").modal();
+                if(text == "OK") {
+                    document.getElementsByClassName("modal-body")[0].innerHTML = `
+                    <p>Password has been changed <span class="text-success">SUCCESSFULLY!</span></p>
+                    `
+                }
+                else {
+                    document.getElementsByClassName("modal-body")[0].innerHTML = `
+                    <p>Password <span class="text-danger">HAS NOT</span> been changed.</p>
+                    `
+                }
+            })
+        }
+    </script>
 
 
 </body>

@@ -19,7 +19,7 @@
         <form class="login" method="POST" action="../../php/signup.php">
             <p class="title">Sign UP</p>
             <p class="username_alert"><?php if(isset($_GET['username_msg'])) {echo $_GET['username_msg'];} ?></p>
-            <input type="text" placeholder="Username" name="username" autofocus />
+            <input type="text" placeholder="Full Name" name="username" autofocus />
             <i class="fa-solid fa-user"></i>
             <p class="email_alert"><?php if(isset($_GET['email_msg'])) {echo $_GET['email_msg'];} ?></p>
             <input type="text" placeholder="Email" name="email" />
