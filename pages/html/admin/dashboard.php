@@ -60,8 +60,10 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
                                 <?php
-                                    $result = read_jwt($jwt);
-                                    echo $result['name'];
+                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                    $userid = $result['userID'];
+                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                    echo $username;
                                 ?>
                                 </span></span></li>
                                 <li><a class="dropdown-item" href="./edit profile/editprofile.php">Edit Profile</a></li>

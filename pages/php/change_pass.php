@@ -1,6 +1,6 @@
 <?php
 
-    include ("tools.php");
+    include "tools.php";
 
     if(
         isset($_POST["oldPass"]) && $_POST['oldPass'] != ""
@@ -30,11 +30,11 @@
         $ConfPass = $_POST['confPass'];
 
         if($NewPass != $ConfPass){
-            echo "NO1";
+            echo "NO";
             return;
         }
         if(check_input($NewPass, false) != 1 || check_input($ConfPass, false) != 1){
-            echo "NO2";
+            echo "NO";
             return;
         }
 
@@ -52,7 +52,7 @@
 
     }
     else {
-        echo "NO4";
+        echo "NO";
     }
 
 ?>

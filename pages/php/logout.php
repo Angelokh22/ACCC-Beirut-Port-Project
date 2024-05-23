@@ -12,7 +12,7 @@ send_query($query, false, false);
 
 session_destroy();
 
-header("Location: ../../index.html")
+header("Location: ../../index.php")
 
 
 ?>

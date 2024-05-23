@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
     <link rel="stylesheet" href="../../../../static/css/worker/email.css">
+    <link rel="shortcut icon" href="../../../../static/img/favicon.ico" type="image/x-icon">
     <title>ACCC Beirut Port Prject</title>
 </head>
 
@@ -78,10 +79,16 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
-                                        </span></span></li>
+                                <?php
+                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                    $userid = $result['userID'];
+                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                    echo $username;
+                                ?>
+                                </span></span></li>
                                 <li><a class="dropdown-item" href="#">Edit Profile</a></li>
                                 <li>
-                                    <a class="dropdown-item" href="../../php/logout.php">Log Out</a>
+                                    <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>
                             </ul>
                         </li>
@@ -270,7 +277,6 @@
                     </div>
                     <div class="col-12 mt-5">
                         <div style="border: 1px solid lightgray; border-radius: 8px; padding: 5px 0;">
-                            <!-- <form action="../../../php/change_pass.php" method="post"> -->
                                 <div class="mx-2">
                                     <label for="oldPass" class="form-label">Old Password:</label>
                                     <input type="text" class="form-control" id="oldPass" placeholder="Enter Old Password">
@@ -284,11 +290,10 @@
                                     <input type="text" class="form-control" id="confPass" placeholder="Confirm New Password">
                                 </div>
                                 <div class="mt-2 mx-2">
-                                    <button class="btn btn-primary" onclick="change_pass()">Change Password</button>
+                                    <button class="btn btn-primary" onclick="change_pass()" data-bs-toggle="modal" data-bs-target="#profileEdit">Change Password</button>
                                 </div>
-                            <!-- </form> -->
                         </div>
-                    </div>
+                    </div>                                 
                 </div>
                 <div class="row col-md-6 mt-5">
                     <div class="col-12">
@@ -424,7 +429,6 @@
             )
             .then((response) => response.text())
             .then((text) => {
-                $("#profileEdit").modal();
                 if(text == "OK") {
                     document.getElementsByClassName("modal-body")[0].innerHTML = `
                     <p>Password has been changed <span class="text-success">SUCCESSFULLY!</span></p>
@@ -435,6 +439,7 @@
                     <p>Password <span class="text-danger">HAS NOT</span> been changed.</p>
                     `
                 }
+                $("#profileEdit").modal();
             })
         }
     </script>
