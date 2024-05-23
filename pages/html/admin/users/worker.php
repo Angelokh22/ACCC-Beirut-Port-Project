@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php include "../../../php/check_login.php" ?><!DOCTYPE html>
+
+
 <html lang="en">
 
 <head>
@@ -7,8 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
         integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
@@ -28,7 +33,7 @@
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
-                <a class="navbar-brand theme-text" href="../../../../index.html">
+                <a class="navbar-brand theme-text" href="../../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
@@ -46,9 +51,9 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><span class="dropdown-item greatings" href="#">Hello, <span
                                             id="name">Admin</span></span></li>
-                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a></li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Log Out</a>
+                                    <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>
                             </ul>
                         </li>
@@ -73,7 +78,7 @@
                             </div>
                         </li>
                         <li class="mt-3">
-                            <a href="../dashboard.html" class="nav-link px-3">
+                            <a href="../dashboard.php" class="nav-link px-3">
                                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                                 <span>Dashboard</span>
                             </a>
@@ -101,7 +106,7 @@
                             <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../orders/import-order.html" class="nav-link px-3">
+                                        <a href="../orders/import-order.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-arrow-left fa-xs"></i>
@@ -109,7 +114,7 @@
                                             </span>
                                             <span>Imported Orders</span>
                                         </a>
-                                        <a href="../orders/export-order.html" class="nav-link px-3">
+                                        <a href="../orders/export-order.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-box"></i>
@@ -136,7 +141,7 @@
                             <div class="collapse" id="marketplace">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../marketplace/marketplace-list.html" class="nav-link px-3">
+                                        <a href="../marketplace/marketplace-list.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
@@ -161,19 +166,19 @@
                             <div class="collapse show" id="users">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="admin.html" class="nav-link px-3">
+                                        <a href="admin.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-user-shield"></i>
                                             </span>
                                             <span>Admin</span>
                                         </a>
-                                        <a href="worker.html" class="nav-link px-3">
+                                        <a href="worker.php" class="nav-link px-3 active">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-helmet-safety"></i>
                                             </span>
                                             <span>Workers</span>
                                         </a>
-                                        <a href="user.html" class="nav-link px-3 active">
+                                        <a href="user.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-user"></i>
                                             </span>
@@ -184,7 +189,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="../tracking/tracking.html" class="nav-link px-3">
+                            <a href="../tracking/tracking.php" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>
@@ -200,7 +205,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="../database/send-query.html" class="nav-link px-3">
+                            <a href="../database/send-query.php" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="fa-regular fa-keyboard"></i>
                                 </span>
@@ -219,6 +224,12 @@
     <section>
         <main class="mt-5 pt-3">
 
+            <div class="btn btn-add">
+                <button>
+                    Add Worker <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -231,134 +242,56 @@
                                             <th><span>Created</span></th>
                                             <th class="text-center"><span>Status</span></th>
                                             <th><span>Email</span></th>
+                                            <th><span>Phone</span></th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt> -->
-                                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png" alt="">
-                                                <a href="#" class="user-link">Mila Kunis</a>
-                                                <span class="user-subhead">Member</span>
-                                            </td>
-                                            <td>
-                                                2013/08/08
-                                            </td>
-                                            <td class="text-center">
-                                                <span class="label label-default">Inactive</span>
-                                            </td>
-                                            <td>
-                                                <a href="#"><span class="">angelokh22@gmail.com</span></a>
-                                            </td>
-                                            <td style="width: 20%;">
-                                                <a href="#" class="table-link">
-                                                    <span class="fa-stack">
-                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                                    </span>
-                                                </a>
-                                                <a href="#" class="table-link danger">
-                                                    <span class="fa-stack">
-                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                        <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
-                                                    </span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt> -->
-                                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png" alt="">
-                                                <a href="#" class="user-link">George Clooney</a>
-                                                <span class="user-subhead">Member</span>
-                                            </td>
-                                            <td>
-                                                2013/08/12
-                                            </td>
-                                            <td class="text-center">
-                                                <span class="label label-success">Active</span>
-                                            </td>
-                                            <td>
-                                                <a href="#"><span class=""></span></a>
-                                            </td>
-                                            <td style="width: 20%;">
-                                                <a href="#" class="table-link">
-                                                    <span class="fa-stack">
-                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                                    </span>
-                                                </a>
-                                                <a href="#" class="table-link danger">
-                                                    <span class="fa-stack">
-                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                        <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
-                                                    </span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt> -->
-                                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png" alt="">
-                                                <a href="#" class="user-link">Ryan Gossling</a>
-                                                <span class="user-subhead">Member</span>
-                                            </td>
-                                            <td>
-                                                2013/03/03
-                                            </td>
-                                            <td class="text-center">
-                                                <span class="label label-danger">Banned</span>
-                                            </td>
-                                            <td>
-                                                <a href="#"></a>
-                                            </td>
-                                            <td style="width: 20%;">
-                                                <a href="#" class="table-link">
-                                                    <span class="fa-stack">
-                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                                    </span>
-                                                </a>
-                                                <a href="#" class="table-link danger">
-                                                    <span class="fa-stack">
-                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                        <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
-                                                    </span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt> -->
-                                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png" alt="">
-                                                <a href="#" class="user-link">Emma Watson</a>
-                                                <span class="user-subhead">Member</span>
-                                            </td>
-                                            <td>
-                                                2004/01/24
-                                            </td>
-                                            <td class="text-center">
-                                                <span class="label label-warning">Pending</span>
-                                            </td>
-                                            <td>
-                                                <a href="#"><span class=""></span></a>
-                                            </td>
-                                            <td style="width: 20%;">
-                                                <a href="#" class="table-link">
-                                                    <span class="fa-stack">
-                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                                    </span>
-                                                </a>
-                                                <a href="#" class="table-link danger">
-                                                    <span class="fa-stack">
-                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                        <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
-                                                    </span>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                    <?php
+                                            $result = send_query("SELECT * FROM Users WHERE userRole = '2'");
+                                            foreach ($result as $row) {
+                                                $name = $row['userName'];
+                                                $email = $row['userEmail'];
+                                                $date = date('Y/m/d', $row['userCreated']);
+                                                $status = "";
+                                                $phone = $row['userPhone'];
+
+                                                if($row['userStatus'] == 0) {
+                                                    $status = 'Pending';
+                                                }
+                                                else if($row['userStatus'] == 1) {
+                                                    $status = 'Active';
+                                                }
+                                                else {
+                                                    $status = 'Banned';
+                                                }
+
+                                                echo "
+                                                <tr>
+                                                    <td>
+                                                        <img src='https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png' alt=''>
+                                                        <a href='#' class='user-link'>$name</a>
+                                                        <span class='user-subhead'>Worker</span>
+                                                    </td>
+                                                    <td>$date</td>
+                                                    <td class='text-center'>
+                                                        <span class='label label-default'>$status</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href='#'><span class=''>$email</span></a>
+                                                    </td>
+                                                    <td>$phone</td>
+                                                    <td style='width: 20%;'>
+                                                        <button class='btn btn-primary'>
+                                                            <i class='fa fa-pencil fa-stack-1x fa-inverse' style='position: relative'></i>
+                                                        </button>
+                                                        <button class='btn btn-danger'>
+                                                            <i class='fa fa-trash fa-stack-1x fa-inverse' style='position: relative'></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>";
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>

@@ -80,7 +80,7 @@
                             </div>
                         </li>
                         <li class="mt-3">
-                            <a href="dashboard.html" class="nav-link px-3 active">
+                            <a href="dashboard.php" class="nav-link px-3 active">
                                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                                 <span>Dashboard</span>
                             </a>
@@ -108,7 +108,7 @@
                             <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="./orders/import-order.html" class="nav-link px-3">
+                                        <a href="./orders/import-order.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-arrow-left fa-xs"></i>
@@ -116,7 +116,7 @@
                                             </span>
                                             <span>Imported Orders</span>
                                         </a>
-                                        <a href="./orders/export-order.html" class="nav-link px-3">
+                                        <a href="./orders/export-order.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-box"></i>
@@ -143,7 +143,7 @@
                             <div class="collapse" id="marketplace">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="./marketplace/marketplace-list.html" class="nav-link px-3">
+                                        <a href="./marketplace/marketplace-list.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
@@ -174,13 +174,13 @@
                                             </span>
                                             <span>Admin</span>
                                         </a>
-                                        <a href="./users/worker.html" class="nav-link px-3">
+                                        <a href="./users/worker.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-helmet-safety"></i>
                                             </span>
                                             <span>Workers</span>
                                         </a>
-                                        <a href="./users/user.html" class="nav-link px-3">
+                                        <a href="./users/user.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-user"></i>
                                             </span>
@@ -191,7 +191,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="./tracking/tracking.html" class="nav-link px-3">
+                            <a href="./tracking/tracking.php" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>

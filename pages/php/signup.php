@@ -20,7 +20,7 @@ if(
     $password = $_POST['pass'];
     $check_password = $_POST['check_pass'];
     $lang =$_POST['lang'];
-    $status = '2';
+    $status = '1';
     $created = time();
 
 

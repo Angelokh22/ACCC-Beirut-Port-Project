@@ -77,7 +77,7 @@
                                     echo $username;
                                 ?>
                                 </span></span></li>
-                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="./editprofile.php">Edit Profile</a></li>
                                 <li>
                                     <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>

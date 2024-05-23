@@ -10,9 +10,11 @@
         integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
@@ -184,8 +186,8 @@
             <div class="infos">
                 <span>Enter your Tracking ID below:</span>
                 <div class="inputs">
-                    <input type="text" placeholder="Tracking ID"/>
-                    <button>Send</button>
+                    <input type="text" placeholder="Tracking ID" id="track_id"/>
+                    <button onclick="checkID()">Send</button>
                 </div>
             </div>
 
@@ -268,6 +270,24 @@
     </section>
     <!-- Tracking End -->
 
+    <!-- Error Modal Start -->
+    <section>
+
+        <div class="modal fade" id="errormodal" tabindex="-1" aria-labelledby="errormodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+    <!-- Error Modal End -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -279,6 +299,42 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
+
+    <script>
+        function checkID(){
+            var trackingid = document.getElementById("track_id").value;
+
+            fetch(
+                "../../../php/check_track_id.php",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        trackingid: trackingid
+                    })
+                }
+            )
+            .then((response) => response.text())
+            .then((text) => {
+                if(text == "NO") {
+                    document.getElementsByClassName("modal-body")[0].innerHTML = `
+                    <p>Tracking ID is <span class="text-danger">NOT EXIST!</span></p>
+                    `
+                }
+                else {
+                    document.getElementsByClassName("modal-body")[0].innerHTML = `
+                    <p>Tracking ID is <span class="text-danger">NOT EXIST!</span></p>
+                    `
+                }
+                $("#errormodal").modal();
+            })
+
+        }
+
+    </script>
+
 
 
 </body>
