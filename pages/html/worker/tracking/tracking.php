@@ -197,23 +197,25 @@
                 <div class="card mb-3">
                     <div class="p-4 text-center text-white text-lg bg-dark rounded-top">
                         <span class="text-uppercase">Tracking Order No - </span>
-                        <span class="text-medium">"Tracking number"</span>
+                        <span class="text-medium" id="tracking_number">"Tracking number"</span>
                     </div>
                     <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Shipped Via:</span> "Delivery Type"
+                            <span class="text-medium">Shipped With:</span> <p id="delivery_type">"Delivery Type"</p>
                         </div>
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Status:</span> "Status"
+                            <span class="text-medium">Shipped Via:</span> <p id="delivery_provider">"Delivery Provider"</p>
                         </div>
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Expected Date:</span> "Delivering Time"
+                            <span class="text-medium">Status:</span> <p id="status">"Status"</p>
+                        </div>
+                        <div class="w-100 text-center py-1 px-2">
+                            <span class="text-medium">Expected Date:</span> <p id="delivery_time">"Delivering Time"</p>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-                            <div class="step completed">
+                        <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+                            <div class="step">
                                 <div class="step-icon-wrap">
                                     <div class="step-icon">
                                         <i class="fa-solid fa-cart-shopping"></i>
@@ -221,7 +223,7 @@
                                 </div>
                                 <h4 class="step-title">Confirmed Order</h4>
                             </div>
-                            <div class="step completed">
+                            <div class="step">
                                 <div class="step-icon-wrap">
                                     <div class="step-icon">
                                         <i class="bi bi-gear-fill"></i>
@@ -229,7 +231,7 @@
                                 </div>
                                 <h4 class="step-title">Processing Order</h4>
                             </div>
-                            <div class="step completed">
+                            <div class="step">
                                 <div class="step-icon-wrap">
                                     <div class="step-icon">
                                         <i class="fa-solid fa-shield"></i>
@@ -237,7 +239,7 @@
                                 </div>
                                 <h4 class="step-title">Security Check</h4>
                             </div>
-                            <div class="step completed">
+                            <div class="step">
                                 <div class="step-icon-wrap">
                                     <div class="step-icon">
                                         <i class="fa-solid fa-ship"></i>
@@ -270,6 +272,15 @@
     </section>
     <!-- Tracking End -->
 
+    <!-- Live Map Start -->
+    <section>
+        <main class="mt-1 text-center">
+            <!-- <iframe src="https://www.google.com/maps/embed?q=34.008220, 35.645962" width="95%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+            <iframe src="https://www.google.com/maps?q=34.008220,35.645962&hl=es&zoom=18&amp;output=embed" width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </main>
+    </section>
+    <!-- Live Map End -->
+
     <!-- Error Modal Start -->
     <section>
 
@@ -279,7 +290,7 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-circle-xmark"></i></button>
             </div>
             </div>
         </div>
@@ -320,15 +331,25 @@
             .then((text) => {
                 if(text == "NO") {
                     document.getElementsByClassName("modal-body")[0].innerHTML = `
-                    <p>Tracking ID is <span class="text-danger">NOT EXIST!</span></p>
+                    <p>Tracking ID does <span class="text-danger">NOT EXIST!</span></p>
                     `
+                    $("#errormodal").modal('show');
                 }
                 else {
-                    document.getElementsByClassName("modal-body")[0].innerHTML = `
-                    <p>Tracking ID is <span class="text-danger">NOT EXIST!</span></p>
-                    `
+
+                    var result = JSON.parse(text);
+
+                    document.getElementById("tracking_number").innerText = result['trackingNumber'];
+                    document.getElementById("delivery_provider").innerText = result['shipmentType'];
+                    document.getElementById("delivery_time").innerText = result['deleveryTime'];
+                    document.getElementById("delivery_type").innerText = result['deliveryProvider'];
+                    document.getElementById("status").innerText = result['status'];
+
+                    var steps = document.getElementsByClassName("step");
+                    for(var i = 0; i <= result['statusIndex']; i++){
+                        steps[i].classList.add("completed");
+                    }
                 }
-                $("#errormodal").modal();
             })
 
         }
