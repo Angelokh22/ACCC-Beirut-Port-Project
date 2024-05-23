@@ -275,9 +275,9 @@
     <!-- Live Map Start -->
     <section>
         <main class="mt-1 text-center">
-            <!-- <iframe src="https://www.google.com/maps/embed?q=34.008220, 35.645962" width="95%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-            <iframe src="https://www.google.com/maps?q=34.008220,35.645962&hl=es&zoom=18&amp;output=embed" width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4iE2xVSpkLLOXoyqT-RuPwURN3ddScAI&q=33.902970918564996,35.51771813153476&zoom=19&maptype=satellite" width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
         </main>
+
     </section>
     <!-- Live Map End -->
 
