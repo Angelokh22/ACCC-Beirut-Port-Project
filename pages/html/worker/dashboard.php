@@ -1,18 +1,5 @@
-<?php
-    include "../../php/tools.php";
+<?php  include "../../php/check_login.php"; ?>
 
-    session_start();
-    $jwt = $_SESSION['Authorisation'];
-
-    $query = "SELECT * FROM Sessions WHERE sessionToken = '$jwt'";
-
-    $result = send_query($query, true, false);
-    if(!$result) {
-        session_destroy();
-        header("Location: ../../../index.html");
-    }
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,6 +17,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../static/css/admin/panel.css">
     <link rel="stylesheet" href="../../../static/css/worker/email.css">
+    <link rel="shortcut icon" href="../../../static/img/favicon.ico" type="image/x-icon">
     <title>ACCC Beirut Port Prject</title>
 </head>
 
@@ -45,7 +33,7 @@
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
-                <a class="navbar-brand theme-text" href="../../../index.html">
+                <a class="navbar-brand theme-text" href="../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
@@ -63,13 +51,15 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
                                 <?php
-                                    $result = read_jwt($jwt);
-                                    echo $result['name'];
+                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                    $userid = $result['userID'];
+                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                    echo $username;
                                 ?>
                                 </span></span></li>
-                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="./edit profile/editprofile.php">Edit Profile</a></li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Log Out</a>
+                                    <a class="dropdown-item" href="../../php/logout.php">Log Out</a>
                                 </li>
                             </ul>
                         </li>
@@ -94,7 +84,7 @@
                             </div>
                         </li>
                         <li class="mt-3">
-                            <a href="../worker/dashboard.html" class="nav-link px-3 active">
+                            <a href="../worker/dashboard.php" class="nav-link px-3 active">
                                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                                 <span>Dashboard</span>
                             </a>
@@ -122,7 +112,7 @@
                             <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../worker/orders/import-order.html" class="nav-link px-3">
+                                        <a href="../worker/orders/import-order.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-arrow-left fa-xs"></i>
@@ -130,7 +120,7 @@
                                             </span>
                                             <span>Imported Orders</span>
                                         </a>
-                                        <a href="../worker/orders/export-order.html" class="nav-link px-3">
+                                        <a href="../worker/orders/export-order.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-box"></i>
@@ -157,7 +147,7 @@
                             <div class="collapse" id="marketplace">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../worker/marketplace/marketplace-list.html" class="nav-link px-3">
+                                        <a href="../worker/marketplace/marketplace-list.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
@@ -169,7 +159,7 @@
                         </li>
 
                         <li>
-                            <a href="../worker/tracking/tracking.html" class="nav-link px-3">
+                            <a href="../worker/tracking/tracking.php" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>

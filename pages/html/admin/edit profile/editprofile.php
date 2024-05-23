@@ -1,14 +1,5 @@
+<?php include "../../../php/check_login.php"; ?>
 <?php
-
-    include ("../../../php/tools.php");
-
-    session_start();
-
-    $jwt = $_SESSION["Authorisation"];
-    if(!$jwt){
-        header("Location:../../../../index.php");
-    }
-
 
     $session_result = send_query("SELECT * FROM Sessions WHERE sessionToken = '$jwt'", true, false);
     if(!$session_result){
@@ -86,7 +77,7 @@
                                     echo $username;
                                 ?>
                                 </span></span></li>
-                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="./editprofile.php">Edit Profile</a></li>
                                 <li>
                                     <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>

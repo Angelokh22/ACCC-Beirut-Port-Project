@@ -1,3 +1,5 @@
+<?php include ("./pages/php/tools.php"); ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -55,8 +57,30 @@
                                 <?php 
                                     session_start();
 
-                                    if($_SESSION['Authorisation']) {
-                                        echo '<a class="nav-link" href="./pages/html/admin/dashboard.php">Dashboard</a>';
+                                    $jwt = $_SESSION['Authorisation'];
+
+                                    if($jwt) {
+                                        $result = send_query("SELECT userID FROM Sessions WHERE sessionToken = '$jwt'", true, false);
+                                        if($result) {
+                                            $userid = $result['userID'];
+                                            $result = send_query("SELECT userRole FROM Users WHERE userID = '$userid'", true, false);
+                                            if($result) {
+                                                $userrole = $result["userRole"];
+                                                $result = send_query("SELECT roleName FROM Roles WHERE roleID = '$userrole'", true, false);
+                                                $page = $result["roleName"];
+                                                echo "<a class='nav-link' href='./pages/html/$page/dashboard.php'>Dashboard</a>";
+                                            }
+                                            else {
+                                                echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN
+                                                <i class="fa-solid fa-sign-in"></i>
+                                            </a>';
+                                            }
+                                        }
+                                        else {
+                                            echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN
+                                            <i class="fa-solid fa-sign-in"></i>
+                                        </a>';
+                                        }
                                     }
                                     else {
                                         echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN

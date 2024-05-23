@@ -1,3 +1,6 @@
+<?php  include "../../../php/check_login.php"; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +10,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
         integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
     <link rel="stylesheet" href="../../../../static/css/worker/market-list.css">
+    <link rel="shortcut icon" href="../../../../static/img/favicon.ico" type="image/x-icon">
     <title>ACCC Beirut Port Prject</title>
 </head>
 
@@ -27,7 +35,7 @@
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
-                <a class="navbar-brand theme-text" href="../../../../index.html">
+                <a class="navbar-brand theme-text" href="../../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
@@ -43,11 +51,17 @@
                                     alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><span class="dropdown-item greatings" href="#">Hello, <span
-                                            id="name">Worker</span></span></li>
-                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
+                                <?php
+                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                    $userid = $result['userID'];
+                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                    echo $username;
+                                ?>
+                                </span></span></li>
+                                <li><a class="dropdown-item" href="./edit profile/editprofile.php">Edit Profile</a></li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Log Out</a>
+                                    <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>
                             </ul>
                         </li>
@@ -72,7 +86,7 @@
                             </div>
                         </li>
                         <li class="mt-3">
-                            <a href="../dashboard.html" class="nav-link px-3">
+                            <a href="../dashboard.php" class="nav-link px-3">
                                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                                 <span>Dashboard</span>
                             </a>
@@ -100,7 +114,7 @@
                             <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../orders/import-export.html" class="nav-link px-3">
+                                        <a href="../orders/import-export.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-regular fa-ferry"></i>
                                             </span>
@@ -125,7 +139,7 @@
                             <div class="collapse show" id="marketplace">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="marketplace-list.html" class="nav-link px-3">
+                                        <a href="marketplace-list.php" class="nav-link px-3 active">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
@@ -133,7 +147,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="marketplace-items.html" class="nav-link px-3 active">
+                                        <a href="marketplace-items.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
@@ -145,7 +159,7 @@
                         </li>
                        
                         <li>
-                            <a href="../tracking/tracking.html" class="nav-link px-3">
+                            <a href="../tracking/tracking.php" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>
@@ -180,12 +194,7 @@
     <section>
         <main class="mt-5 pt-3">
             <div class="text-center">
-                <h2>Your MarketPlace Items</h2>
-            </div>
-            <div class="d-inline-flex p-2 bd-highlight">
-                <button class="btn btn-success btn-add" data-bs-toggle="modal" data-bs-target="#addModal">
-                    Add Item <i class="fa-solid fa-plus"></i>
-                </button>
+                <h2>MarketPlace</h2>
             </div>
             <div class="container market-items">
                 <div class="row row-cols-3">
@@ -196,12 +205,57 @@
                             <h5 class="card-title">Lenovo Ideapad 3950</h5>
                             <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
                             <p class="card-text">300$</p>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-                                <i class="fa-solid fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                <i class="fa-solid fa-trash-xmark"></i>
-                            </button>
+                            <a href="item-page.php" class="btn btn-primary">
+                                <i class="fa-solid fa-basket-shopping-minus"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card col">
+                        <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Lenovo Ideapad 3950</h5>
+                            <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
+                            <p class="card-text">300$</p>
+                            <a href="#" class="btn btn-primary">
+                                <i class="fa-solid fa-basket-shopping-minus"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card col">
+                        <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Lenovo Ideapad 3950</h5>
+                            <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
+                            <p class="card-text">300$</p>
+                            <a href="#" class="btn btn-primary">
+                                <i class="fa-solid fa-basket-shopping-minus"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card col">
+                        <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Lenovo Ideapad 3950</h5>
+                            <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
+                            <p class="card-text">300$</p>
+                            <a href="#" class="btn btn-primary">
+                                <i class="fa-solid fa-basket-shopping-minus"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card col">
+                        <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Lenovo Ideapad 3950</h5>
+                            <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
+                            <p class="card-text">300$</p>
+                            <a href="#" class="btn btn-primary">
+                                <i class="fa-solid fa-basket-shopping-minus"></i>
+                            </a>
                         </div>
                     </div>
 

@@ -1,3 +1,6 @@
+<?php  include "../../../php/check_login.php"; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,13 +11,12 @@
         integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
     <link rel="stylesheet" href="../../../../static/css/worker/tracking.css">
+    <link rel="shortcut icon" href="../../../../static/img/favicon.ico" type="image/x-icon">
     <title>ACCC Beirut Port Prject</title>
 </head>
 
@@ -46,11 +48,17 @@
                                     alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><span class="dropdown-item greatings" href="#">Hello, <span
-                                            id="name">Worker</span></span></li>
-                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
+                                <?php
+                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                    $userid = $result['userID'];
+                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                    echo $username;
+                                ?>
+                                </span></span></li>
+                                <li><a class="dropdown-item" href="./edit profile/editprofile.php">Edit Profile</a></li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Log Out</a>
+                                    <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>
                             </ul>
                         </li>
@@ -75,7 +83,7 @@
                             </div>
                         </li>
                         <li class="mt-3">
-                            <a href="../dashboard.html" class="nav-link px-3">
+                            <a href="../dashboard.php" class="nav-link px-3">
                                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                                 <span>Dashboard</span>
                             </a>
@@ -103,21 +111,11 @@
                             <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../orders/import-order.html" class="nav-link px-3">
+                                        <a href="../orders/import-export.php" class="nav-link px-3">
                                             <span class="me-2">
-                                                <!-- <i class="bi bi-card-list"></i> -->
-                                                <i class="fa-solid fa-arrow-left fa-xs"></i>
-                                                <i class="fa-solid fa-box"></i>
+                                                <i class="fa-regular fa-ferry"></i>
                                             </span>
-                                            <span>Imported Orders</span>
-                                        </a>
-                                        <a href="../orders/export-order.html" class="nav-link px-3">
-                                            <span class="me-2">
-                                                <!-- <i class="bi bi-card-list"></i> -->
-                                                <i class="fa-solid fa-box"></i>
-                                                <i class="fa-solid fa-arrow-right fa-xs"></i>
-                                            </span>
-                                            <span>Exported Orders</span>
+                                            <span>Import / Export</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -138,77 +136,49 @@
                             <div class="collapse" id="marketplace">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../marketplace/marketplace-list.html" class="nav-link px-3">
+                                        <a href="../marketplace/marketplace-list.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
                                             <span>View Market List</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="../marketplace/marketplace-items.php" class="nav-link px-3">
+                                            <span class="me-2">
+                                                <i class="bi bi-card-list"></i>
+                                            </span>
+                                            <span>View your items</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
+                       
                         <li>
-                            <a href="tracking.html" class="nav-link px-3 active">
+                            <a href="tracking.php" class="nav-link px-3 active">
                                 <span class="me-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>
                                 <span>Tracking</span>
                             </a>
                         </li>
-                        <!-- <li>
-                            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#users">
-                                <span class="me-2">
-                                    <i class="bi bi-person-fill"></i>
-                                </span>
-                                <span>Users</span>
-                                <span class="ms-auto">
-                                    <span class="right-icon">
-                                        <i class="bi bi-chevron-down"></i>
-                                    </span>
-                                </span>
-                            </a>
-                            <div class="collapse show" id="users">
-                                <ul class="navbar-nav ps-3">
-                                    <li>
-                                        <a href="admin.html" class="nav-link px-3 active">
-                                            <span class="me-2">
-                                                <i class="fa-solid fa-user-shield"></i>
-                                            </span>
-                                            <span>Admin</span>
-                                        </a>
-                                        <a href="worker.html" class="nav-link px-3">
-                                            <span class="me-2">
-                                                <i class="fa-solid fa-helmet-safety"></i>
-                                            </span>
-                                            <span>Workers</span>
-                                        </a>
-                                        <a href="user.html" class="nav-link px-3">
-                                            <span class="me-2">
-                                                <i class="fa-solid fa-user"></i>
-                                            </span>
-                                            <span>Members</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li> -->
-                        <!-- <li class="my-4">
+                        <li class="my-4">
                             <hr class="dropdown-divider bg-light" />
                         </li>
                         <li>
                             <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-                                Database
+                                Services
                             </div>
                         </li>
                         <li>
-                            <a href="../database/send-query.html" class="nav-link px-3">
+                            <a href=mailto:"angelokh22@gmail.com" class="nav-link px-3">
                                 <span class="me-2">
-                                    <i class="fa-regular fa-keyboard"></i>
+                                    <i class="bi bi-envelope-fill"></i>
                                 </span>
-                                <span>Send Query</span>
+                                <span>Contact US</span>
                             </a>
-                        </li> -->
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -219,7 +189,7 @@
 
     <!-- Tracking Start -->
     <section>
-        <main>
+        <main class="mt-5 pt-3">
 
             <div class="title">
                 <h2>Track Your Order</h2>

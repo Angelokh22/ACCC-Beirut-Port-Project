@@ -1,3 +1,5 @@
+<?php include "../../../php/check_login.php" ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +30,7 @@
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
-                <a class="navbar-brand theme-text" href="../../../../index.html">
+                <a class="navbar-brand theme-text" href="../../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
@@ -44,8 +46,14 @@
                                     alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><span class="dropdown-item greatings" href="#">Hello, <span
-                                            id="name">Admin</span></span></li>
+                                <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
+                                <?php
+                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                    $userid = $result['userID'];
+                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                    echo $username;
+                                ?>
+                                </span></span></li>
                                 <li><a class="dropdown-item" href="#">Edit Profile</a></li>
                                 <li>
                                     <a class="dropdown-item" href="#">Log Out</a>
@@ -73,7 +81,7 @@
                             </div>
                         </li>
                         <li class="mt-3">
-                            <a href="../dashboard.html" class="nav-link px-3">
+                            <a href="../dashboard.php" class="nav-link px-3">
                                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                                 <span>Dashboard</span>
                             </a>
@@ -241,13 +249,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                            $result = send_query("SELECT * FROM Users WHERE userRole = '1'");
+                                            foreach ($result as $row) {
+                                                $name = $row['userName'];
+                                                $created = $row['userCreated'];
+                                                $status = $row['userStatus'];
+                                            }
+                                            echo "<tr>
+                                            <td>
+                                            <img src='https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png' alt=''>
+                                            <a href='#' class='user-link'>Mila Kunis</a>
+                                            <span class='user-subhead'>Admin</span>
+                                            </td>
+                                            <td>";
+                                            echo "</tr>";
+                                        ?>
                                         <tr>
                                             <td>
                                                 <!-- <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt> -->
-                                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png" alt="">
-                                                <a href="#" class="user-link">Mila Kunis</a>
-                                                <span class="user-subhead">Admin</span>
-                                            </td>
+                                                <!-- <img src='https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png' alt=''> -->
+                                                <!-- <a href='#' class='user-link'>Mila Kunis</a> -->
+                                                <!-- <span class="user-subhead">Admin</span> -->
+                                            <!-- </td> -->
                                             <td>
                                                 2013/08/08
                                             </td>

@@ -20,6 +20,8 @@ if(
     $password = $_POST['pass'];
     $check_password = $_POST['check_pass'];
     $lang =$_POST['lang'];
+    $status = '2';
+    $created = time();
 
 
     if(check_input($username, false, true) != 1) {
@@ -41,7 +43,7 @@ if(
         header("Location:../html/$lang/register.php?check_password_msg=The Confirmation Password doesn't match!");
     }
 
-    $query = "INSERT INTO Users (userName, userRole, userEmail, userPassword) VALUES ('$username', 3, '$email', '$password');";
+    $query = "INSERT INTO Users (userName, userRole, userEmail, userPassword, userStatus, userCreated) VALUES ('$username', 3, '$email', '$password', '$status', '$created');";
     send_query($query, false, false);
 
     $query = "SELECT * FROM Users WHERE userEmail = '$email';";

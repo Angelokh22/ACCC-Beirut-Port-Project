@@ -1,18 +1,5 @@
-<?php
-    include "../../php/tools.php";
+<?php include "../../php/check_login.php" ?>
 
-    session_start();
-    $jwt = $_SESSION['Authorisation'];
-
-    $query = "SELECT * FROM Sessions WHERE sessionToken = '$jwt'";
-
-    $result = send_query($query, true, false);
-    if(!$result) {
-        session_destroy();
-        header("Location: ../../../index.php");
-    }
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -181,7 +168,7 @@
                             <div class="collapse" id="users">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="./users/admin.html" class="nav-link px-3">
+                                        <a href="./users/admin.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-user-shield"></i>
                                             </span>
@@ -220,7 +207,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="./database/send-query.html" class="nav-link px-3">
+                            <a href="./database/send-query.php" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="fa-regular fa-keyboard"></i>
                                 </span>

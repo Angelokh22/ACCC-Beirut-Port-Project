@@ -1,3 +1,5 @@
+<?php  include "../../../../php/check_login.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,12 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
         integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
-    <link rel="stylesheet" href="../../../../static/css/worker/tracking.css">
+    <link rel="stylesheet" href="../../../../static/css/member/item-page.css">
+    <link rel="shortcut icon" href="../../../../static/img/favicon.ico" type="image/x-icon">
     <title>ACCC Beirut Port Prject</title>
 </head>
 
@@ -28,7 +30,7 @@
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
-                <a class="navbar-brand theme-text" href="../../../../index.html">
+                <a class="navbar-brand theme-text" href="../../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
@@ -44,11 +46,17 @@
                                     alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><span class="dropdown-item greatings" href="#">Hello, <span
-                                            id="name">Member</span></span></li>
-                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
+                                <?php
+                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                    $userid = $result['userID'];
+                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                    echo $username;
+                                ?>
+                                </span></span></li>
+                                <li><a class="dropdown-item" href="./edit profile/editprofile.php">Edit Profile</a></li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Log Out</a>
+                                    <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>
                             </ul>
                         </li>
@@ -73,7 +81,7 @@
                             </div>
                         </li>
                         <li class="mt-3">
-                            <a href="../dashboard.html" class="nav-link px-3">
+                            <a href="../dashboard.php" class="nav-link px-3">
                                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                                 <span>Dashboard</span>
                             </a>
@@ -101,7 +109,7 @@
                             <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../orders/import-export.html" class="nav-link px-3">
+                                        <a href="../orders/import-export.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-regular fa-ferry"></i>
                                             </span>
@@ -123,10 +131,10 @@
                                     </span>
                                 </span>
                             </a>
-                            <div class="collapse" id="marketplace">
+                            <div class="collapse show" id="marketplace">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../marketplace/marketplace-list.html" class="nav-link px-3">
+                                        <a href="marketplace-list.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
@@ -134,7 +142,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../marketplace/marketplace-items.html" class="nav-link px-3">
+                                        <a href="marketplace-items.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
@@ -146,7 +154,7 @@
                         </li>
                        
                         <li>
-                            <a href="tracking.html" class="nav-link px-3 active">
+                            <a href="../tracking/tracking.php" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>
@@ -177,92 +185,48 @@
     </section>
     <!-- SideBar End -->
 
-    <!-- Tracking Start -->
+
     <section>
         <main class="mt-5 pt-3">
-
-            <div class="title">
-                <h2>Track Your Order</h2>
+            <div class="back">
+                <a class="btn" href="marketplace-list.php"><i class="fa-solid fa-arrow-left"></i> Go back</a>
             </div>
+            <div class="single-product">
+                <div class="row">
+                    <div class="col-2">
+                        <!-- <div class="MainImg"> -->
+                            <img src="../../../../static/img/laptop.webp" width="100%" id="ShowP" />
+                        <!-- </div> -->
+    
+                        <div class="small-img-row">
+                            <div class="small-img-col">
+                                <img src="../../../../static/img/laptop.webp" class="small-img" />
+                            </div>
+                            <div class="small-img-col">
+                                <img src="../../../../static/img/4dacd94a2a84af94b8741b2962286286.jpg" class="small-img" />
+                            </div>
+                            <div class="small-img-col">
+                                <img src="../../../../static/img/macbook-air-15-pulgadas-3069042.webp" class="small-img" />
+                            </div>
+                            <div class="small-img-col">
+                                <img src="../../../../static/img/photo-1491472253230-a044054ca35f.avif" class="small-img" />
+                            </div>
+                            <div class="small-img-col">
+                                <img src="../../../../static/img/photo-1580522154071-c6ca47a859ad.avif" class="small-img" />
+                            </div>
+                        </div>
 
-            <div class="infos">
-                <span>Enter your Tracking ID below:</span>
-                <div class="inputs">
-                    <input type="text" placeholder="Tracking ID"/>
-                    <button>Send</button>
-                </div>
-            </div>
-
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-            <div class="container padding-bottom-3x mb-1">
-                <div class="card mb-3">
-                    <div class="p-4 text-center text-white text-lg bg-dark rounded-top">
-                        <span class="text-uppercase">Tracking Order No - </span>
-                        <span class="text-medium">"Tracking number"</span>
                     </div>
-                    <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
-                        <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Shipped Via:</span> "Delivery Type"
-                        </div>
-                        <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Status:</span> "Status"
-                        </div>
-                        <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Expected Date:</span> "Delivering Time"
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div
-                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                    </div>
-                                </div>
-                                <h4 class="step-title">Confirmed Order</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon">
-                                        <i class="bi bi-gear-fill"></i>
-                                    </div>
-                                </div>
-                                <h4 class="step-title">Processing Order</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon">
-                                        <i class="fa-solid fa-shield"></i>
-                                    </div>
-                                </div>
-                                <h4 class="step-title">Security Check</h4>
-                            </div>
-                            <div class="step completed">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon">
-                                        <i class="fa-solid fa-ship"></i>
-                                    </div>
-                                </div>
-                                <h4 class="step-title">Product Dispatched</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon">
-                                        <i class="fa-solid fa-anchor"></i>
-                                    </div>
-                                </div>
-                                <h4 class="step-title">Store House</h4>
-                            </div>
-                            <div class="step">
-                                <div class="step-icon-wrap">
-                                    <div class="step-icon">
-                                        <i class="fa-solid fa-handshake"></i>
-                                    </div>
-                                </div>
-                                <h4 class="step-title">Product Delivered</h4>
-                            </div>
+                    <div class="col-2">
+                        <h1>Lenovo Ideapad 3950</h1>
+                        <h4>1999.99$</h4>
+                        <button class="btn buy">Buy</button>
+                        <div class="specs">
+                            <h3>Product Information</h3>
+                            <p>Processor: Intel Core i9 13900X</p>
+                            <p>Graphics Card: NVIDIA GeForce RTX 4090TI</p>
+                            <p>RAM: 64GB 7800</p>
+                            <p>Storage: 1x 512 NVME + 1x 2TB HDD</p>
                         </div>
                     </div>
                 </div>
@@ -270,16 +234,27 @@
 
         </main>
     </section>
-    <!-- Tracking End -->
+
+    
+
+    <script>
+
+
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('small-img')) {
+                document.getElementById("ShowP").setAttribute("src", event.target.src)
+            }
+        });
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"
         integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
+    </script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
