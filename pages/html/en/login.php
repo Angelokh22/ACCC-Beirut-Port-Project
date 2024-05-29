@@ -10,6 +10,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../../static/css/credentials.css">
     <link rel="stylesheet" href="../../../static/css/login.css">
+    <link rel="shortcut icon" href="../../../static/img/favicon.ico" type="image/x-icon">
     <title>ACCC Beirut Port</title>
 </head>
 
@@ -31,7 +32,7 @@
             <p style="float: right;">Don't have an account <a href="./register.php">Register</a>.</p>
             <input type="submit" value="login" />
         </form>
-        <a href="../../../index.html" style="margin-top: 2.5ex; font-size: 3ex; color: var(--main-color);"><i
+        <a href="../../../index.php" style="margin-top: 2.5ex; font-size: 3ex; color: var(--main-color);"><i
                 class="fa-solid fa-arrow-left"></i> Home</a>
     </div>
 

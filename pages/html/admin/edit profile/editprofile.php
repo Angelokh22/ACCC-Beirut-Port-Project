@@ -394,7 +394,7 @@
                     <p>Profile Informations <span class="text-danger">HAS NOT</span> been updated.</p>
                     `
                 }
-                $("#profileEdit").modal();
+                $("#profileEdit").modal('show');
             })
 
         }
@@ -430,7 +430,7 @@
                     <p>Password <span class="text-danger">HAS NOT</span> been changed.</p>
                     `
                 }
-                $("#profileEdit").modal();
+                $("#profileEdit").modal('show');
             })
         }
     </script>

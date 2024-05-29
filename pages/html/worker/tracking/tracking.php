@@ -52,14 +52,15 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
-                                <?php
-                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
-                                    $userid = $result['userID'];
-                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
-                                    echo $username;
-                                ?>
-                                </span></span></li>
-                                <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a></li>
+                                            <?php
+                                            $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                            $userid = $result['userID'];
+                                            $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                            echo $username;
+                                            ?>
+                                        </span></span></li>
+                                <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a>
+                                </li>
                                 <li>
                                     <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>
@@ -186,7 +187,7 @@
             <div class="infos">
                 <span>Enter your Tracking ID below:</span>
                 <div class="inputs">
-                    <input type="text" placeholder="Tracking ID" id="track_id"/>
+                    <input type="text" placeholder="Tracking ID" id="track_id" />
                     <button onclick="checkID()">Send</button>
                 </div>
             </div>
@@ -197,24 +198,37 @@
                 <div class="card mb-3">
                     <div class="p-4 text-center text-white text-lg bg-dark rounded-top">
                         <span class="text-uppercase">Tracking Order No - </span>
-                        <span class="text-medium" id="tracking_number">"Tracking number"</span>
+                        <span class="text-medium" id="tracking_number"></span>
                     </div>
                     <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Shipped With:</span> <p id="delivery_type">"Delivery Type"</p>
+                            <span class="text-medium">From:</span>
+                            <p id="from_location"></p>
                         </div>
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Shipped Via:</span> <p id="delivery_provider">"Delivery Provider"</p>
+                            <span class="text-medium">To:</span>
+                            <p id="to_location"></p>
                         </div>
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Status:</span> <p id="status">"Status"</p>
+                            <span class="text-medium">Delivered With:</span>
+                            <p id="delivery_type"></p>
                         </div>
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Expected Date:</span> <p id="delivery_time">"Delivering Time"</p>
+                            <span class="text-medium">Shipement Type:</span>
+                            <p id="delivery_provider"></p>
+                        </div>
+                        <div class="w-100 text-center py-1 px-2">
+                            <span class="text-medium">Status:</span>
+                            <p id="status"></p>
+                        </div>
+                        <div class="w-100 text-center py-1 px-2">
+                            <span class="text-medium">Expected Date:</span>
+                            <p id="delivery_time"></p>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+                        <div
+                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
                             <div class="step">
                                 <div class="step-icon-wrap">
                                     <div class="step-icon">
@@ -275,7 +289,9 @@
     <!-- Live Map Start -->
     <section>
         <main class="mt-1 text-center">
-            <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4iE2xVSpkLLOXoyqT-RuPwURN3ddScAI&q=33.902970918564996,35.51771813153476&zoom=19&maptype=satellite" width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <iframe
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4iE2xVSpkLLOXoyqT-RuPwURN3ddScAI&q=33.902970918564996,35.51771813153476&zoom=19&maptype=satellite"
+                width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
         </main>
 
     </section>
@@ -285,15 +301,16 @@
     <section>
 
         <div class="modal fade" id="errormodal" tabindex="-1" aria-labelledby="errormodalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i
+                                class="fa-solid fa-circle-xmark"></i></button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-circle-xmark"></i></button>
-            </div>
-            </div>
-        </div>
         </div>
 
     </section>
@@ -312,7 +329,7 @@
     <script src="../../../../static/js/admin/script.js"></script>
 
     <script>
-        function checkID(){
+        function checkID() {
             var trackingid = document.getElementById("track_id").value;
 
             fetch(
@@ -327,30 +344,32 @@
                     })
                 }
             )
-            .then((response) => response.text())
-            .then((text) => {
-                if(text == "NO") {
-                    document.getElementsByClassName("modal-body")[0].innerHTML = `
+                .then((response) => response.text())
+                .then((text) => {
+                    if (text == "NO") {
+                        document.getElementsByClassName("modal-body")[0].innerHTML = `
                     <p>Tracking ID does <span class="text-danger">NOT EXIST!</span></p>
                     `
-                    $("#errormodal").modal('show');
-                }
-                else {
-
-                    var result = JSON.parse(text);
-
-                    document.getElementById("tracking_number").innerText = result['trackingNumber'];
-                    document.getElementById("delivery_provider").innerText = result['shipmentType'];
-                    document.getElementById("delivery_time").innerText = result['deleveryTime'];
-                    document.getElementById("delivery_type").innerText = result['deliveryProvider'];
-                    document.getElementById("status").innerText = result['status'];
-
-                    var steps = document.getElementsByClassName("step");
-                    for(var i = 0; i <= result['statusIndex']; i++){
-                        steps[i].classList.add("completed");
+                        $("#errormodal").modal('show');
                     }
-                }
-            })
+                    else {
+
+                        var result = JSON.parse(text);
+
+                        document.getElementById("tracking_number").innerText = result['trackingNumber'];
+                        document.getElementById("from_location").innerText = result['from'];
+                        document.getElementById("to_location").innerText = result['destination'];
+                        document.getElementById("delivery_provider").innerText = result['shipmentType'];
+                        document.getElementById("delivery_time").innerText = result['deleveryTime'];
+                        document.getElementById("delivery_type").innerText = result['deliveryProvider'];
+                        document.getElementById("status").innerText = result['status'];
+
+                        var steps = document.getElementsByClassName("step");
+                        for (var i = 0; i <= result['statusIndex']; i++) {
+                            steps[i].classList.add("completed");
+                        }
+                    }
+                })
 
         }
 

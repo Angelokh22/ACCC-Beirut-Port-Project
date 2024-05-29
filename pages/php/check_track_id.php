@@ -28,6 +28,8 @@ if (preg_match($pattern, $orderid)) {
         $shipmentType = "";
         $deliveryProvider = $result2["deliveryProvider"];
         $status = "";
+        $destination = $result2["Destination"];
+        $from = $result2["From"];
         
         switch( $statusIndex ) {
             case '0': $status = "Confirmed Order"; break;
@@ -55,7 +57,9 @@ if (preg_match($pattern, $orderid)) {
             "status" => $status,
             "location"=> $location,
             "shipmentType"=> $shipmentType,
-            "deliveryProvider" => $deliveryProvider
+            "deliveryProvider" => $deliveryProvider,
+            "destination" => $destination,
+            "from" => $from
         ));
     }
     else {

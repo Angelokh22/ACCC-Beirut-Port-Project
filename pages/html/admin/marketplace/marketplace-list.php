@@ -1,3 +1,5 @@
+<?php include "../../../php/check_login.php" ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,9 +45,16 @@
                                     alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><span class="dropdown-item greatings" href="#">Hello, <span
-                                            id="name">Admin</span></span></li>
-                                <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a></li>
+                                <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
+                                            <?php
+                                            $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                            $userid = $result['userID'];
+                                            $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                            echo $username;
+                                            ?>
+                                        </span></span></li>
+                                <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a>
+                                </li>
                                 <li>
                                     <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>
@@ -225,80 +234,35 @@
             <div class="container market-items">
                 <div class="row row-cols-3">
 
-                    <div class="card col">
-                        <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
-                        <div class="card-body">
-                            <h5 class="card-title">Lenovo Ideapad 3950</h5>
-                            <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
-                            <p class="card-text">300$</p>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-                                <i class="fa-solid fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                <i class="fa-solid fa-trash-xmark"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <?php
 
-                    <div class="card col">
-                        <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
-                        <div class="card-body">
-                            <h5 class="card-title">Lenovo Ideapad 3950</h5>
-                            <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
-                            <p class="card-text">300$</p>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-                                <i class="fa-solid fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                <i class="fa-solid fa-trash-xmark"></i>
-                            </button>
-                        </div>
-                    </div>
+                    $result = send_query('SELECT * FROM Items', true, true);
+                    if ($result) {
+                        foreach ($result as $row) {
+                            $itemid = $row['itemID'];
+                            $itemname = $row['itemName'];
+                            $itemprice = $row['itemPrice'];
+                            $itemdescription = $row['itemDescription'];
+                            $itempicture = $row['itemPicture'];
 
-                    <div class="card col">
-                        <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
-                        <div class="card-body">
-                            <h5 class="card-title">Lenovo Ideapad 3950</h5>
-                            <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
-                            <p class="card-text">300$</p>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-                                <i class="fa-solid fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                <i class="fa-solid fa-trash-xmark"></i>
-                            </button>
-                        </div>
-                    </div>
+                            echo "<div class='card col'>
+                                <img src='../../../../static/img/$itempicture' class='card-img-top' alt='Item Image'>
+                                <div class='card-body'>
+                                <h5 class='card-title'>$itemname</h5>
+                                <p class='card-text'>$itemdescription</p>
+                                <p class='card-text'>$itemprice$</p>
+                                <button class='btn btn-primary' data-bs-itemid='$itemid' data-bs-toggle='modal' data-bs-target='#editModal'>
+                                <i class='fa-solid fa-pencil'></i>
+                                </button>
+                                <button class='btn btn-danger' data-bs-itemid='$itemid' data-bs-toggle='modal' data-bs-target='#deleteModal'>
+                                <i class='fa-solid fa-trash-xmark'></i>
+                                </button>
+                                </div>
+                                </div>";
+                        }
+                    }
 
-                    <div class="card col">
-                        <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
-                        <div class="card-body">
-                            <h5 class="card-title">Lenovo Ideapad 3950</h5>
-                            <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
-                            <p class="card-text">300$</p>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-                                <i class="fa-solid fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                <i class="fa-solid fa-trash-xmark"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="card col">
-                        <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
-                        <div class="card-body">
-                            <h5 class="card-title">Lenovo Ideapad 3950</h5>
-                            <p class="card-text"> CPU: i7 12700K, GPU: RTX 4090 TI, RAM: 32GB</p>
-                            <p class="card-text">300$</p>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-                                <i class="fa-solid fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                <i class="fa-solid fa-trash-xmark"></i>
-                            </button>
-                        </div>
-                    </div>
+                    ?>
 
                 </div>
             </div>
@@ -342,7 +306,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="description" id="description" rows="6" style="width: 100%; resize:none;"></textarea>
+                            <textarea name="description" id="description" rows="6"
+                                style="width: 100%; resize:none;"></textarea>
                         </div>
                     </div>
                 </div>
@@ -365,7 +330,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to <span style="font-size: larger; font-weight: 900;">REMOVE</span>: <span>Lenovo Ideapad 3950</span></p>
+                    <p>Are you sure you want to <span style="font-size: larger; font-weight: 900;">REMOVE</span>:
+                        <span>Lenovo Ideapad 3950</span>
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -382,57 +349,102 @@
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <span>Name:</span>
+                <form action="../../../php/add-item.php" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span id="error" class="text-danger"><?php if (isset($_GET['error_msg_add'])) {
+                                    echo $_GET['error_msg_add'];
+                                } ?></span>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <span>Price:</span>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span>Name:</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span>Price:</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="price" required>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <span>Pictures:</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="file" name="picture" required>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <span>Description:</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea name="description" id="description" rows="6"
+                                    style="width: 100%; resize: none;" required></textarea>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="text" value="Lenovo Ideapad 3950">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" value="300">
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-success">Add</button> -->
+                        <input type="submit" class="btn btn-success" value="Add">
                     </div>
-                    <div class="row mt-4">
-                        <div class="col-md-12">
-                            <span>Pictures:</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="file">
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-12">
-                            <span>Description:</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <textarea name="description" id="description" rows="6" style="width: 100%; resize: none;"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success">Add</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- Add Item Modal End -->
+
+    <!-- Success Modal Start -->
+
+    <!-- <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Item added <span class="text-success">Successfully!</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <section>
+
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                            <i class="fa-sharp fa-light fa-circle-check"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Success Modal End -->
 
     <!-- End Modals -->
 
@@ -447,8 +459,18 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
-
-
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success')) {
+            show_modal();
+        }
+            // $("#successModal").modal('show');
+            // $('#successModal').modal('show');
+        function show_modal(){
+            // document.getElementById("successModal").modal('show');
+            $('#successModal').modal('show');
+        }
+    </script>
 </body>
 
 </html>
