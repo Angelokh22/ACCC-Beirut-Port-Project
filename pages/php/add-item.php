@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     $targetDir = "../../static/img/";
-    $targetFile = $targetDir . basename($picture["name"]);
+    $targetFile = $targetDir . random_int(100000, 999999) . basename($picture["name"]);
     if (!move_uploaded_file($picture["tmp_name"], $targetFile)) {
         echo json_encode(["success" => false, "message" => "Failed to upload picture."]);
         exit;
@@ -28,8 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
     $userid = $result['userID'];
 
-    send_query("INSERT INTO Items (itemName, itemID, itemPrice, itemPicture, itemDescription) VALUES ('$name', $userid, '$price', '$targetFile', '$description')", false);
-
+    $picture = explode('/', $targetFile)[4];
+    $query = "INSERT INTO Items (userID, itemName, itemPrice, itemDescription, itemPicture) VALUES ($userid, '$name', $price, '$description', '$picture');";
+    send_query($query, false, false);
     echo json_encode(["success" => true, "message" => "Item added successfully."]);
 
 } else {

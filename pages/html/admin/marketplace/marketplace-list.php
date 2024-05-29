@@ -372,10 +372,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" id="name" required>
+                            <input type="text" id="name_add" required>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" id="price" required>
+                            <input type="text" id="price_add" required>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -385,7 +385,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="file" id="picture" required>
+                            <input type="file" id="picture_add" required>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -395,7 +395,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="description" id="description" rows="6" style="width: 100%; resize: none;"
+                            <textarea name="description" id="description_add" rows="6" style="width: 100%; resize: none;"
                                 required></textarea>
                         </div>
                     </div>
@@ -446,11 +446,32 @@
     <script src="../../../../static/js/admin/script.js"></script>
     <script>
         function add_item() {
-            var name = document.getElementById("name");
-            var price = document.getElementById("price");
-            var picture = document.getElementById("picture");
-            var description = document.getElementById("description");
-            alert(picture.files[0]);
+            var name = document.getElementById("name_add").value;
+            var price = document.getElementById("price_add").value;
+            var picture = document.getElementById("picture_add");
+            var description = document.getElementById("description_add").value;
+
+            const file = picture.files[0];
+            const formData = new FormData();
+            formData.append('picture', file);
+            formData.append('name', name);
+            formData.append('price', price);
+            formData.append('description', description);
+
+
+            fetch(
+                "../../../php/add-item.php",
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            )
+            .then((response) => response.json())
+            .then((response) => {
+                if(response['success'] == true){
+                    $("#successModal").modal('show');
+                }
+            })
         }
     </script>
     <!-- <script>
