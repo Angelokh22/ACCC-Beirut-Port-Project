@@ -1,4 +1,4 @@
-<?php  include "../../../php/check_login.php"; ?>
+<?php include "../../../php/check_login.php"; ?>
 
 
 <!DOCTYPE html>
@@ -7,9 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
-        integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
@@ -30,35 +28,31 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                    aria-controls="offcanvasExample">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
                 <a class="navbar-brand theme-text" href="../../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                    aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="topNavBar">
                     <ul class="d-flex ms-auto navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png"
-                                    alt="PFP" id="pfp-logo">
+                            <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png" alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
-                                <?php
-                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
-                                    $userid = $result['userID'];
-                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
-                                    echo $username;
-                                ?>
-                                </span></span></li>
+                                            <?php
+                                            $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                            $userid = $result['userID'];
+                                            $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                            echo $username;
+                                            ?>
+                                        </span></span></li>
                                 <li><a class="dropdown-item" href="./edit profile/editprofile.php">Edit Profile</a></li>
                                 <li>
                                     <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
@@ -157,7 +151,7 @@
                                 </ul>
                             </div>
                         </li>
-                       
+
                         <li>
                             <a href="../tracking/tracking.php" class="nav-link px-3">
                                 <span class="me-2">
@@ -307,7 +301,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="saveEditButton">Save changes</button>
                 </div>
             </div>
         </div>
@@ -328,7 +322,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Confirm</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Confirm</button>
                 </div>
             </div>
         </div>
@@ -356,10 +350,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" value="Lenovo Ideapad 3950">
+                            <input type="text" value="Lenovo Ideapad 3950" id="itemName">
                         </div>
                         <div class="col-md-6">
-                            <input type="text" value="300">
+                            <input type="text" value="300" id="itemPrice">
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -369,23 +363,23 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="file">
+                            <input type="file" id="itemPicture">
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-12">
-                            <span>Description:</span>
+                            <span>itemDescription:</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="description" id="description" rows="6" style="width: 100%; resize: none;"></textarea>
+                            <textarea name="itemDescription" id="itemDescription" rows="6" style="width: 100%; resize: none;"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success">Add</button>
+                    <button type="button" class="btn btn-success" id="addItemButton">Add</button>
                 </div>
             </div>
         </div>
@@ -395,19 +389,120 @@
 
     <!-- End Modals -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
-        integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"
-        integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js" integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
+    <script>
+        document.getElementById('addItemButton').addEventListener('click', async function() {
+            const name = document.getElementById('itemName').value;
+            const price = document.getElementById('itemPrice').value;
+            const picture = document.getElementById('itemPicture').files[0];
+            const description = document.getElementById('itemDescription').value;
 
+            try {
+                const response = await fetch('../../../php/add_item.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        name: name,
+                        price: price,
+                        picture: picture,
+                        description: description
+                    })
+                });
 
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message);
+                    location.reload();
+                } else {
+                    alert('Failed to add item: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the item');
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('confirmDeleteButton').addEventListener('click', async function() {
+            const itemId = this.getAttribute('data-item-id');
+
+            try {
+                const response = await fetch('../../../php/delete_item.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        itemid: itemid
+                    })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message);
+                    location.reload();
+                } else {
+                    alert('Failed to delete item: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while deleting the item');
+            }
+        });
+    </script>
+    <script>
+        // function showEditModal(itemId, itemName, itemPrice, itemDescription) {
+        //     document.getElementById('editItemId').value = itemId;
+        //     document.getElementById('editItemName').value = itemName;
+        //     document.getElementById('editItemPrice').value = itemPrice;
+        //     document.getElementById('editItemDescription').value = itemDescription;
+        //     const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+        //     editModal.show();
+        // }
+
+        document.getElementById('saveEditButton').addEventListener('click', async function() {
+            // const itemId = document.getElementById('editItemId').value;
+            const itemId = this.getAttribute('data-item-id');
+            const name = document.getElementById('editItemName').value;
+            const price = document.getElementById('editItemPrice').value;
+            const description = document.getElementById('editItemDescription').value;
+
+            try {
+                const response = await fetch('edit_item.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        id: itemId,
+                        name: name,
+                        price: price,
+                        description: description,
+                    })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message);
+                    location.reload();
+                } else {
+                    alert('Failed to update item: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while updating the item');
+            }
+        });
+    </script>
+    
 </body>
 
 </html>
