@@ -349,63 +349,63 @@
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="../../../php/add-item.php" method="POST" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span id="error" class="text-danger"><?php if (isset($_GET['error_msg_add'])) {
-                                    echo $_GET['error_msg_add'];
-                                } ?></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <span>Name:</span>
-                            </div>
-                            <div class="col-md-6">
-                                <span>Price:</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" name="name" required>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="price" required>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <span>Pictures:</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="file" name="picture" required>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <span>Description:</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <textarea name="description" id="description" rows="6"
-                                    style="width: 100%; resize: none;" required></textarea>
-                            </div>
+                <!-- <form action="../../../php/add-item.php" method="POST" enctype="multipart/form-data"> -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span id="error" class="text-danger"><?php if (isset($_GET['error_msg_add'])) {
+                                echo $_GET['error_msg_add'];
+                            } ?></span>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <!-- <button type="button" class="btn btn-success">Add</button> -->
-                        <input type="submit" class="btn btn-success" value="Add">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span>Name:</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Price:</span>
+                        </div>
                     </div>
-                </form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="price" required>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <span>Pictures:</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="file" id="picture" required>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <span>Description:</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea name="description" id="description" rows="6" style="width: 100%; resize: none;"
+                                required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" onclick="add_item()">Add</button>
+                    <!-- <input type="submit" class="btn btn-success" value="Add"> -->
+                </div>
+                <!-- </form> -->
             </div>
         </div>
     </div>
@@ -414,34 +414,19 @@
 
     <!-- Success Modal Start -->
 
-    <!-- <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>Item added <span class="text-success">Successfully!</span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <section>
-
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
+                        <p>Item added <span class="text-success">Successfully!</span></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
-                            <i class="fa-sharp fa-light fa-circle-check"></i></button>
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
 
     <!-- Success Modal End -->
@@ -460,6 +445,15 @@
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
     <script>
+        function add_item() {
+            var name = document.getElementById("name");
+            var price = document.getElementById("price");
+            var picture = document.getElementById("picture");
+            var description = document.getElementById("description");
+            alert(picture);
+        }
+    </script>
+    <!-- <script>
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('success')) {
             show_modal();
@@ -470,7 +464,7 @@
             // document.getElementById("successModal").modal('show');
             $('#successModal').modal('show');
         }
-    </script>
+    </script> -->
 </body>
 
 </html>
