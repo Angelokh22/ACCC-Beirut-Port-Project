@@ -450,7 +450,7 @@
             var price = document.getElementById("price");
             var picture = document.getElementById("picture");
             var description = document.getElementById("description");
-            alert(picture);
+            alert(picture.files[0]);
         }
     </script>
     <!-- <script>

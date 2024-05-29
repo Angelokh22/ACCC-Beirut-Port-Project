@@ -147,7 +147,7 @@
                             <div class="collapse" id="marketplace">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../marketplace/marketplace-listd.php" class="nav-link px-3">
+                                        <a href="../marketplace/marketplace-list.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="bi bi-card-list"></i>
                                             </span>
