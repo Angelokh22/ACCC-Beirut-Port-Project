@@ -6,28 +6,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = $_POST['price'];
     $description = $_POST['description'];
     $picture = $_FILES['picture'];
-    
-    $referer = $_SERVER['HTTP_REFERER'];
-    if (parse_url($referer, PHP_URL_QUERY)) {
-        $referer = parse_url($referer, PHP_URL_SCHEME) . '://' . parse_url($referer, PHP_URL_HOST) . parse_url($referer, PHP_URL_PATH);
-    }
 
     if (empty($name) || empty($price) || empty($description) || empty($picture)) {
-        // exit;
-        header("Location: $referer?error_msg_add=All fields are required.");
+        echo json_encode(["success" => false, "message" => "All fields are required."]);
+        exit;
     }
 
     if (!is_numeric($price)) {
-        // exit;
-        header("Location: $referer?error_msg_add=Price must be a number.");
+        echo json_encode(["success" => false, "message" => "Price must be a number."]);
+        exit;
     }
-    // print_r($picture);
     $targetDir = "../../static/img/";
-    $fileName = $picture["name"];
-    $targetFile = $targetDir . basename($fileName);
+    $targetFile = $targetDir . basename($picture["name"]);
     if (!move_uploaded_file($picture["tmp_name"], $targetFile)) {
-        // exit;
-        header("Location: $referer?error_msg_add=Failed to upload picture.");
+        echo json_encode(["success" => false, "message" => "Failed to upload picture."]);
+        exit;
     }
 
     session_start();
@@ -35,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
     $userid = $result['userID'];
 
-    send_query("INSERT INTO Items VALUES (Null, $userid, '$name', '$price', '$description', '$fileName')", false);
+    send_query("INSERT INTO Items (itemName, itemID, itemPrice, itemPicture, itemDescription) VALUES ('$name', $userid, '$price', '$targetFile', '$description')", false);
 
-    header("Location: $referer?success=added");
+    echo json_encode(["success" => true, "message" => "Item added successfully."]);
 
 } else {
-    header("Location: $referer?error_msg_add=Invalid request method.");
+    echo json_encode(["success" => false, "message" => "Invalid request method."]);
 }
 ?>
