@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
     <link rel="stylesheet" href="../../../../static/css/admin/market-list.css">
+    <link rel="shortcut icon" href="../../../../static/img/favicon.ico" type="image/x-icon">
     <title>ACCC Beirut Port Prject</title>
 </head>
 
@@ -246,18 +247,18 @@
                             $itempicture = $row['itemPicture'];
 
                             echo "<div class='card col'>
-                                <img src='../../../../static/img/$itempicture' class='card-img-top' alt='Item Image'>
-                                <div class='card-body'>
-                                <h5 class='card-title'>$itemname</h5>
-                                <p class='card-text'>$itemdescription</p>
-                                <p class='card-text'>$itemprice$</p>
-                                <button class='btn btn-primary' data-bs-itemid='$itemid' data-bs-toggle='modal' data-bs-target='#editModal'>
-                                <i class='fa-solid fa-pencil'></i>
-                                </button>
-                                <button class='btn btn-danger' data-bs-itemid='$itemid' data-bs-toggle='modal' data-bs-target='#deleteModal'>
-                                <i class='fa-solid fa-trash-xmark'></i>
-                                </button>
-                                </div>
+                                    <img src='../../../../static/img/items/$itempicture' class='card-img-top' alt='Item Image'>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'>$itemname</h5>
+                                        <p class='card-text'>$itemdescription</p>
+                                        <p class='card-text'>$itemprice$</p>
+                                        <button class='btn btn-primary' data-item-id='$itemid' onclick='edit_item_show(this)'>
+                                            <i class='fa-solid fa-pencil'></i>
+                                        </button>
+                                        <button class='btn btn-danger' data-item-id='$itemid' onclick='delete_item(this)'>
+                                            <i class='fa-solid fa-trash-xmark'></i>
+                                        </button>
+                                    </div>
                                 </div>";
                         }
                     }
@@ -284,6 +285,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <input type="text" id="itemidInput" hidden>
                         <div class="col-md-6">
                             <span>Name:</span>
                         </div>
@@ -293,10 +295,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" value="Lebanon Ideapad 3950">
+                            <input type="text" id="name_edit" required>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" value="300">
+                            <input type="text" id="price_edit" required>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -306,14 +308,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="description" id="description" rows="6"
-                                style="width: 100%; resize:none;"></textarea>
+                            <textarea name="description" id="description_edit" rows="6"
+                                style="width: 100%; resize:none;" required></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" onclick="edit_item()">Save changes</button>
                 </div>
             </div>
         </div>
@@ -330,13 +332,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <input type="text" class="itemidInput" hidden>
                     <p>Are you sure you want to <span style="font-size: larger; font-weight: 900;">REMOVE</span>:
-                        <span>Lenovo Ideapad 3950</span>
+                        <span class="itemName"></span>
                     </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Confirm</button>
+                    <button type="button" class="btn btn-danger" onclick="confirm_delete_item()">Confirm</button>
                 </div>
             </div>
         </div>
@@ -419,10 +422,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <p>Item added <span class="text-success">Successfully!</span></p>
+                        
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="refresh()">OK</button>
                     </div>
                 </div>
             </div>
@@ -430,6 +433,7 @@
     </section>
 
     <!-- Success Modal End -->
+
 
     <!-- End Modals -->
 
@@ -445,6 +449,34 @@
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
     <script>
+
+        function refresh() {
+            window.location.reload();
+        }
+
+        function spawn_item(info) {
+            var itemid = info['itemid'];;
+            var name = info['name'];
+            var price = info['price'];
+            var description = info['description'];
+            var picture = info['picture'];
+            
+            var html = `<div class='card col'>
+                            <img src='../../../../static/img/items/${picture}' class='card-img-top' alt='Item Image'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>${name}</h5>
+                                <p class='card-text'>${description}</p>
+                                <p class='card-text'>${price}$</p>
+                                <button class='btn btn-primary' data-item-id='$itemid' onclick='edit_item_show(this)'>
+                                    <i class='fa-solid fa-pencil'></i>
+                                </button>
+                                <button class='btn btn-danger' data-item-id='$itemid' onclick='delete_item(this)'>
+                                    <i class='fa-solid fa-trash-xmark'></i>
+                                </button>
+                            </div>
+                        </div>`
+        }
+
         function add_item() {
             var name = document.getElementById("name_add").value;
             var price = document.getElementById("price_add").value;
@@ -469,23 +501,105 @@
             .then((response) => response.json())
             .then((response) => {
                 if(response['success'] == true){
+                    var html = `<p>Item added <span class="text-success">Successfully!</span></p>`;
+                    const successModal = document.getElementById("successModal");
+                    const body = successModal.getElementsByClassName("modal-body")[0].innerHTML = html;
+                    $("#addModal").modal('hide');
+                    $("#successModal").modal('show');
+                }
+            })
+            .then((response) => {
+
+            })
+        }
+
+        function edit_item_show(button) {
+
+            const itemId = button.dataset.itemId;
+            const parentDiv = button.parentNode.parentNode; // This will give you the parent div element
+
+            var name = parentDiv.getElementsByClassName("card-title")[0].innerText;
+            var description = parentDiv.getElementsByClassName("card-text")[0].innerText;
+            var price = parentDiv.getElementsByClassName("card-text")[1].innerText;
+
+            var itemid = document.getElementById("itemidInput").value = itemId;
+            var nameInput = document.getElementById("name_edit").value = name;
+            var priceInput = document.getElementById("price_edit").value = price;
+            var descriptionInput = document.getElementById("description_edit").value = description;
+
+            $("#editModal").modal('show');
+        }
+
+        function edit_item() {
+
+            var itemId = document.getElementById("itemidInput").value;
+            var nameInput = document.getElementById("name_edit").value;
+            var priceInput = document.getElementById("price_edit").value.split("$")[0];
+            var descriptionInput = document.getElementById("description_edit").value;
+
+            const formData = new FormData();
+            formData.append('id', itemId);
+            formData.append('name', nameInput);
+            formData.append('price', priceInput);
+            formData.append('description', descriptionInput);
+
+            fetch(
+                "../../../php/edit-item.php",
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            )
+            .then((response) => response.json())
+            .then((response) => {
+                if(response['success'] == true) {
+                    var html = `<p>Item edited <span class="text-success">Successfully!</span></p>`;
+                    const successModal = document.getElementById("successModal");
+                    const body = successModal.getElementsByClassName("modal-body")[0].innerHTML = html;
+                    $("#editModal").modal('hide');
+                    $("#successModal").modal('show');
+                }
+            })
+        }
+
+        function delete_item(button) {
+
+            const itemId = button.dataset.itemId;
+            const parentDiv = button.parentNode.parentNode;
+
+            var name = parentDiv.getElementsByClassName("card-title")[0].innerText;
+
+            document.getElementById("deleteModal").getElementsByClassName("itemidInput")[0].value = itemId;
+            document.getElementById("deleteModal").getElementsByClassName("itemName")[0].innerText = name;
+            $("#deleteModal").modal('show');
+
+        }
+        function confirm_delete_item() {
+
+            const itemId = document.getElementById("deleteModal").getElementsByClassName("itemidInput")[0].value
+            
+            const formData = new FormData();
+            formData.append('item_id', itemId);
+
+            fetch(
+                "../../../php/delete-item.php",
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            )
+            .then((response) => response.json())
+            .then((response) => {
+                if(response['success'] == true){
+                    var html = `<p>Item removed <span class="text-success">Successfully!</span></p>`;
+                    const successModal = document.getElementById("successModal");
+                    const body = successModal.getElementsByClassName("modal-body")[0].innerHTML = html;
+                    $("#deleteModal").modal('hide');
                     $("#successModal").modal('show');
                 }
             })
         }
     </script>
-    <!-- <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('success')) {
-            show_modal();
-        }
-            // $("#successModal").modal('show');
-            // $('#successModal').modal('show');
-        function show_modal(){
-            // document.getElementById("successModal").modal('show');
-            $('#successModal').modal('show');
-        }
-    </script> -->
 </body>
 
 </html>

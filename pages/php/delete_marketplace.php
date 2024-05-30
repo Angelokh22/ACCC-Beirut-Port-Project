@@ -1,5 +1,6 @@
 <?php
 include "tools.php";
+
 if (isset($_POST['item_id'])) {
     $item_id = $_POST['item_id'];
     if (filter_var($item_id, FILTER_VALIDATE_INT)) {

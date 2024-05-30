@@ -2,15 +2,19 @@
 
 include 'connection.php';
 
-function send_query($query, $fetching=true, $fetch_all=true){
+function send_query($query, $fetching=true, $fetch_all=true, $params=[]){
     global $pdo;
     $stmt = $pdo->prepare($query);
-    $stmt->execute();
     if($fetching){
+        $stmt->execute($params);
         if($fetch_all){
             return $stmt->fetchAll();
         }
         return $stmt->fetch();
+    }
+    else {
+        $stmt->execute($params);
+        return "Query Sent!";
     }
 }
 

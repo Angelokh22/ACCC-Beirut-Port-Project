@@ -1,6 +1,5 @@
 <?php include "../../../php/check_login.php"; ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -195,17 +194,17 @@
 
             <table class="tb1">
                 <tr>
-                    <form method="post"> 
-                        <th >
-                            <label >Type</label>
-                            <select name="type" id="typeSelect"> 
+                    <form method="post">
+                        <th>
+                            <label>Type</label>
+                            <select name="type" id="typeSelect">
                                 <option></option>
                                 <option value="Import">Import</option>
                                 <option value="Export">Export</option>
                             </select>
                         </th>
-                        <td >
-                            <label >Service</label>
+                        <td>
+                            <label>Service</label>
                             <select id="serviceSelect">
                                 <option></option>
                                 <option value="DTD">Door to Door</option>
@@ -215,7 +214,7 @@
                             </select>
                         </td>
 
-                        <td >
+                        <td>
                             <label>Rent Cargo</label>
                             <select id="rentCargoValue">
                                 <option></option>
@@ -284,7 +283,7 @@
                 </tr>
 
                 <tr>
-                    <th class="t1" >
+                    <th class="t1">
                         <label>Destination/From</label>
                         <select name="destination" id="destinationSelect">
                             <option value='Afghanistan'>Afghanistan</option>
@@ -338,10 +337,11 @@
                             <option value='Colombia'>Colombia</option>
                             <option value='Comoros'>Comoros</option>
                             <option value='Congo'>Congo</option>
-                            <option value='Congo, Democratic Republic of the Congo'>Congo, Democratic Republic of the Congo</option>
+                            <option value='Congo, Democratic Republic of the Congo'>Congo, Democratic Republic of the
+                                Congo</option>
                             <option value='Cook Islands'>Cook Islands</option>
                             <option value='Costa Rica'>Costa Rica</option>
-                            <option value='Cote D'Ivoire'>Cote D'Ivoire</option>
+                            <option value='Cote D' Ivoire'>Cote D'Ivoire</option>
                             <option value='Croatia'>Croatia</option>
                             <option value='Cuba'>Cuba</option>
                             <option value='Curacao'>Curacao</option>
@@ -404,12 +404,13 @@
                             <option value='Kazakhstan'>Kazakhstan</option>
                             <option value='Kenya'>Kenya</option>
                             <option value='Kiribati'>Kiribati</option>
-                            <option value='Korea, Democratic People's Republic of'>Korea, Democratic People's Republic of</option>
+                            <option value='Korea, Democratic People' s Republic of'>Korea, Democratic People's Republic
+                                of</option>
                             <option value='Korea, Republic of'>Korea, Republic of</option>
                             <option value='Kosovo'>Kosovo</option>
                             <option value='Kuwait'>Kuwait</option>
                             <option value='Kyrgyzstan'>Kyrgyzstan</option>
-                            <option value='Lao People's Democratic Republic'>Lao People's Democratic Republic</option>
+                            <option value='Lao People' s Democratic Republic'>Lao People's Democratic Republic</option>
                             <option value='Latvia'>Latvia</option>
                             <option value='Lebanon'>Lebanon</option>
                             <option value='Lesotho'>Lesotho</option>
@@ -419,7 +420,8 @@
                             <option value='Lithuania'>Lithuania</option>
                             <option value='Luxembourg'>Luxembourg</option>
                             <option value='Macao'>Macao</option>
-                            <option value='Macedonia, the Former Yugoslav Republic of'>Macedonia, the Former Yugoslav Republic of</option>
+                            <option value='Macedonia, the Former Yugoslav Republic of'>Macedonia, the Former Yugoslav
+                                Republic of</option>
                             <option value='Madagascar'>Madagascar</option>
                             <option value='Malawi'>Malawi</option>
                             <option value='Malaysia'>Malaysia</option>
@@ -496,7 +498,8 @@
                             <option value='Solomon Islands'>Solomon Islands</option>
                             <option value='Somalia'>Somalia</option>
                             <option value='South Africa'>South Africa</option>
-                            <option value='South Georgia and the South Sandwich Islands'>South Georgia and the South Sandwich Islands</option>
+                            <option value='South Georgia and the South Sandwich Islands'>South Georgia and the South
+                                Sandwich Islands</option>
                             <option value='South Sudan'>South Sudan</option>
                             <option value='Spain'>Spain</option>
                             <option value='Sri Lanka'>Sri Lanka</option>
@@ -526,7 +529,8 @@
                             <option value='United Arab Emirates'>United Arab Emirates</option>
                             <option value='United Kingdom'>United Kingdom</option>
                             <option value='United States'>United States</option>
-                            <option value='United States Minor Outlying Islands'>United States Minor Outlying Islands</option>
+                            <option value='United States Minor Outlying Islands'>United States Minor Outlying Islands
+                            </option>
                             <option value='Uruguay'>Uruguay</option>
                             <option value='Uzbekistan'>Uzbekistan</option>
                             <option value='Vanuatu'>Vanuatu</option>
@@ -543,7 +547,7 @@
                         </select>
                     </th>
 
-                    <td class="t1" >
+                    <td class="t1">
                         <label>Delivery Type</label>
                         <select id="deliverySelect">
                             <option value="DHL">DHL</option>
@@ -569,31 +573,31 @@
                     <table class="t3" id="table1">
                         <tr>
                             <th>Weight</th>
-                            <th>1000kg</th>
+                            <th id="weightValue"></th>
                         </tr>
                         <tr>
                             <td>Type</td>
-                            <td>Import</td>
+                            <td id="typeValue"></td>
                         </tr>
                         <tr>
                             <td>Destination/from</td>
-                            <td>U.S.A</td>
+                            <td id="destinationValue"></td>
                         </tr>
                         <tr>
                             <td>Service</td>
-                            <td>Quay Tpo Quay</td>
+                            <td id="serviceValue"></td>
                         </tr>
                         <tr>
                             <td>Delivery</td>
-                            <td>DHL</td>
+                            <td id="deliveryValue"></td>
                         </tr>
                         <tr>
                             <td>Renting Cargo</td>
-                            <td>No</td>
+                            <td id="rentCargoValue"></td>
                         </tr>
                         <tr>
                             <td>Custom Categorie</td>
-                            <td>phone</td>
+                            <td id="customcategorieValue"></td>
                         </tr>
                     </table>
                 </div>
@@ -601,11 +605,11 @@
                     <table class="t3" id="table2">
                         <tr>
                             <th>Categorie</th>
-                            <th>Electronics</th>
+                            <th id="categoryValue"></th>
                         </tr>
                         <tr>
                             <td>Categorie price/KG</td>
-                            <td>5$</td>
+                            <td id="categoryPrice"></td>
                         </tr>
                         <tr>
                             <td>T.V.A</td>
@@ -613,131 +617,155 @@
                         </tr>
                         <tr>
                             <td>Final Price</td>
-                            <td>5500$</td>
+                            <td id="finalPrice"></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="b1">
-                <input type="button" value="Confirm">
-                <input type="button" value="Reset">
+                <input type="button" value="Confirm" id="confirmButton">
+                <input type="button" value="Reset" id="resetButton">
             </div>
 
         </main>
     </section>
     <script>
         function displaySelectedValues() {
-    var typeSelect = document.getElementById("typeSelect");
-    var typeValue = typeSelect.options[typeSelect.selectedIndex].value;
+            var typeSelect = document.getElementById("typeSelect");
+            var typeValue = typeSelect.options[typeSelect.selectedIndex].value;
 
-    var serviceSelect = document.getElementById("serviceSelect");
-    var serviceValue = serviceSelect.options[serviceSelect.selectedIndex].value;
+            var serviceSelect = document.getElementById("serviceSelect");
+            var serviceValue = serviceSelect.options[serviceSelect.selectedIndex].value;
 
-    var destinationSelect = document.getElementById("destinationSelect");
-    var destinationValue = destinationSelect.options[destinationSelect.selectedIndex].value;
+            var destinationSelect = document.getElementById("destinationSelect");
+            var destinationValue = destinationSelect.options[destinationSelect.selectedIndex].value;
 
-    var deliverySelect = document.getElementById("deliverySelect");
-    var deliveryValue = deliverySelect.options[deliverySelect.selectedIndex].value;
+            var deliverySelect = document.getElementById("deliverySelect");
+            var deliveryValue = deliverySelect.options[deliverySelect.selectedIndex].value;
 
-    var categorySelect = document.getElementById("categorySelect");
-    var categoryValue = categorySelect.options[categorySelect.selectedIndex].value;
+            var categorySelect = document.getElementById("categorySelect");
+            var categoryValue = categorySelect.options[categorySelect.selectedIndex].value;
 
-    var rentCargoSelect = document.getElementById("rentCargoValue");
-    var rentCargoValue = rentCargoSelect.options[rentCargoSelect.selectedIndex].value;
+            var rentCargoSelect = document.getElementById("rentCargoValue");
+            var rentCargoValue = rentCargoSelect.options[rentCargoSelect.selectedIndex].value;
 
-    var weightValue = document.getElementById("weightInput").value;
-  
-    var customcategorieValue = document.getElementById("customInput").value;
+            var weightValue = document.getElementById("weightInput").value;
 
-    // Display the values in table 1
-    document.getElementById("table1").innerHTML = `
-        <tr>
-            <th>Weight</th>
-            <th>${weightValue}kg</th>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td>${typeValue}</td>
-        </tr>
-        <tr>
-            <td>Destination/from</td>
-            <td>${destinationValue}</td>
-        </tr>
-        <tr>
-            <td>Service</td>
-            <td>${serviceValue}</td>
-        </tr>
-        <tr>
-            <td>Delivery</td>
-            <td>${deliveryValue}</td>
-        </tr>
-        <tr>
-            <td>Renting Cargo</td>
-            <td>${rentCargoValue}</td>
-        </tr>
-        <tr>
-            <td>Custom Categorie</td>
-            <td>${customcategorieValue}</td>
-        </tr>
-    `;
+            var customcategorieValue = document.getElementById("customInput").value;
 
-    // Display the values in table 2
-    document.getElementById("table2").innerHTML = `
-        <tr>
-            <th>Categorie</th>
-            <th>${categoryValue}</th>
-        </tr>
-        <tr>
-            <td>Categorie price/KG</td>
-            <td>5$</td>
-        </tr>
-        <tr>
-            <td>T.V.A</td>
-            <td>11%</td>
-        </tr>
-        <tr>
-            <td>Final Price</td>
-            <td>${calculateFinalPriceWithVAT(calculateFinalPrice(weightValue, categoryValue), 11)}$</td>
-        </tr>
-    `;
-}
+            // Display the values in table 1
+            const table1 = document.getElementById("table1");
+            table1.querySelector("#weightValue").innerText = weightValue;
+            table1.querySelector("#typeValue").innerText = typeValue;
+            table1.querySelector("#destinationValue").innerText = destinationValue;
+            table1.querySelector("#serviceValue").innerText = serviceValue;
+            table1.querySelector("#deliveryValue").innerText = deliveryValue;
+            table1.querySelector("#rentCargoValue").innerText = rentCargoValue;
+            table1.querySelector("#customcategorieValue").innerText = customcategorieValue;
 
-function calculateFinalPrice(weight, category) {
-    if (category === "Electronics") {
-        return weight * 5;
-    } else if(category === "Home & Kitchen"){
-         return weight * 4;
-    } else if(category === "Health & Beauty"){
-         return weight * 8;
-    }else if(category === "Fashion"){
-         return weight * 11;
-    }else if(category === "Automotives"){
-         return weight * 15;
-    }else if(category === "Sports & Outdoors"){
-         return weight * 10;
-    }else if(category === "Patio & Garden"){
-         return weight * 20;
-    }else if(category === "Baby & Toys"){
-         return weight * 23;
-    }else if(category === "Solar Energy & Accessories"){
-         return weight * 100;
-    }else if(category === "Tools & Home Improvement"){
-         return weight * 45;
-    }else if(category === "Clothing"){
-         return weight * 90;
-    }else if(category === "Toys"){
-         return weight * 34;
-    }else if(category === "Others"){
-         return weight * 67;
-    }      
-}    
+            const table2 = document.getElementById("table2");
+            table2.querySelector("#categoryValue").innerText = categoryValue;
+
+            var FinalPrice = calculateFinalPrice(weightValue, categoryValue);
+
+            table2.querySelector("#categoryPrice").innerText = FinalPrice['price'] + "$";
+            table2.querySelector("#finalPrice").innerText = calculateFinalPriceWithVAT(FinalPrice['weight'], 11);
+        }
+
+        function calculateFinalPrice(weight, category) {
+            if (category === "Electronics") {
+                return { "weight": weight * 5, "price": 5 }
+            } else if (category === "Home & Kitchen") {
+                return { "weight": weight * 4, "price": 4 }
+            } else if (category === "Health & Beauty") {
+                return { "weight": weight * 8, "price": 8 }
+            } else if (category === "Fashion") {
+                return { "weight": weight * 11, "price": 11 }
+            } else if (category === "Automotives") {
+                return { "weight": weight * 15, "price": 15 }
+            } else if (category === "Sports & Outdoors") {
+                return { "weight": weight * 10, "price": 10 }
+            } else if (category === "Patio & Garden") {
+                return { "weight": weight * 20, "price": 20 }
+            } else if (category === "Baby & Toys") {
+                return { "weight": weight * 23, "price": 23 }
+            } else if (category === "Solar Energy & Accessories") {
+                return { "weight": weight * 100, "price": 100 }
+            } else if (category === "Tools & Home Improvement") {
+                return { "weight": weight * 45, "price": 45 }
+            } else if (category === "Clothing") {
+                return { "weight": weight * 90, "price": 90 }
+            } else if (category === "Toys") {
+                return { "weight": weight * 34, "price": 34 }
+            } else if (category === "Others") {
+                return { "weight": weight * 67, "price": 67 }
+            }
+        }
 
 
-function calculateFinalPriceWithVAT(finalPrice, vatPercentage) {
-  const vatAmount = finalPrice * vatPercentage / 100;
-  return finalPrice + vatAmount;
-}
+        function calculateFinalPriceWithVAT(finalPrice, vatPercentage) {
+            const vatAmount = finalPrice * vatPercentage / 100;
+            return finalPrice + vatAmount;
+        }
 
+        const resetButton = document.getElementById("resetButton");
+
+        resetButton.addEventListener("click", () => {
+            document.getElementById("table1");
+            table1.querySelector("#weightValue").innerText = "";
+            table1.querySelector("#typeValue").innerText = "";
+            table1.querySelector("#destinationValue").innerText = "";
+            table1.querySelector("#serviceValue").innerText = "";
+            table1.querySelector("#deliveryValue").innerText = "";
+            table1.querySelector("#rentCargoValue").innerText = "";
+            table1.querySelector("#customcategorieValue").innerText = "";
+
+            const table2 = document.getElementById("table2");
+            table2.querySelector("#categoryValue").innerText = "";
+            table2.querySelector("#categoryPrice").innerText = "";
+            table2.querySelector("#finalPrice").innerText = "";
+        });
+
+
+        const confirmButton = document.getElementById("confirmButton");
+
+        document.getElementById("confirmButton").addEventListener("click", function () {
+            var weightValue = table1.querySelector("#weightValue").innerText;
+            var typeValue = table1.querySelector("#typeValue").innerText;
+            var destinationValue = table1.querySelector("#destinationValue").innerText;
+            var serviceValue = table1.querySelector("#serviceValue").innerText;
+            var deliveryValue = table1.querySelector("#deliveryValue").innerText;
+            var rentCargoValue = table1.querySelector("#rentCargoValue").innerText;
+            var customcategorieValue = table1.querySelector("#customcategorieValue").innerText;
+            
+            var categoryValueElement = table2.querySelector("#categoryValue");
+            var finalprice = table2.querySelector("#finalPrice").innerText;
+            var categoryValue = categoryValueElement ? categoryValueElement.innerText : '';
+
+            const formData = new FormData();
+            formData.append('weightValue', weightValue);
+            formData.append('typeValue', typeValue);
+            formData.append('destinationValue', destinationValue);
+            formData.append('serviceValue', serviceValue);
+            formData.append('deliveryValue', deliveryValue);
+            formData.append('rentCargoValue', rentCargoValue);
+            formData.append('customcategorieValue', customcategorieValue);
+            formData.append('categoryValue', categoryValue);
+            formData.append('finalPrice', finalprice)
+            
+
+            fetch(
+                "../../../php/add_to_orders.php",
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            )
+            
+        });
+
+
+    </script>
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
@@ -751,4 +779,5 @@ function calculateFinalPriceWithVAT(finalPrice, vatPercentage) {
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
 </body>
+
 </html>

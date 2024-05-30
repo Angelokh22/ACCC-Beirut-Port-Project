@@ -1,5 +1,4 @@
-<?php  include "../../../php/check_login.php"; ?>
-
+<?php include "../../../php/check_login.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +10,11 @@
         integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
@@ -32,7 +35,7 @@
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
-                <a class="navbar-brand theme-text" href="../../../../index.html">
+                <a class="navbar-brand theme-text" href="../../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
@@ -49,14 +52,15 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
-                                <?php
-                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
-                                    $userid = $result['userID'];
-                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
-                                    echo $username;
-                                ?>
-                                </span></span></li>
-                                <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a></li>
+                                            <?php
+                                            $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                            $userid = $result['userID'];
+                                            $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                            echo $username;
+                                            ?>
+                                        </span></span></li>
+                                <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a>
+                                </li>
                                 <li>
                                     <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>
@@ -111,11 +115,21 @@
                             <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../orders/import-export.php" class="nav-link px-3">
+                                        <a href="../orders/import-order.php" class="nav-link px-3">
                                             <span class="me-2">
-                                                <i class="fa-regular fa-ferry"></i>
+                                                <!-- <i class="bi bi-card-list"></i> -->
+                                                <i class="fa-solid fa-arrow-left fa-xs"></i>
+                                                <i class="fa-solid fa-box"></i>
                                             </span>
-                                            <span>Import / Export</span>
+                                            <span>Imported Orders</span>
+                                        </a>
+                                        <a href="../orders/export-order.php" class="nav-link px-3">
+                                            <span class="me-2">
+                                                <!-- <i class="bi bi-card-list"></i> -->
+                                                <i class="fa-solid fa-box"></i>
+                                                <i class="fa-solid fa-arrow-right fa-xs"></i>
+                                            </span>
+                                            <span>Exported Orders</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -143,40 +157,15 @@
                                             <span>View Market List</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="../marketplace/marketplace-items.php" class="nav-link px-3">
-                                            <span class="me-2">
-                                                <i class="bi bi-card-list"></i>
-                                            </span>
-                                            <span>View your items</span>
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </li>
-                       
                         <li>
                             <a href="tracking.php" class="nav-link px-3 active">
                                 <span class="me-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>
                                 <span>Tracking</span>
-                            </a>
-                        </li>
-                        <li class="my-4">
-                            <hr class="dropdown-divider bg-light" />
-                        </li>
-                        <li>
-                            <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-                                Services
-                            </div>
-                        </li>
-                        <li>
-                            <a href=mailto:"angelokh22@gmail.com" class="nav-link px-3">
-                                <span class="me-2">
-                                    <i class="bi bi-envelope-fill"></i>
-                                </span>
-                                <span>Contact US</span>
                             </a>
                         </li>
                     </ul>
@@ -189,7 +178,7 @@
 
     <!-- Tracking Start -->
     <section>
-        <main class="mt-5 pt-3">
+        <main>
 
             <div class="title">
                 <h2>Track Your Order</h2>
@@ -198,8 +187,8 @@
             <div class="infos">
                 <span>Enter your Tracking ID below:</span>
                 <div class="inputs">
-                    <input type="text" placeholder="Tracking ID"/>
-                    <button>Send</button>
+                    <input type="text" placeholder="Tracking ID" id="track_id" />
+                    <button onclick="checkID()">Send</button>
                 </div>
             </div>
 
@@ -209,23 +198,38 @@
                 <div class="card mb-3">
                     <div class="p-4 text-center text-white text-lg bg-dark rounded-top">
                         <span class="text-uppercase">Tracking Order No - </span>
-                        <span class="text-medium">"Tracking number"</span>
+                        <span class="text-medium" id="tracking_number"></span>
                     </div>
                     <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Shipped Via:</span> "Delivery Type"
+                            <span class="text-medium">From:</span>
+                            <p id="from_location"></p>
                         </div>
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Status:</span> "Status"
+                            <span class="text-medium">To:</span>
+                            <p id="to_location"></p>
                         </div>
                         <div class="w-100 text-center py-1 px-2">
-                            <span class="text-medium">Expected Date:</span> "Delivering Time"
+                            <span class="text-medium">Delivered With:</span>
+                            <p id="delivery_type"></p>
+                        </div>
+                        <div class="w-100 text-center py-1 px-2">
+                            <span class="text-medium">Shipement Type:</span>
+                            <p id="delivery_provider"></p>
+                        </div>
+                        <div class="w-100 text-center py-1 px-2">
+                            <span class="text-medium">Status:</span>
+                            <p id="status"></p>
+                        </div>
+                        <div class="w-100 text-center py-1 px-2">
+                            <span class="text-medium">Expected Date:</span>
+                            <p id="delivery_time"></p>
                         </div>
                     </div>
                     <div class="card-body">
                         <div
                             class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-                            <div class="step completed">
+                            <div class="step">
                                 <div class="step-icon-wrap">
                                     <div class="step-icon">
                                         <i class="fa-solid fa-cart-shopping"></i>
@@ -233,7 +237,7 @@
                                 </div>
                                 <h4 class="step-title">Confirmed Order</h4>
                             </div>
-                            <div class="step completed">
+                            <div class="step">
                                 <div class="step-icon-wrap">
                                     <div class="step-icon">
                                         <i class="bi bi-gear-fill"></i>
@@ -241,7 +245,7 @@
                                 </div>
                                 <h4 class="step-title">Processing Order</h4>
                             </div>
-                            <div class="step completed">
+                            <div class="step">
                                 <div class="step-icon-wrap">
                                     <div class="step-icon">
                                         <i class="fa-solid fa-shield"></i>
@@ -249,7 +253,7 @@
                                 </div>
                                 <h4 class="step-title">Security Check</h4>
                             </div>
-                            <div class="step completed">
+                            <div class="step">
                                 <div class="step-icon-wrap">
                                     <div class="step-icon">
                                         <i class="fa-solid fa-ship"></i>
@@ -282,6 +286,36 @@
     </section>
     <!-- Tracking End -->
 
+    <!-- Live Map Start -->
+    <section>
+        <main class="mt-1 text-center">
+            <iframe
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4iE2xVSpkLLOXoyqT-RuPwURN3ddScAI&q=33.902970918564996,35.51771813153476&zoom=19&maptype=satellite"
+                width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </main>
+
+    </section>
+    <!-- Live Map End -->
+
+    <!-- Error Modal Start -->
+    <section>
+
+        <div class="modal fade" id="errormodal" tabindex="-1" aria-labelledby="errormodalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i
+                                class="fa-solid fa-circle-xmark"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Error Modal End -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -293,6 +327,54 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
+
+    <script>
+        function checkID() {
+            var trackingid = document.getElementById("track_id").value;
+
+            fetch(
+                "../../../php/check_track_id.php",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        trackingid: trackingid
+                    })
+                }
+            )
+                .then((response) => response.text())
+                .then((text) => {
+                    if (text == "NO") {
+                        document.getElementsByClassName("modal-body")[0].innerHTML = `
+                    <p>Tracking ID does <span class="text-danger">NOT EXIST!</span></p>
+                    `
+                        $("#errormodal").modal('show');
+                    }
+                    else {
+
+                        var result = JSON.parse(text);
+
+                        document.getElementById("tracking_number").innerText = result['trackingNumber'];
+                        document.getElementById("from_location").innerText = result['from'];
+                        document.getElementById("to_location").innerText = result['destination'];
+                        document.getElementById("delivery_provider").innerText = result['shipmentType'];
+                        document.getElementById("delivery_time").innerText = result['deleveryTime'];
+                        document.getElementById("delivery_type").innerText = result['deliveryProvider'];
+                        document.getElementById("status").innerText = result['status'];
+
+                        var steps = document.getElementsByClassName("step");
+                        for (var i = 0; i <= result['statusIndex']; i++) {
+                            steps[i].classList.add("completed");
+                        }
+                    }
+                })
+
+        }
+
+    </script>
+
 
 
 </body>

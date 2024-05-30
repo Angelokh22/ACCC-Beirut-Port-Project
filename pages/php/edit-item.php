@@ -19,7 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(["success" => false, "message" => "Price must be a number."]);
         exit;
     }
-    send_query("UPDATE items SET itemName = '$name', itemPrice = '$price', itemDescription = '$description' WHERE itemID = $id");
+
+    $query = "UPDATE Items SET itemName = :name, itemPrice = :price, itemDescription = :description WHERE itemID = :id";
+    $params = [
+        'name' => $name,
+        'price' => $price,
+        'description'=> $description,
+        'id' => $id
+    ];
+    send_query($query, false, false, $params);
     echo json_encode(["success" => true, "message" => "Item updated successfully."]);
 } else {
     echo json_encode(["success" => false, "message" => "Invalid request method."]);

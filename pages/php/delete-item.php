@@ -4,23 +4,32 @@ include "tools.php";
 if (isset($_POST['item_id'])) {
     $item_id = $_POST['item_id'];
     if (filter_var($item_id, FILTER_VALIDATE_INT)) {
-        $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
-        if ($mysqli->connect_error) {
-            die("Connection failed: " . $mysqli->connect_error);
-        }
-        $stmt = $mysqli->prepare("DELETE FROM Items WHERE item_id = ?");
-        $stmt->bind_param("i", $item_id); // Bind item_id parameter
-        if ($stmt->execute()) {   
+        
+
+        $query = "SELECT * FROM Items WHERE itemID = :itemid";
+        $params = [
+            "itemid" => $item_id
+        ];
+
+        $result = send_query($query, true, false, $params);
+
+        if($result){
+
+            $query = "DELETE FROM Items WHERE itemID = :itemid";
+            $params = [
+                "itemid"=> $item_id
+            ];
+            send_query($query, false, false, $params);
+            
             echo json_encode(["success" => true, "message" => "Item deleted successfully."]);
-        } else {
-            echo json_encode(["success" => false, "message" => "Failed to delete item."]);
         }
-        $stmt->close();
-        $mysqli->close();
-    } else {
-        echo json_encode(["success" => false, "message" => "Invalid item ID."]);
+        else {
+            echo json_encode(["success" => false, "message" => "Invalid item ID."]);
+        }
     }
-} else {
-    echo json_encode(["success" => false, "message" => "No item ID provided."]);
+    else {
+        echo json_encode(["success" => false, "message" => "No item ID provided."]);
+
+    }
 }
 ?>

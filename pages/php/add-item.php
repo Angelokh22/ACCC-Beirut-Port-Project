@@ -1,5 +1,6 @@
 <?php
 include "tools.php";
+// include ("check_login.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(["success" => false, "message" => "Price must be a number."]);
         exit;
     }
-    $targetDir = "../../static/img/";
+    $targetDir = "../../static/img/items/";
     $targetFile = $targetDir . random_int(100000, 999999) . basename($picture["name"]);
     if (!move_uploaded_file($picture["tmp_name"], $targetFile)) {
         echo json_encode(["success" => false, "message" => "Failed to upload picture."]);
@@ -28,10 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
     $userid = $result['userID'];
 
-    $picture = explode('/', $targetFile)[4];
-    $query = "INSERT INTO Items (userID, itemName, itemPrice, itemDescription, itemPicture) VALUES ($userid, '$name', $price, '$description', '$picture');";
-    send_query($query, false, false);
-    echo json_encode(["success" => true, "message" => "Item added successfully."]);
+    $picture = explode('/', $targetFile)[5];
+    $query = "INSERT INTO Items (userID, itemName, itemPrice, itemDescription, itemPicture) VALUES (:userid, :name, :price, :description, :picture);";
+    $params = [
+        'userid' => $userid,
+        'name' => $name,
+        'price'=> $price,
+        'description'=> $description,
+        'picture'=> $picture
+    ];
+    send_query($query, false, false, $params);
+    echo json_encode(["success" => true, "message" => "Item added successfully.", "info" => ["itemid" => "", "name" => $name, "price" => $price,"description"=> $description, "picture"=> $picture]]);
 
 } else {
     echo json_encode(["success" => false, "message" => "Invalid request method."]);
