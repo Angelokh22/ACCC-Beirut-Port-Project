@@ -629,6 +629,26 @@
 
         </main>
     </section>
+
+    <!-- Success Modal Start -->
+
+    <section>
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Order placed <span class="text-success">Successfully!</span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal End -->
+
     <script>
         function displaySelectedValues() {
             var typeSelect = document.getElementById("typeSelect");
@@ -761,6 +781,12 @@
                     body: formData
                 }
             )
+            .then((response) => response.text())
+            .then((response) => {
+                if(response == "Order placed successfully!") {
+                    $("#successModal").modal('show');
+                }
+            })
             
         });
 
