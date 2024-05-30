@@ -15,14 +15,13 @@ $from = "";
 $to = "";
 $category = "";
 
-if($categoryValue == "Others") {
+if ($categoryValue == "Others") {
     $category = $customcategorieValue;
-}
-else {
+} else {
     $category = $categoryValue;
 }
 
-switch($typeValue){
+switch ($typeValue) {
     case 'Import':
         $to = "Lebanon";
         $from = $destinationValue;
@@ -47,27 +46,11 @@ $jwt = $_SESSION['Authorisation'];
 $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
 $userid = $result['userID'];
 
+$time = time();
+$query = "INSERT INTO Orders VALUES ($userid, '$randomString', '$serviceValue', '$rentCargoValue', '$category', '$deliveryValue', $time, $PriceValue, $weightValue, '$to', '$from')";
 
-$query = "INSERT INTO Orders (userID, orderID, Service, Rent Cargo, Categorie, deliveryProvider, placementTime, calculatedPrice, weight, Destination, From)
-                VALUES (:userid, :orderid, :service, :rent_cargo, :category, :delivery, :placementTime, :price, :weight, :destination, :from)";
-
-// $qeury = "INSERT INTO `Orders` (`userID`, `orderID`, `Service`, `Rent Cargo`, `Categorie`, `deliveryProvider`, `placementTime`, `calculatedPrice`, `weight`, `Destination`, `From`) VALUES ('2', '1WQ2E43R5YT6', 'QTQ', 'NO', 'Electronics', 'DHL', '1717071696', '55547', '15', 'China', 'Lebanon');";
-
-$params = [
-    "userid" => $userid,
-    "orderid" => $randomString,
-    "service"=> $serviceValue,
-    "rent_cargo" => $rentCargoValue,
-    "category"=> $category,
-    "delivery"=> $deliveryValue,
-    "placementTime"=> time(),
-    "price"=>$PriceValue,
-    "weight" => $weightValue,
-    "destination" => $to,
-    "from" => $from
-];
-
-send_query($query, true, false, $params);
+send_query($query, false, false, []);
 
 echo "Order placed successfully!";
+
 ?>
