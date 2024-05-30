@@ -34,7 +34,7 @@
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
-                <a class="navbar-brand theme-text" href="../../../../indexd.php">
+                <a class="navbar-brand theme-text" href="../../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
@@ -114,14 +114,14 @@
                             <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../orders/import-orderd.php" class="nav-link px-3">
+                                        <a href="../orders/import-order.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-arrow-left fa-xs"></i>
                                                 <i class="fa-solid fa-box"></i>
                                             </span>
                                             <span>Imported Orders</span>
                                         </a>
-                                        <a href="../orders/export-orderd.php" class="nav-link px-3">
+                                        <a href="../orders/export-order.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-box"></i>
                                                 <i class="fa-solid fa-arrow-right fa-xs"></i>
@@ -172,19 +172,19 @@
                             <div class="collapse" id="users">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="../users/admind.php" class="nav-link px-3">
+                                        <a href="../users/admin.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-user-shield"></i>
                                             </span>
                                             <span>Admin</span>
                                         </a>
-                                        <a href="../users/workerd.php" class="nav-link px-3">
+                                        <a href="../users/worker.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-helmet-safety"></i>
                                             </span>
                                             <span>Workers</span>
                                         </a>
-                                        <a href="../users/userd.php" class="nav-link px-3">
+                                        <a href="../users/user.php" class="nav-link px-3">
                                             <span class="me-2">
                                                 <i class="fa-solid fa-user"></i>
                                             </span>
@@ -195,7 +195,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="../tracking/trackingd.php" class="nav-link px-3">
+                            <a href="../tracking/tracking.php" class="nav-link px-3">
                                 <span class="me-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>
@@ -211,7 +211,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="send-queryd.php" class="nav-link px-3 active">
+                            <a href="send-query.php" class="nav-link px-3 active">
                                 <span class="me-2">
                                     <i class="fa-regular fa-keyboard"></i>
                                 </span>
