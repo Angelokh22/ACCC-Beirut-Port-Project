@@ -190,7 +190,7 @@
                         <div class="card bg-primary text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3>7</h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Ships WHERE shipStatus = 1;", true,false,[])[0]; ?></h3>
                                     <span>Arriving ships</span>
                                 </div>
                                 <div class="col icon">
@@ -203,7 +203,7 @@
                         <div class="card bg-warning text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3>5</h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Ships WHERE shipStatus = 2;", true,false,[])[0]; ?></h3>
                                     <span>Leaving ships</span>
                                 </div>
                                 <div class="col icon">
@@ -216,7 +216,7 @@
                         <div class="card bg-success text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3>5</h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Ships WHERE shipOnPort = 1;", true,false,[])[0]; ?></h3>
                                     <span>On-Port ships</span>
                                 </div>
                                 <div class="col icon">
@@ -231,7 +231,7 @@
                         <div class="card bg-danger text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3>10</h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM OwnShips;", true,false,[])[0]; ?></h3>
                                     <span>Total Owned ships</span>
                                 </div>
                                 <div class="col icon">
@@ -255,37 +255,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>Ocean Voyager</th>
-                                <th>10</th>
-                                <th>3:15</th>
-                            </tr>
-                            <tr>
-                                <th>Trade Wind</th>
-                                <th>40</th>
-                                <th>3:15</th>
-                            </tr>
-                            <tr>
-                                <th>Cargo Queen</th>
-                                <th>40</th>
-                                <th>3:15</th>
-                            </tr>
-                            <tr>
-                                <th>Global Mariner</th>
-                                <th>40</th>
-                                <th>3:15</th>
-                            </tr>
-                            <tr>
-                                <th>Harbor Express</th>
-                                <th>40</th>
-                                <th>3:15</th>
-                            </tr>
+                            <?php
+
+                                $query = "SELECT * FROM Ships WHERE shipStatus = 1;";
+                                $result = send_query($query, true, true, []);
+                                if($result) {
+                                    foreach($result as $row){
+                                    $name = $row['shipName'];
+                                    $cargo = $row['shipCargo'];
+                                    date_default_timezone_set('Asia/Beirut');
+                                    $time =  date('d/m/Y h-i-s a', $row['shipArrival']);
+
+                                    echo "<tr>
+                                            <th>$name</th>
+                                            <th>$cargo</th>
+                                            <th>$time</th>
+                                        </tr>";
+                                    }
+                                }
+
+                            ?>
+                          
                         <tfoot>
                             <tr>
                                 <th>Ship Name</th>
                                 <th>Containers</th>
                                 <th>Arrival Time</th>
                             </tr>
+
                         </tfoot>
                     </table>
                 </div>
@@ -307,31 +304,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>Ocean Voyager</th>
-                                <th>50</th>
-                                <th>3:15</th>
-                            </tr>
-                            <tr>
-                                <th>Trade Wind</th>
-                                <th>50</th>
-                                <th>3:15</th>
-                            </tr>
-                            <tr>
-                                <th>Cargo Queen</th>
-                                <th>50</th>
-                                <th>3:15</th>
-                            </tr>
-                            <tr>
-                                <th>Global Mariner</th>
-                                <th>50</th>
-                                <th>3:15</th>
-                            </tr>
-                            <tr>
-                                <th>Harbor Express</th>
-                                <th>50</th>
-                                <th>3:15</th>
-                            </tr>
+                                <?php 
+                                 $query = "SELECT * FROM Ships WHERE shipStatus = 2;";
+                                 $result = send_query($query, true, true, []);
+                                 if($result) {
+                                    foreach($result as $row){
+                                        $name = $row['shipName'];
+                                        $cargo = $row['shipCargo'];
+                                        date_default_timezone_set('Asia/Beirut');
+                                        $time =  date('d/m/Y h-i-s a', $row['shipArrival']);
+    
+                                        echo "<tr>
+                                                <th>$name</th>
+                                                <th>$cargo</th>
+                                                <th>$time</th>
+                                            </tr>";
+                                        }
+                                 }
+                                
+                                ?>
+
                         <tfoot>
                             <tr>
                                 <th>Ship Name</th>

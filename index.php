@@ -1,4 +1,6 @@
-<?php include ("./pages/php/tools.php"); ?>
+<?php 
+    include ("./pages/php/tools.php");
+?>
 
 <!doctype html>
 <html lang="en">
@@ -430,6 +432,23 @@
 
         elements.forEach((element) => {
             observer.observe(element);
+        });
+    </script>
+
+    <script>
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(response => {
+            
+            fetch(
+                "./pages/php/add_visits.php",
+                {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        IPaddress: response['ip'],
+                    })
+                }
+            )
         });
     </script>
 
