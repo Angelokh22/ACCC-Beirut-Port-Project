@@ -105,19 +105,19 @@
     <section class="counter">
         <div class="counter-container">
             <div class="counter-item">
-                <h2>1M</h2>
+                <h2 class="num" data-val="15"></h2>
                 <p>Ships Today</p>
             </div>
             <div class="counter-item">
-                <h2>5M</h2>
+                <h2 class="num" data-val="1223"></h2>
                 <p>Ships Served</p>
             </div>
             <div class="counter-item">
-                <h2>100M</h2>
+                <h2 class="num" data-val="5654"></h2>
                 <p>Trusted Members</p>
             </div>
             <div class="counter-item">
-                <h2>500M</h2>
+                <h2 class="num" data-val="10054"></h2>
                 <p>Total Income</p>
             </div>
         </div>
@@ -375,6 +375,63 @@
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>
     <script src="./static/js/home_translate.js"></script>
+
+    <script>
+        const elements = document.querySelectorAll('.num');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    let valueDisplays = document.querySelectorAll(".num");
+                    let interval = 100;
+
+                    function formatNumber(num) {
+                        if (num >= 1000000000) {
+                            return (num / 1000000000).toFixed(1) + 'B'; // Billion
+                        } else if (num >= 1000000) {
+                            return (num / 1000000).toFixed(1) + 'M'; // Million
+                        } else if (num >= 1000) {
+                            return (num / 1000).toFixed(1) + 'K'; // Thousand
+                        } else if (num > 0) {
+                            let formatted = num.toFixed(1);
+                            if (num % 1 === 0) {
+                                formatted = formatted.replace(/\.0$/, '');
+                            }
+                            return formatted;
+                        } else {
+                            return '0'; // Changed this line
+                        }
+                    }
+
+                    valueDisplays.forEach((valueDisplay) => {
+                        let startValue = 0;
+                        let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+                        let increment = Math.ceil(endValue / 10); // Calculate increment value
+                        let counter = 0;
+
+                        let intervalId = setInterval(function () {
+                            startValue += increment;
+                            valueDisplay.textContent = formatNumber(startValue);
+                            counter++;
+
+                            if (counter >= 10) {
+                                valueDisplay.textContent = formatNumber(endValue); // Ensure final value is exact
+                                clearInterval(intervalId);
+                            }
+                        }, interval);
+                    });
+                }
+            });
+        },
+            {
+                threshold: 1.0,
+            }
+        );
+
+        elements.forEach((element) => {
+            observer.observe(element);
+        });
+    </script>
 
 
 </body>
