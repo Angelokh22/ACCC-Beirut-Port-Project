@@ -250,40 +250,40 @@
                         <thead>
                             <tr>
                                 <th>Ship Name</th>
-                                <th>Weight</th>
+                                <th>Containers</th>
                                 <th>Arrival Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>Ocean Voyager</th>
-                                <th>1000Kg</th>
+                                <th>10</th>
                                 <th>3:15</th>
                             </tr>
                             <tr>
                                 <th>Trade Wind</th>
-                                <th>1000Kg</th>
+                                <th>40</th>
                                 <th>3:15</th>
                             </tr>
                             <tr>
                                 <th>Cargo Queen</th>
-                                <th>1000Kg</th>
+                                <th>40</th>
                                 <th>3:15</th>
                             </tr>
                             <tr>
                                 <th>Global Mariner</th>
-                                <th>1000Kg</th>
+                                <th>40</th>
                                 <th>3:15</th>
                             </tr>
                             <tr>
                                 <th>Harbor Express</th>
-                                <th>1000Kg</th>
+                                <th>40</th>
                                 <th>3:15</th>
                             </tr>
                         <tfoot>
                             <tr>
                                 <th>Ship Name</th>
-                                <th>Weight</th>
+                                <th>Containers</th>
                                 <th>Arrival Time</th>
                             </tr>
                         </tfoot>
@@ -302,40 +302,40 @@
                         <thead>
                             <tr>
                                 <th>Ship Name</th>
-                                <th>Weight</th>
+                                <th>Containers</th>
                                 <th>Depart Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>Ocean Voyager</th>
-                                <th>10000Kg</th>
+                                <th>50</th>
                                 <th>3:15</th>
                             </tr>
                             <tr>
                                 <th>Trade Wind</th>
-                                <th>10000Kg</th>
+                                <th>50</th>
                                 <th>3:15</th>
                             </tr>
                             <tr>
                                 <th>Cargo Queen</th>
-                                <th>10000Kg</th>
+                                <th>50</th>
                                 <th>3:15</th>
                             </tr>
                             <tr>
                                 <th>Global Mariner</th>
-                                <th>10000Kg</th>
+                                <th>50</th>
                                 <th>3:15</th>
                             </tr>
                             <tr>
                                 <th>Harbor Express</th>
-                                <th>10000Kg</th>
+                                <th>50</th>
                                 <th>3:15</th>
                             </tr>
                         <tfoot>
                             <tr>
                                 <th>Ship Name</th>
-                                <th>Weight</th>
+                                <th>Containers</th>
                                 <th>Depart Time</th>
                             </tr>
                         </tfoot>
