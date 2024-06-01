@@ -197,7 +197,7 @@
                         <div class="card bg-primary text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3>100K</h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Orders WHERE Destination = 'Lebanon';", true,false,[])[0]; ?></h3>
                                     <span>Importing</span>
                                 </div>
                                 <div class="col icon">
@@ -210,7 +210,7 @@
                         <div class="card bg-warning text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3>23K</h3>
+                                    <h3 ><?php echo send_query("SELECT count(*) FROM Orders WHERE `From` = 'Lebanon';", true,false,[])[0]; ?></h3>
                                     <span>Exporting</span>
                                 </div>
                                 <div class="col icon">
@@ -267,56 +267,63 @@
                                     <thead>
                                         <tr>
                                             <th>Pictures</th>
+                                            <th>User ID</th>
                                             <th>Destination</th>
+                                            <th>From</th>
                                             <th>Service</th>
                                             <th>Rented Cargo</th>
                                             <th>Type</th>
+                                            <th>Delivery type</th>
                                             <th>Weight</th>
                                             <th>Price</th>
+                                            <th>Tracking Number</th>
                                             <th>Depart Time</th>
                                             <th>Arrival Time</th>
-                                            <th>Tracking Number</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th><img src="" alt="picture"></th>
-                                            <th>Beirut Port, LB</th>
-                                            <th>Door to Door</th>
-                                            <th>Yes</th>
-                                            <th>Import</th>
-                                            <th>1000Kg</th>
-                                            <th>6524$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>1Z34E5D6TRWK8721A3</th>
-                                        </tr>
-                                        <tr>
-                                            <th><img src="" alt="picture"></th>
-                                            <th>France</th>
-                                            <th>Quay to Quay</th>
-                                            <th>No</th>
-                                            <th>Export</th>
-                                            <th>5000Kg</th>
-                                            <th>10000$</th>
-                                            <th>30/04/2024</th>
-                                            <th>12/06/2024</th>
-                                            <th>1Z34E5D6TRWK8721A3</th>
-                                        </tr>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Pictures</th>
-                                            <th>Destination</th>
-                                            <th>Service</th>
-                                            <th>Rented Cargo</th>
-                                            <th>Type</th>
-                                            <th>Weight</th>
-                                            <th>Price</th>
-                                            <th>Depart Time</th>
-                                            <th>Arrival Time</th>
-                                            <th>Tracking Number</th>
-                                        </tr>
-                                    </tfoot>
+                                    <?php
+
+                                            $query = "SELECT * FROM Orders;";
+                                            $result = send_query($query, true, true, []);
+                                            if($result) {
+                                                foreach($result as $row){
+                                                $userid = $row['userID'];
+                                                $destination = $row['Destination'];
+                                                $from = $row['From'];
+                                                $service = $row['Service'];
+                                                $rent_Cargo = $row['Rent Cargo'];
+                                                $type = $row['Categorie'];
+                                                $deliveryType = $row['deliveryProvider'];
+                                                $weight = $row['weight'];
+                                                $price = $row['calculatedPrice'];
+                                                $orderID = $row['orderID'];
+                                                date_default_timezone_set('Asia/Beirut');
+                                                $ArrivalTime =  date('d/m/Y h-i-s a', $row['ArrivalTime']);
+                                                $DepartTime = date('d/m/Y h-i-s a', $row['DepartTime']);
+                                        
+                                                echo "<tr>
+                                                        <th></th>
+                                                        <th>$userid</th>
+                                                        <th>$destination</th>
+                                                        <th>$from</th>
+                                                        <th>$service</th>
+                                                        <th>$rent_Cargo</th>
+                                                        <th>$type</th>
+                                                        <th>$deliveryType</th>
+                                                        <th>$weight</th>
+                                                        <th>$price</th>
+                                                        <th>$orderID</th>  
+                                                        <<th>$DepartTime</th>  
+                                                        <th>$ArrivalTime</th>
+                                                                                                               
+
+                                                    </tr>";
+                                                }
+                                            }
+
+                                    ?>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -356,9 +363,6 @@
                                             <th>42</th>
                                             <th>12/02/2025</th>
                                             <th>
-                                                <button class="edt_btn btn">
-                                                    <i class="fa-regular fa-pencil"></i>
-                                                </button>
                                                 <button class="show_btn btn">
                                                     <i class="fa-solid fa-eye"></i>
                                                 </button>
@@ -372,9 +376,6 @@
                                             <th>42</th>
                                             <th>20/04/2025</th>
                                             <th>
-                                                <button class="edt_btn btn">
-                                                    <i class="fa-regular fa-pencil"></i>
-                                                </button>
                                                 <button class="show_btn btn">
                                                     <i class="fa-solid fa-eye"></i>
                                                 </button>

@@ -14,6 +14,11 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
     <link rel="stylesheet" href="../../../../static/css/worker/import-order.css">
     <link rel="shortcut icon" href="../../../../static/img/favicon.ico" type="image/x-icon">
@@ -197,7 +202,6 @@
                                     <thead>
                                         <tr>
                                             <th>User ID</th>
-                                            <th>User Name</th>
                                             <th>Service</th>
                                             <th>Weight</th>
                                             <th>Price</th>
@@ -210,7 +214,6 @@
                                     <tbody>
                                         <tr>
                                             <th>1</th>
-                                            <th>Angelo Khairallah</th>
                                             <th>Door to Door</th>
                                             <th>1000Kg</th>
                                             <th>6524$</th>
