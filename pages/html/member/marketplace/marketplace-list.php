@@ -189,10 +189,13 @@
         <main class="mt-5 pt-3">
             <div class="text-center">
                 <h2>MarketPlace</h2>
-            </div>
+             </div>
             <div class="container market-items">
                 <div class="row row-cols-3">
+               
 
+
+         
                     <div class="card col">
                         <img src="../../../../static/img/laptop.webp" class="card-img-top" alt="Item Image">
                         <div class="card-body">
@@ -301,7 +304,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveEditButton">Save changes</button>
+                    <button type="button" class="btn btn-primary" on click="edit_item()">Save changes</button>
                 </div>
             </div>
         </div>
@@ -322,7 +325,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Confirm</button>
+                    <button type="button" class="btn btn-danger" on click="confirm_delete_item">Confirm</button>
                 </div>
             </div>
         </div>
@@ -350,10 +353,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" value="Lenovo Ideapad 3950" id="itemName">
+                            <input type="text" value="Lenovo Ideapad 3950" id="name_add"required>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" value="300" id="itemPrice">
+                            <input type="text" value="300" id="price_add"required>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -363,7 +366,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="file" id="itemPicture">
+                            <input type="file" id="picture_add">
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -373,13 +376,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="itemDescription" id="itemDescription" rows="6" style="width: 100%; resize: none;"></textarea>
+                            <textarea name="itemDescription" id="itemDescription_add" rows="6" style="width: 100%; resize: none;"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" id="addItemButton">Add</button>
+                    <button type="button" class="btn btn-success" on click="add_item">Add</button>
                 </div>
             </div>
         </div>
@@ -397,112 +400,156 @@
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
     <script>
-        document.getElementById('addItemButton').addEventListener('click', async function() {
-            const name = document.getElementById('itemName').value;
-            const price = document.getElementById('itemPrice').value;
-            const picture = document.getElementById('itemPicture').files[0];
-            const description = document.getElementById('itemDescription').value;
+         function refresh() {
+            window.location.reload();
+        }
 
-            try {
-                const response = await fetch('../../../php/add_item.php', {
+        function spawn_item(info) {
+            var itemid = info['itemid'];;
+            var name = info['name'];
+            var price = info['price'];
+            var description = info['description'];
+            var picture = info['picture'];
+            
+            var html = `<div class='card col'>
+                            <img src='../../../../static/img/items/${picture}' class='card-img-top' alt='Item Image'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>${name}</h5>
+                                <p class='card-text'>${description}</p>
+                                <p class='card-text'>${price}$</p>
+                                <button class='btn btn-primary' data-item-id='$itemid' onclick='edit_item_show(this)'>
+                                    <i class='fa-solid fa-pencil'></i>
+                                </button>
+                                <button class='btn btn-danger' data-item-id='$itemid' onclick='delete_item(this)'>
+                                    <i class='fa-solid fa-trash-xmark'></i>
+                                </button>
+                            </div>
+                        </div>`
+        }
+
+        function add_item() {
+            var name = document.getElementById("name_add").value;
+            var price = document.getElementById("price_add").value;
+            var picture = document.getElementById("picture_add");
+            var description = document.getElementById("description_add").value;
+
+            const file = picture.files[0];
+            const formData = new FormData();
+            formData.append('picture', file);
+            formData.append('name', name);
+            formData.append('price', price);
+            formData.append('description', description);
+
+
+            fetch(
+                "../../../php/add-item.php",
+                {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        name: name,
-                        price: price,
-                        picture: picture,
-                        description: description
-                    })
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    alert(result.message);
-                    location.reload();
-                } else {
-                    alert('Failed to add item: ' + result.message);
+                    body: formData
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while adding the item');
-            }
-        });
-    </script>
-    <script>
-        document.getElementById('confirmDeleteButton').addEventListener('click', async function() {
-            const itemId = this.getAttribute('data-item-id');
+            )
+            .then((response) => response.json())
+            .then((response) => {
+                if(response['success'] == true){
+                    var html = `<p>Item added <span class="text-success">Successfully!</span></p>`;
+                    const successModal = document.getElementById("successModal");
+                    const body = successModal.getElementsByClassName("modal-body")[0].innerHTML = html;
+                    $("#addModal").modal('hide');
+                    $("#successModal").modal('show');
+                }
+            })
+            .then((response) => {
 
-            try {
-                const response = await fetch('../../../php/delete_item.php', {
+            })
+        }
+
+        function edit_item_show(button) {
+
+            const itemId = button.dataset.itemId;
+            const parentDiv = button.parentNode.parentNode; // This will give you the parent div element
+
+            var name = parentDiv.getElementsByClassName("card-title")[0].innerText;
+            var description = parentDiv.getElementsByClassName("card-text")[0].innerText;
+            var price = parentDiv.getElementsByClassName("card-text")[1].innerText;
+
+            var itemid = document.getElementById("itemidInput").value = itemId;
+            var nameInput = document.getElementById("name_edit").value = name;
+            var priceInput = document.getElementById("price_edit").value = price;
+            var descriptionInput = document.getElementById("description_edit").value = description;
+
+            $("#editModal").modal('show');
+        }
+
+        function edit_item() {
+
+            var itemId = document.getElementById("itemidInput").value;
+            var nameInput = document.getElementById("name_edit").value;
+            var priceInput = document.getElementById("price_edit").value.split("$")[0];
+            var descriptionInput = document.getElementById("description_edit").value;
+
+            const formData = new FormData();
+            formData.append('id', itemId);
+            formData.append('name', nameInput);
+            formData.append('price', priceInput);
+            formData.append('description', descriptionInput);
+
+            fetch(
+                "../../../php/edit-item.php",
+                {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        itemid: itemid
-                    })
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    alert(result.message);
-                    location.reload();
-                } else {
-                    alert('Failed to delete item: ' + result.message);
+                    body: formData
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while deleting the item');
-            }
-        });
-    </script>
-    <script>
-        // function showEditModal(itemId, itemName, itemPrice, itemDescription) {
-        //     document.getElementById('editItemId').value = itemId;
-        //     document.getElementById('editItemName').value = itemName;
-        //     document.getElementById('editItemPrice').value = itemPrice;
-        //     document.getElementById('editItemDescription').value = itemDescription;
-        //     const editModal = new bootstrap.Modal(document.getElementById('editModal'));
-        //     editModal.show();
-        // }
+            )
+            .then((response) => response.json())
+            .then((response) => {
+                if(response['success'] == true) {
+                    var html = `<p>Item edited <span class="text-success">Successfully!</span></p>`;
+                    const successModal = document.getElementById("successModal");
+                    const body = successModal.getElementsByClassName("modal-body")[0].innerHTML = html;
+                    $("#editModal").modal('hide');
+                    $("#successModal").modal('show');
+                }
+            })
+        }
 
-        document.getElementById('saveEditButton').addEventListener('click', async function() {
-            // const itemId = document.getElementById('editItemId').value;
-            const itemId = this.getAttribute('data-item-id');
-            const name = document.getElementById('editItemName').value;
-            const price = document.getElementById('editItemPrice').value;
-            const description = document.getElementById('editItemDescription').value;
+        function delete_item(button) {
 
-            try {
-                const response = await fetch('edit_item.php', {
+            const itemId = button.dataset.itemId;
+            const parentDiv = button.parentNode.parentNode;
+
+            var name = parentDiv.getElementsByClassName("card-title")[0].innerText;
+
+            document.getElementById("deleteModal").getElementsByClassName("itemidInput")[0].value = itemId;
+            document.getElementById("deleteModal").getElementsByClassName("itemName")[0].innerText = name;
+            $("#deleteModal").modal('show');
+
+        }
+        function confirm_delete_item() {
+
+            const itemId = document.getElementById("deleteModal").getElementsByClassName("itemidInput")[0].value
+            
+            const formData = new FormData();
+            formData.append('item_id', itemId);
+
+            fetch(
+                "../../../php/delete-item.php",
+                {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        id: itemId,
-                        name: name,
-                        price: price,
-                        description: description,
-                    })
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    alert(result.message);
-                    location.reload();
-                } else {
-                    alert('Failed to update item: ' + result.message);
+                    body: formData
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while updating the item');
-            }
-        });
+            )
+            .then((response) => response.json())
+            .then((response) => {
+                if(response['success'] == true){
+                    var html = `<p>Item removed <span class="text-success">Successfully!</span></p>`;
+                    const successModal = document.getElementById("successModal");
+                    const body = successModal.getElementsByClassName("modal-body")[0].innerHTML = html;
+                    $("#deleteModal").modal('hide');
+                    $("#successModal").modal('show');
+                }
+            })
+        }
     </script>
-    
 </body>
 
 </html>

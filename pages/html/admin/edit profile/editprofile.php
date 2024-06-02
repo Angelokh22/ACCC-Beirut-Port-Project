@@ -262,11 +262,15 @@
                         <label for="inputfn" class="form-label">FullName:</label>
                         <input type="text" class="form-control" id="inputfn" value="<?php echo $user_result['userName']; ?>">
                     </div>
-                    <div class="col-12 mt-5">
+                    <div class="col-12 mt-2">
                         <label for="inputEmail" class="form-label">Email:</label>
                         <input type="text" class="form-control" id="inputEmail" value="<?php echo $user_result['userEmail']; ?>">
                     </div>
-                    <div class="col-12 mt-5">
+                    <div class="col-12 mt-2">
+                        <label for="inputPhone" class="form-label">Phone Number:</label>
+                        <input type="text" class="form-control" id="inputPhone" value="<?php echo $user_result['userPhone']; ?>">
+                    </div>
+                    <div class="col-12 mt-2">
                         <div style="border: 1px solid lightgray; border-radius: 8px; padding: 5px 0;">
                                 <div class="mx-2">
                                     <label for="oldPass" class="form-label">Old Password:</label>
@@ -358,6 +362,7 @@
         function save_changes(){
             var fullname = document.getElementById("inputfn").value;
             var email = document.getElementById("inputEmail").value;
+            var phone = document.getElementById("inputPhone").value;
             var city = document.getElementById("inputCity").value;
             var town = document.getElementById("inputTown").value;
             var postalcode = document.getElementById("inputPostalCode").value;
@@ -374,6 +379,7 @@
                     body: new URLSearchParams({
                         fullname: fullname,
                         email: email,
+                        phone: phone,
                         city: city,
                         town: town,
                         postalCode: postalcode,

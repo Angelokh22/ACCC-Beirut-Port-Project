@@ -198,85 +198,87 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table id="example" class="table table-striped data-table" style="width: 100%">
-                                    <thead>
+                                <thead>
                                         <tr>
                                             <th>User ID</th>
-                                            <th>User Name</th>
-                                            <th>Service</th>
-                                            <th>Weight</th>
-                                            <th>Price</th>
-                                            <th>Depart Time</th>
-                                            <th>Arrival Time</th>
                                             <th>Tracking Number</th>
+                                            <th>Service</th>
+                                            <th>Rent Cargo</th>
+                                            <th>Category</th>
+                                            <th>Delivery type</th>
+                                            <th>Price</th>
+                                            <th>Weight</th>
+                                            <th>From</th>
+                                            <th>Destination</th>                                            
+                                            <th>Depart Time</th>
+                                            <th>Arrival Time</th>                                            
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <th>Angelo Khairallah</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6524$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>1Z34E5D6TRWK8721A3</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
-                                        <tr>
-                                            <th>2</th>
-                                            <th>Angelo Khairallah</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6524$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>9T547A8S9E123CD456</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
-                                        <tr>
-                                            <th>3</th>
-                                            <th>Angelo Khairallah</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6524$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>R67890123456X7Y8Z</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
-                                        <tr>
-                                            <th>4</th>
-                                            <th>Chris Badran</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6524$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>E1234567890123456</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
-                                        <tr>
-                                            <th>5</th>
-                                            <th>Angelo Khairallah</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6525$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>T9876543210987654</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
+                                <tbody>
+
+                                    <?php
+                                        $query = "SELECT * FROM Orders WHERE `From`  = 'Lebanon';";
+                                        $result = send_query($query, true, true, []);
+                                        if($result) {
+                                            foreach($result as $row){
+                                            $userid = $row['userID'];
+                                            $destination = $row['Destination'];
+                                            $from = $row['From'];
+                                            $service = $row['Service'];
+                                            $rent_Cargo = $row['Rent Cargo'];
+                                            $type = $row['Categorie'];
+                                            $deliveryType = $row['deliveryProvider'];
+                                            $weight = $row['weight'];
+                                            $price = $row['calculatedPrice'];
+                                            $orderID = $row['orderID'];
+                                            date_default_timezone_set('Asia/Beirut');
+                                            $ArrivalTime =  date('d/m/Y h-i-s a', $row['ArrivalTime']);
+                                            $DepartTime = date('d/m/Y h-i-s a', $row['DepartTime']);
+                                            $stopped = $row['Stopped'];
+                                                if ($stopped == "0") {
+                                                    $button = "<button class='btn bg-danger' onclick = 'stop_item(this)'>Stop</button>";
+                                                } else {
+                                                    $button = "<button class='btn bg-success' onclick = 'unstop_item(this)'>Unstop</button>";
+                                                }
+
+                                            echo "<tr>
+                                                    <th>$userid</th>
+                                                    <th>$orderID</th>
+                                                    <th>$service</th>
+                                                    <th>$rent_Cargo</th>
+                                                    <th>$type</th>
+                                                    <th>$deliveryType</th>
+                                                    <th>$price</th>
+                                                    <th>$weight</th>
+                                                    <th>$from</th>    
+                                                    <th>$destination</th>                                                                
+                                                    <th>$DepartTime</th>  
+                                                    <th>$ArrivalTime</th>
+                                                    <th>$button</th>                                                    
+
+                                                </tr>";
+                                            }
+                                        }
+
+                                    ?>
+
+                                </tbody>
+                                        
                                     <tfoot>
-                                        <tr>
+                                    <tr>
                                             <th>User ID</th>
-                                            <th>User Name</th>
-                                            <th>Service</th>
-                                            <th>Weight</th>
-                                            <th>Price</th>
-                                            <th>Depart Time</th>
-                                            <th>Arrival Time</th>
                                             <th>Tracking Number</th>
+                                            <th>Service</th>
+                                            <th>Rent Cargo</th>
+                                            <th>Category</th>
+                                            <th>Delivery type</th>
+                                            <th>Price</th>
+                                            <th>Weight</th>
+                                            <th>From</th>
+                                            <th>Destination</th>                                            
+                                            <th>Depart Time</th>
+                                            <th>Arrival Time</th>                                            
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -290,6 +292,24 @@
         </main>
     </section>
     <!-- Orders End -->
+
+    <!-- Success Modal Start -->
+    <section>
+
+        <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Success Modal End -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
@@ -307,20 +327,117 @@
     <script>
         const ctx = document.getElementById('LineChart');
 
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['january', 'february', 'march', 'april', 'may', 'june', 'jully', 'august', 'september', 'october', 'november','december'],
-                datasets: [{
-                    label: '# Exported Orders',
-                    data: [45, 236, 341, 117, 38, 264, 473, 188, 412, 31, 48, 327],
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.2
-                }]
+        fetch(
+            "../../../php/chart_export.php",
+            {
+                method: 'GET'
             }
-        });
+        )
+        .then(response => (response.json()))
+        .then(response => {
+            if(response['success'] == true){
+                var chartValue = response['value'];
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['january', 'february', 'march', 'april', 'may', 'june', 'jully', 'august', 'september', 'october', 'november','december'],
+                        datasets: [{
+                            label: '# Exported Orders',
+                            data: chartValue,
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.2
+                        }]
+                    }
+                });
+            }
+        })
     </script>
+
+<script>
+        function stop_item(button) {
+
+            const orderDIV = button.parentNode.parentNode;
+            let orderid = orderDIV.getElementsByTagName("th")[1].innerText;
+
+
+            fetch(
+                    "../../../php/stop_item.php", {
+                        method: "POST",
+                        body: new URLSearchParams({
+                            orderID: orderid
+                        })
+                    }
+                )
+                .then(response => (response.json()))
+                .then(response => {
+                    if (response['success'] == true) {
+                        button.classList.remove("bg-danger")
+                        button.classList.add("bg-success")
+                        button.innerText = "Unstop"
+
+                        let message = response['message'];
+
+                        let popup = document.getElementById("popupModal")
+                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${message}</p>`
+                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
+                        button.onclick = function () { unstop_item(this); };
+                        $("#popupModal").modal('show')
+                    } else {
+                        let error = response['error'];
+
+                        let popup = document.getElementById("popupModal")
+                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${error}</p>`
+                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
+                        $("#popupModal").modal('show')
+                    }
+
+                })
+
+        }
+
+        function unstop_item(button) {
+
+            const orderDIV = button.parentNode.parentNode;
+            let orderid = orderDIV.getElementsByTagName("th")[1].innerText;
+
+
+            fetch(
+                    "../../../php/unstop_item.php", {
+                        method: "POST",
+                        body: new URLSearchParams({
+                            orderID: orderid
+                        })
+                    }
+                )
+                .then(response => (response.json()))
+                .then(response => {
+                    if (response['success'] == true) {
+                        button.classList.remove("bg-success")
+                        button.classList.add("bg-danger")
+                        button.innerText = "Stop"
+
+                        let message = response['message'];
+
+                        let popup = document.getElementById("popupModal")
+                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${message}</p>`
+                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
+                        button.onclick = function () { stop_item(this); };
+                        $("#popupModal").modal('show')
+                    } else {
+                        let error = response['error'];
+
+                        let popup = document.getElementById("popupModal")
+                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${error}</p>`
+                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
+                        $("#popupModal").modal('show')
+                    }
+
+                })
+
+        }
+    </script>
+
 
 
 </body>

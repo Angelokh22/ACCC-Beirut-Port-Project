@@ -1,13 +1,17 @@
+<?php include "../../../php/check_login.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
-        integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
@@ -22,29 +26,24 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                    aria-controls="offcanvasExample">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
                 <a class="navbar-brand theme-text" href="../../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                    aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="topNavBar">
                     <ul class="d-flex ms-auto navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png"
-                                    alt="PFP" id="pfp-logo">
+                            <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png" alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><span class="dropdown-item greatings" href="#">Hello, <span
-                                            id="name">Admin</span></span></li>
+                                <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">Admin</span></span></li>
                                 <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a></li>
                                 <li>
                                     <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
@@ -216,7 +215,7 @@
 
     <!-- Orders Start -->
     <section>
-        <main class="mt-5 pt-3">
+        <main>
             <div id="canvas">
                 <canvas id="LineChart" width="400" height="100"></canvas>
             </div>
@@ -236,82 +235,84 @@
                                     <thead>
                                         <tr>
                                             <th>User ID</th>
-                                            <th>User Name</th>
+                                            <th>Tracking Number</th>
                                             <th>Service</th>
-                                            <th>Weight</th>
+                                            <th>Rent Cargo</th>
+                                            <th>Category</th>
+                                            <th>Delivery type</th>
                                             <th>Price</th>
+                                            <th>Weight</th>
+                                            <th>From</th>
+                                            <th>Destination</th>
                                             <th>Depart Time</th>
                                             <th>Arrival Time</th>
-                                            <th>Tracking Number</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <th>Angelo Khairallah</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6524$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>1Z34E5D6TRWK8721A3</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
-                                        <tr>
-                                            <th>2</th>
-                                            <th>Angelo Khairallah</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6524$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>9T547A8S9E123CD456</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
-                                        <tr>
-                                            <th>3</th>
-                                            <th>Angelo Khairallah</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6524$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>R67890123456X7Y8Z</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
-                                        <tr>
-                                            <th>4</th>
-                                            <th>Chris Badran</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6524$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>E1234567890123456</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
-                                        <tr>
-                                            <th>5</th>
-                                            <th>Angelo Khairallah</th>
-                                            <th>Door to Door</th>
-                                            <th>1000Kg</th>
-                                            <th>6525$</th>
-                                            <th>14/04/2024</th>
-                                            <th>24/05/2024</th>
-                                            <th>T9876543210987654</th>
-                                            <th><button class="btn bg-danger">Stop</button></th>
-                                        </tr>
+
+                                        <?php
+                                        $query = "SELECT * FROM Orders WHERE Destination  = 'Lebanon';";
+                                        $result = send_query($query, true, true, []);
+                                        if ($result) {
+                                            foreach ($result as $row) {
+                                                $userid = $row['userID'];
+                                                $destination = $row['Destination'];
+                                                $from = $row['From'];
+                                                $service = $row['Service'];
+                                                $rent_Cargo = $row['Rent Cargo'];
+                                                $type = $row['Categorie'];
+                                                $deliveryType = $row['deliveryProvider'];
+                                                $weight = $row['weight'];
+                                                $price = $row['calculatedPrice'];
+                                                $orderID = $row['orderID'];
+                                                date_default_timezone_set('Asia/Beirut');
+                                                $ArrivalTime =  date('d/m/Y h-i-s a', $row['ArrivalTime']);
+                                                $DepartTime = date('d/m/Y h-i-s a', $row['DepartTime']);
+                                                $stopped = $row['Stopped'];
+                                                if ($stopped == "0") {
+                                                    $button = "<button class='btn bg-danger' onclick = 'stop_item(this)'>Stop</button>";
+                                                } else {
+                                                    $button = "<button class='btn bg-success' onclick = 'unstop_item(this)'>Unstop</button>";
+                                                }
+
+                                                echo "<tr>
+                                                    <th>$userid</th>
+                                                    <th>$orderID</th>
+                                                    <th>$service</th>
+                                                    <th>$rent_Cargo</th>
+                                                    <th>$type</th>
+                                                    <th>$deliveryType</th>
+                                                    <th>$price</th>
+                                                    <th>$weight</th>
+                                                    <th>$from</th>    
+                                                    <th>$destination</th>                                                                
+                                                    <th>$DepartTime</th>  
+                                                    <th>$ArrivalTime</th>
+                                                    <th>$button</th>                                                    
+
+                                                </tr>";
+                                            }
+                                        }
+
+                                        ?>
+
+                                    </tbody>
+
                                     <tfoot>
                                         <tr>
                                             <th>User ID</th>
-                                            <th>User Name</th>
+                                            <th>Tracking Number</th>
                                             <th>Service</th>
-                                            <th>Weight</th>
+                                            <th>Rent Cargo</th>
+                                            <th>Category</th>
+                                            <th>Delivery type</th>
                                             <th>Price</th>
+                                            <th>Weight</th>
+                                            <th>From</th>
+                                            <th>Destination</th>
                                             <th>Depart Time</th>
                                             <th>Arrival Time</th>
-                                            <th>Tracking Number</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -326,13 +327,27 @@
     </section>
     <!-- Orders End -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
-        integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Success Modal Start -->
+    <section>
+
+        <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Success Modal End -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js" integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"
-        integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
@@ -342,19 +357,117 @@
     <script>
         const ctx = document.getElementById('LineChart');
 
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['january', 'february', 'march', 'april', 'may', 'june', 'jully', 'august', 'september', 'october', 'november','december'],
-                datasets: [{
-                    label: '# Imported Orders',
-                    data: [45, 236, 341, 117, 38, 264, 473, 188, 412, 31, 48, 327],
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.2
-                }]
+        fetch(
+            "../../../php/chart_import.php",
+            {
+                method: 'GET'
             }
-        });
+        )
+        .then(response => (response.json()))
+        .then(response => {
+            if(response['success'] == true){
+                var chartValue = response['value'];
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['january', 'february', 'march', 'april', 'may', 'june', 'jully', 'august', 'september', 'october', 'november', 'december'],
+                        datasets: [{
+                            label: '# Imported Orders',
+                            data: chartValue,
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.2
+                        }]
+                    }
+                });
+            }
+        })
+
+    </script>
+
+    <script>
+
+        function stop_item(button) {
+
+            const orderDIV = button.parentNode.parentNode;
+            let orderid = orderDIV.getElementsByTagName("th")[1].innerText;
+
+
+            fetch(
+                    "../../../php/stop_item.php", {
+                        method: "POST",
+                        body: new URLSearchParams({
+                            orderID: orderid
+                        })
+                    }
+                )
+                .then(response => (response.json()))
+                .then(response => {
+                    if (response['success'] == true) {
+                        button.classList.remove("bg-danger")
+                        button.classList.add("bg-success")
+                        button.innerText = "Unstop"
+
+                        let message = response['message'];
+
+                        let popup = document.getElementById("popupModal")
+                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${message}</p>`
+                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
+                        button.onclick = function () { unstop_item(this); };
+                        $("#popupModal").modal('show')
+                    } else {
+                        let error = response['error'];
+
+                        let popup = document.getElementById("popupModal")
+                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${error}</p>`
+                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
+                        $("#popupModal").modal('show')
+                    }
+
+                })
+
+        }
+
+        function unstop_item(button) {
+
+            const orderDIV = button.parentNode.parentNode;
+            let orderid = orderDIV.getElementsByTagName("th")[1].innerText;
+
+
+            fetch(
+                    "../../../php/unstop_item.php", {
+                        method: "POST",
+                        body: new URLSearchParams({
+                            orderID: orderid
+                        })
+                    }
+                )
+                .then(response => (response.json()))
+                .then(response => {
+                    if (response['success'] == true) {
+                        button.classList.remove("bg-success")
+                        button.classList.add("bg-danger")
+                        button.innerText = "Stop"
+
+                        let message = response['message'];
+
+                        let popup = document.getElementById("popupModal")
+                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${message}</p>`
+                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
+                        button.onclick = function () { stop_item(this); };
+                        $("#popupModal").modal('show')
+                    } else {
+                        let error = response['error'];
+
+                        let popup = document.getElementById("popupModal")
+                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${error}</p>`
+                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
+                        $("#popupModal").modal('show')
+                    }
+
+                })
+
+        }
     </script>
 
 

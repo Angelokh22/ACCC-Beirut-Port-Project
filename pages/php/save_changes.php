@@ -13,10 +13,12 @@
         isset($_POST['postalCode']) && $_POST['postalCode'] != ""
         &&
         isset($_POST['adresse1']) && $_POST['city'] != ""
+        &&
+        isset($_POST['phone']) && $_POST['phone'] != ""
     )
     {
 
-        include ("tools.php");
+        include "check_login.php";
 
 
 
@@ -39,6 +41,7 @@
 
         $fullname = $_POST['fullname'];
         $email = $_POST['email'];
+        $phone = $_POST['phone'];
         $city = $_POST["city"];
         $town = $_POST["town"];
         $postalcode = $_POST["postalCode"];
@@ -60,7 +63,7 @@
             send_query("INSERT INTO Adresses (userID, city, town, adresse, adresse2, postalCode) VALUES ('$userid', '$city', '$town', '$adresse1', '$adresse2', '$postalcode')", false);
         }
 
-        send_query("UPDATE Users SET userName = '$fullname', userEmail = '$email' WHERE userID = '$userid'", false);
+        send_query("UPDATE Users SET userName = '$fullname', userEmail = '$email', userPhone = '$phone' WHERE userID = '$userid'", false);
         
         echo "OK";
 

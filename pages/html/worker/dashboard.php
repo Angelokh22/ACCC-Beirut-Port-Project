@@ -1,4 +1,4 @@
-<?php  include "../../php/check_login.php"; ?>
+<?php include "../../php/check_login.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,15 +6,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
-        integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
-        integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <link rel="stylesheet" href="../../../static/css/admin/panel.css">
     <link rel="stylesheet" href="../../../static/css/worker/email.css">
     <link rel="shortcut icon" href="../../../static/img/favicon.ico" type="image/x-icon">
@@ -28,35 +28,31 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                    aria-controls="offcanvasExample">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
 
                 <a class="navbar-brand theme-text" href="../../../index.php">
                     <img src="../../../../static/img/logo-only.png" alt="ACCC LOGO" id="brand-logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                    aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="topNavBar">
                     <ul class="d-flex ms-auto navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png"
-                                    alt="PFP" id="pfp-logo">
+                            <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png" alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
-                                <?php
-                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
-                                    $userid = $result['userID'];
-                                    $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
-                                    echo $username;
-                                ?>
-                                </span></span></li>
+                                            <?php
+                                            $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                            $userid = $result['userID'];
+                                            $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                            echo $username;
+                                            ?>
+                                        </span></span></li>
                                 <li><a class="dropdown-item" href="./edit profile/editprofile.php">Edit Profile</a></li>
                                 <li>
                                     <a class="dropdown-item" href="../../php/logout.php">Log Out</a>
@@ -190,7 +186,7 @@
                         <div class="card bg-primary text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3><?php echo send_query("SELECT count(*) FROM Ships WHERE shipStatus = 1;", true,false,[])[0]; ?></h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Ships WHERE shipStatus = 1;", true, false, [])[0]; ?></h3>
                                     <span>Arriving ships</span>
                                 </div>
                                 <div class="col icon">
@@ -203,7 +199,7 @@
                         <div class="card bg-warning text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3><?php echo send_query("SELECT count(*) FROM Ships WHERE shipStatus = 2;", true,false,[])[0]; ?></h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Ships WHERE shipStatus = 2;", true, false, [])[0]; ?></h3>
                                     <span>Leaving ships</span>
                                 </div>
                                 <div class="col icon">
@@ -216,13 +212,12 @@
                         <div class="card bg-success text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3><?php echo send_query("SELECT count(*) FROM Ships WHERE shipOnPort = 1;", true,false,[])[0]; ?></h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Ships WHERE shipOnPort = 1;", true, false, [])[0]; ?></h3>
                                     <span>On-Port ships</span>
                                 </div>
                                 <div class="col icon">
                                     <!-- <i class="fa-solid fa-cart-shopping"></i> -->
-                                    <img src="../../../static/img/lifter.webp" alt="" class="icon" width="55px"
-                                        height="55px" />
+                                    <img src="../../../static/img/lifter.webp" alt="" class="icon" width="55px" height="55px" />
                                 </div>
                             </div>
                         </div>
@@ -231,12 +226,11 @@
                         <div class="card bg-danger text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3><?php echo send_query("SELECT count(*) FROM OwnShips;", true,false,[])[0]; ?></h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM OwnShips;", true, false, [])[0]; ?></h3>
                                     <span>Total Owned ships</span>
                                 </div>
                                 <div class="col icon">
-                                    <img src="../../../static/img/ferry-boat.webp" alt="" class="icon" width="55px"
-                                        height="55px" />
+                                    <img src="../../../static/img/ferry-boat.webp" alt="" class="icon" width="55px" height="55px" />
                                 </div>
                             </div>
                         </div>
@@ -244,6 +238,13 @@
                 </div>
             </div>
             <!-- arriving time table -->
+
+            <div class="card-header">
+                <span>
+                <i class="fa-sharp fa-thin fa-ship"></i>
+                </span>
+                Arrival Ships 
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="example" class="table table-striped data-table" style="width: 100%">
@@ -257,10 +258,10 @@
                         <tbody>
                             <?php
 
-                                $query = "SELECT * FROM Ships WHERE shipStatus = 1;";
-                                $result = send_query($query, true, true, []);
-                                if($result) {
-                                    foreach($result as $row){
+                            $query = "SELECT * FROM Ships WHERE shipStatus = 1;";
+                            $result = send_query($query, true, true, []);
+                            if ($result) {
+                                foreach ($result as $row) {
                                     $name = $row['shipName'];
                                     $cargo = $row['shipCargo'];
                                     date_default_timezone_set('Asia/Beirut');
@@ -271,11 +272,11 @@
                                             <th>$cargo</th>
                                             <th>$time</th>
                                         </tr>";
-                                    }
                                 }
+                            }
 
                             ?>
-                          
+
                         <tfoot>
                             <tr>
                                 <th>Ship Name</th>
@@ -292,7 +293,12 @@
             <!-- departing time table -->
 
 
-
+            <div class="card-header">
+                <span>
+                <i class="fa-sharp fa-thin fa-ship"></i>
+                </span>
+                Depart Ships 
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="example" class="table table-striped data-table" style="width: 100%">
@@ -304,25 +310,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                                <?php 
-                                 $query = "SELECT * FROM Ships WHERE shipStatus = 2;";
-                                 $result = send_query($query, true, true, []);
-                                 if($result) {
-                                    foreach($result as $row){
-                                        $name = $row['shipName'];
-                                        $cargo = $row['shipCargo'];
-                                        date_default_timezone_set('Asia/Beirut');
-                                        $time =  date('d/m/Y h-i-s a', $row['shipArrival']);
-    
-                                        echo "<tr>
+                            <?php
+                            $query = "SELECT * FROM Ships WHERE shipStatus = 2;";
+                            $result = send_query($query, true, true, []);
+                            if ($result) {
+                                foreach ($result as $row) {
+                                    $name = $row['shipName'];
+                                    $cargo = $row['shipCargo'];
+                                    date_default_timezone_set('Asia/Beirut');
+                                    $time =  date('d/m/Y h-i-s a', $row['shipArrival']);
+
+                                    echo "<tr>
                                                 <th>$name</th>
                                                 <th>$cargo</th>
                                                 <th>$time</th>
                                             </tr>";
-                                        }
-                                 }
-                                
-                                ?>
+                                }
+                            }
+
+                            ?>
 
                         <tfoot>
                             <tr>
@@ -352,8 +358,7 @@
                         <div class="card card-inbox">
 
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade active show" id="inbox" aria-labelledby="inbox-tab"
-                                    role="tabpanel">
+                                <div class="tab-pane fade active show" id="inbox" aria-labelledby="inbox-tab" role="tabpanel">
                                     <div>
 
 
@@ -368,8 +373,7 @@
                                                         </td>
                                                         <td>
                                                             <a class="link" href="">
-                                                                <span
-                                                                    class="badge badge-pill text-white font-medium badge-danger mr-2">Admin</span>
+                                                                <span class="badge badge-pill text-white font-medium badge-danger mr-2">Admin</span>
                                                                 <span class="text-dark">Lorem ipsum perspiciatis-</span>
                                                             </a>
                                                         </td>
@@ -386,8 +390,7 @@
                                                         </td>
                                                         <td>
                                                             <a class="link" href="">
-                                                                <span
-                                                                    class="badge badge-pill text-white font-medium badge-info mr-2">Worker</span>
+                                                                <span class="badge badge-pill text-white font-medium badge-info mr-2">Worker</span>
                                                                 <span class="text-dark">Lorem ipsum perspiciatis-</span>
                                                             </a>
                                                         </td>
@@ -404,8 +407,7 @@
                                                         </td>
                                                         <td>
                                                             <a class="link" href="">
-                                                                <span
-                                                                    class="badge badge-pill text-white font-medium badge-success mr-2">Member</span>
+                                                                <span class="badge badge-pill text-white font-medium badge-success mr-2">Member</span>
                                                                 <span class="text-dark">Lorem ipsum perspiciatis-</span>
                                                             </a>
                                                         </td>
@@ -422,8 +424,7 @@
                                                         </td>
                                                         <td>
                                                             <a class="link" href="">
-                                                                <span
-                                                                    class="badge badge-pill text-white font-medium badge-warning mr-2">Unckown</span>
+                                                                <span class="badge badge-pill text-white font-medium badge-warning mr-2">Unckown</span>
                                                                 <span class="text-dark">Lorem ipsum perspiciatis-</span>
                                                             </a>
                                                         </td>
@@ -454,14 +455,10 @@
     </section>
     <!-- Dashboard End-->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
-        integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"
-        integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js" integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
