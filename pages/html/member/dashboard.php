@@ -354,47 +354,49 @@
                                         <tr>
                                             <th>Pictures</th>
                                             <th>ID</th>
+                                            <th>Item Name</th>
                                             <th>Price</th>
                                             <th>Added Date</th>
-                                            <th>Viewers</th>
                                             <th>Expiry Date</th>
                                             <th></th>
-                                        </tr>
+                                        </tr> 
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th><img src="" alt="picture"></th>
-                                            <th>952</th>
-                                            <th>300$</th>
-                                            <th>12/02/2024</th>
-                                            <th>42</th>
-                                            <th>12/02/2025</th>
-                                            <th>
-                                                <button class="show_btn btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th><img src="" alt="picture"></th>
-                                            <th>1000</th>
-                                            <th>500$</th>
-                                            <th>20/04/2024</th>
-                                            <th>42</th>
-                                            <th>20/04/2025</th>
-                                            <th>
-                                                <button class="show_btn btn">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-                                            </th>
-                                        </tr>
+
+                                    <?php
+                                        $query = "SELECT * FROM Items;";
+                                        $result = send_query($query, true, true, []);
+                                        if ($result) {
+                                            foreach ($result as $row) {
+                                                $image = $row["itemPicture"];
+                                                $itemid = $row['itemID'];
+                                                $itemName = $row['itemName'];
+                                                $price = $row['itemPrice'];
+                                                date_default_timezone_set('Asia/Beirut');
+                                                $ArrivalTime =  $row['itemAdded'];
+                                                $timestampAfteronemonth =strtotime('+1 month', $ArrivalTime);
+                                                $itemAdded =  date('d/m/Y h-i-s a', $row['itemAdded']);
+                                                $timestampA = date('d/m/Y h-i-s a',  $timestampAfteronemonth);
+                                                echo "<tr>
+                                                            <th><img src='../../../static/img/items/$image' alt='item picture' width='90px' height='70px'></th>
+                                                            <th>$itemid</th>
+                                                            <th>$itemName</th>
+                                                            <th>$price</th>
+                                                            <th>$itemAdded</th>
+                                                            <th>$timestampA</th>
+                                                            <th><button class='show_btn btn'><i class='fa-solid fa-eye'></i></button></th>
+                                                        </tr>";
+                                }
+                            }
+
+                            ?>
                                     <tfoot>
-                                        <tr>
+                                    <tr>
                                             <th>Pictures</th>
                                             <th>ID</th>
+                                            <th>Item Name</th>
                                             <th>Price</th>
                                             <th>Added Date</th>
-                                            <th>Viewers</th>
                                             <th>Expiry Date</th>
                                             <th></th>
                                         </tr>

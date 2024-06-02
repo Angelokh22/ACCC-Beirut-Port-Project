@@ -47,7 +47,10 @@ $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", 
 $userid = $result['userID'];
 
 $time = time();
-$query = "INSERT INTO Orders VALUES ($userid, '$randomString', '$serviceValue', '$rentCargoValue', '$category', '$deliveryValue', $time, $PriceValue, $weightValue, '$to', '$from')";
+$departTime = strtotime('+2 days', $time);
+$ArrivalTime = strtotime('+5 days', $time);
+
+$query = "INSERT INTO `Orders` VALUES ('$userid', '$randomString', '$serviceValue', '$rentCargoValue ', '$categoryValue', '$deliveryValue', '$time', '$PriceValue', '$weightValue', '$to', '$from', '$ArrivalTime', '$departTime', '0);";
 
 send_query($query, false, false, []);
 

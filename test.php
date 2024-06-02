@@ -24,7 +24,7 @@
 // echo send_query("SELECT count(*) FROM Orders WHERE COLUMN_NAME LIKE 'From%' ='Lebanon' AND TABLE_NAME = 'Orders';", true,false,[])[0];
  
 // $timestamp = 1717273223;
-// $timestampAfterThreeDays = strtotime('+3 days', $timestamp);
+// $timestampAfterThreeDays = strtotime('+30 days', $timestamp);
 // echo $timestampAfterThreeDays;
 
 // $year = date("m", time());
@@ -33,24 +33,35 @@
 
 
 include "check_login.php";
+date_default_timezone_set('Asia/Beirut');
+$timestamp = time();
+echo $timestamp;
 
-$chartData = array(); 
-$year = date("Y", time());
+// date_default_timezone_set('Asia/Beirut');
+// $itemAdded = 1717339295;
+// $timestampAfteronemonth =strtotime('+1 month', $itemAdded);
+// $itemAdded =  date('d/m/Y h-i-s a', 1717339295);
+// $timestampA = date('d/m/Y h-i-s a',  $timestampAfteronemonth);
+// $timestampA = date('d/m/Y h-i-s a',  $timestampAfteronemonth);
 
-for ($i = 1; $i <= 12; $i++) {
-    $query = "SELECT itemPrice FROM Items WHERE YEAR (itemAdded) = $year AND MONTH (itemAdded) = $i";
-    echo "Debug: SQL query: $query<br>"; 
-    $result = send_query($query, true, false, []);
+// echo $itemAdded .' '. $timestampA;
+// $chartData = array(); 
+// $year = date("Y", time());
 
-    $totalPrice = 0; 
-    if ($result && isset($result[0]['total_price'])) {
-        $totalPrice = $result[0]['total_price']; 
-    }
-    echo "Debug: Total price for month $i: $totalPrice<br>"; 
-    $chartData[] = $totalPrice; 
-}
+// for ($i = 1; $i <= 12; $i++) {
+//     $query = "SELECT itemPrice FROM Items WHERE YEAR (itemAdded) = $year AND MONTH (itemAdded) = $i";
+//     echo "Debug: SQL query: $query<br>"; 
+//     $result = send_query($query, true, false, []);
+
+//     $totalPrice = 0; 
+//     if ($result && isset($result[0]['total_price'])) {
+//         $totalPrice = $result[0]['total_price']; 
+//     }
+//     echo "Debug: Total price for month $i: $totalPrice<br>"; 
+//     $chartData[] = $totalPrice; 
+// }
 
 
-$chartDataJSON = json_encode($chartData);
-echo "Debug: Chart data JSON: $chartDataJSON<br>"; 
+// $chartDataJSON = json_encode($chartData);
+// echo "Debug: Chart data JSON: $chartDataJSON<br>"; 
 ?>
