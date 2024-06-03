@@ -45,7 +45,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <img src="https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png"
+                                <img src="https://icons.veryicon.com/png/o/miscellaneous/forestry-in-yiliang/person-fill.png"
                                     alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -275,7 +275,7 @@
                                             echo "
                                                 <tr id='user-$userid'>
                                                     <td>
-                                                        <img src='https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png' alt=''>
+                                                        <img src='https://icons.veryicon.com/png/o/miscellaneous/forestry-in-yiliang/person-fill.png' alt=''>
                                                         <a href='#' class='user-link'>$name</a>
                                                         <span class='user-subhead'>Admin</span>
                                                     </td>
@@ -416,7 +416,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success" onclick="add_admin()">
+                        <button class="btn btn-success" onclick="edit_admin()">
                             <i class="fa-sharp fa-light fa-circle-check"></i>
                         </button>
                         <button class="btn btn-danger" data-bs-dismiss="modal">
@@ -490,22 +490,53 @@
             var email = tableROW.getElementsByTagName("span")[2].innerText;
             var phone = tableROW.getElementsByTagName("td")[4].innerText;
 
-           (document.getElementsByName("fullnameinpedit")[0])//.value = name;
-           (document.getElementsByName("emailinpedit")[0])//.value = email;
-           (document.getElementsByName("passwrodinpedit")[0])//.value = "";
-           (document.getElementsByName("phoneinpedit")[0])//.value = phone;
+           document.getElementsByName("fullnameinpedit")[0].value = name;
+           document.getElementsByName("emailinpedit")[0].value = email;
+           document.getElementsByName("passwrodinpedit")[0].value = "";
+           document.getElementsByName("phoneinpedit")[0].value = phone;
             
             if(status == "Active"){
                 Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].classList.remove("btn-danger")
                 Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].classList.add("btn-success")
+                Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].innerText = "Active"
             }
             else{
                 Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].classList.remove("btn-success")
                 Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].classList.add("btn-danger")
+                Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].innerText = "Banned"
             }
 
-            Modal.modal('show');
+            $("#editModal").modal('show');
 
+
+        }
+
+
+
+        function edit_admin() {
+
+            var name = document.getElementsByName("fullnameinpedit")[0].value
+            var email = document.getElementsByName("emailinpedit")[0].value
+            var password = document.getElementsByName("passwrodinpedit")[0].value
+            var phone = document.getElementsByName("phoneinpedit")[0].value
+            var statisBtn = document.getElementsByName("statusedit")[0].innerText;
+            var status= 0
+
+
+            fetch(
+                "../../../php/manage_admin.php",
+                {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'action': 'edit',
+                        'name': name,
+                        'email': email,
+                        'phone': phone,
+                        'password': password,
+                        'status': status
+                    })
+                }
+            )
 
         }
 
@@ -589,7 +620,7 @@
 
                     var html = `<tr id="user-${userid}">
                                     <td>
-                                        <img src='https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png' alt=''>
+                                        <img src='https://icons.veryicon.com/png/o/miscellaneous/forestry-in-yiliang/person-fill.png' alt=''>
                                         <a href='#' class='user-link'>${name}</a>
                                         <span class='user-subhead'>Admin</span>
                                     </td>
