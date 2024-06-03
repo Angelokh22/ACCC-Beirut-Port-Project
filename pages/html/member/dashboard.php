@@ -1,4 +1,8 @@
-<?php include "../../php/check_login.php"; ?>
+<?php 
+include "../../php/check_login.php"; 
+$result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+$userid = $result['userID'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -192,7 +196,7 @@
                         <div class="card bg-primary text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3><?php echo send_query("SELECT count(*) FROM Orders WHERE Destination = 'Lebanon';", true, false, [])[0]; ?></h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Orders WHERE Destination = 'Lebanon' AND userID = '$userid';", true, false, [])[0]; ?></h3>
                                     <span>Importing</span>
                                 </div>
                                 <div class="col icon">
@@ -205,7 +209,7 @@
                         <div class="card bg-warning text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3><?php echo send_query("SELECT count(*) FROM Orders WHERE `From` = 'Lebanon';", true, false, [])[0]; ?></h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Orders WHERE `From` = 'Lebanon' AND userID = '$userid';", true, false, [])[0]; ?></h3>
                                     <span>Exporting</span>
                                 </div>
                                 <div class="col icon">
@@ -218,7 +222,7 @@
                         <div class="card bg-success text-white">
                             <div class="card-body row">
                                 <div class="info col-8">
-                                    <h3><?php echo send_query("SELECT count(*) FROM Items;", true, false, [])[0]; ?></h3>
+                                    <h3><?php echo send_query("SELECT count(*) FROM Items WHERE userID = '$userid';", true, false, [])[0]; ?></h3>
                                     <span>Market Items</span>
                                 </div>
                                 <div class="col icon">
@@ -233,8 +237,6 @@
                                 <div class="info col-8">
                                     <h3><?php 
                                     $income = 0;
-                                    $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
-                                    $userid = $result['userID'];
                                     $result1 = send_query("SELECT itemPrice From Items WHERE userID='$userid';");
                                     if ($result1) {
                                         
@@ -255,9 +257,11 @@
                 </div>
             </div>
 
+            <!-- Market Income Chart Start -->
             <div id="canvas">
                 <canvas id="LineChart" height="100"></canvas>
             </div>
+            <!-- Market Income Chart End -->
 
             <div class="row">
                 <div class="col-md-12 mb-3">
@@ -273,7 +277,6 @@
                                 <table id="example" class="table table-striped data-table" style="width: 100%">
                                     <thead>
                                         <tr>
-                                            <th>Pictures</th>
                                             <th>User ID</th>
                                             <th>Destination</th>
                                             <th>From</th>
@@ -291,7 +294,7 @@
                                     <tbody>
                                         <?php
 
-                                        $query = "SELECT * FROM Orders;";
+                                        $query = "SELECT * FROM Orders WHERE userID = '$userid';";
                                         $result = send_query($query, true, true, []);
                                         if ($result) {
                                             foreach ($result as $row) {
@@ -310,7 +313,6 @@
                                                 $DepartTime = date('d/m/Y h-i-s a', $row['DepartTime']);
 
                                                 echo "<tr>
-                                                        <th></th>
                                                         <th>$userid</th>
                                                         <th>$destination</th>
                                                         <th>$from</th>
@@ -425,21 +427,32 @@
     <script>
         const ctx = document.getElementById('LineChart');
 
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['january', 'february', 'march', 'april', 'may', 'june', 'jully', 'august', 'september', 'october', 'november', 'december'],
-                datasets: [{
-                    label: '# Market Income',
-                    data: [3891, 7402, 2056, 9123, 5548, 2371, 0, 0, 0, 0, 0, 0],
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.2,
-                    borderColor: 'red',
-                    backgroundColor: 'rgba(255, 0, 0, .5)',
-                }]
+        fetch(
+            "../../php/chart_market_income.php",
+            {
+                method: 'GET'
             }
-        });
+        )
+        .then(response => (response.json()))
+        .then(response => {
+            var value = response['value']
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['january', 'february', 'march', 'april', 'may', 'june', 'jully', 'august', 'september', 'october', 'november', 'december'],
+                    datasets: [{
+                        label: '# Market Income',
+                        data: value,
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.2,
+                        borderColor: 'red',
+                        backgroundColor: 'rgba(255, 0, 0, .5)',
+                    }]
+                }
+            });
+        })
+
     </script>
 
 </body>
