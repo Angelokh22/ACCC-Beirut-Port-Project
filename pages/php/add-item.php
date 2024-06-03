@@ -28,15 +28,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $jwt = $_SESSION['Authorisation'];
     $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
     $userid = $result['userID'];
+    $time = time();
 
     $picture = explode('/', $targetFile)[5];
-    $query = "INSERT INTO Items (userID, itemName, itemPrice, itemDescription, itemPicture) VALUES (:userid, :name, :price, :description, :picture);";
+    $query = "INSERT INTO Items (userID, itemName, itemPrice, itemDescription, itemPicture , itemAdded) VALUES (:userid, :name, :price, :description, :picture , :timeadded);";
     $params = [
         'userid' => $userid,
         'name' => $name,
         'price'=> $price,
         'description'=> $description,
-        'picture'=> $picture
+        'picture'=> $picture,
+        'timeadded'=> $time
     ];
     send_query($query, false, false, $params);
     echo json_encode(["success" => true, "message" => "Item added successfully.", "info" => ["itemid" => "", "name" => $name, "price" => $price,"description"=> $description, "picture"=> $picture]]);
