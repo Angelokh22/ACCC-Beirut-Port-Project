@@ -273,16 +273,10 @@
                                 <h4 class="widget-title mb-4">Learn More</h4>
                                 <ul class="list-unstyled">
                                     <li class="mb-2">
-                                        <a href="#!" class="link-secondary text-decoration-none">About</a>
+                                        <a href="./pages/html/en/aboutus.html" class="link-secondary text-decoration-none">About</a>
                                     </li>
                                     <li class="mb-2">
-                                        <a href="#!" class="link-secondary text-decoration-none">Contact</a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a href="#!" class="link-secondary text-decoration-none">Advertise</a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a href="#!" class="link-secondary text-decoration-none">Terms of Service</a>
+                                        <a href="./pages/html/en/contactus.html" class="link-secondary text-decoration-none">Contact</a>
                                     </li>
                                     <li class="mb-0">
                                         <a href="#!" class="link-secondary text-decoration-none">Privacy Policy</a>

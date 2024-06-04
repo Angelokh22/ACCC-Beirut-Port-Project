@@ -386,7 +386,7 @@ $userid = $result['userID'];
                                                             <th>$price</th>
                                                             <th>$itemAdded</th>
                                                             <th>$timestampA</th>
-                                                            <th><button class='show_btn btn'><i class='fa-solid fa-eye'></i></button></th>
+                                                            <th><a class='show_btn btn' href='./marketplace/item-page.php?id=$itemid'><i class='fa-solid fa-eye'></i></a></th>
                                                         </tr>";
                                 }
                             }

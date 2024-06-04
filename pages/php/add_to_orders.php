@@ -50,7 +50,7 @@ $time = time();
 $departTime = strtotime('+2 days', $time);
 $ArrivalTime = strtotime('+5 days', $time);
 
-$query = "INSERT INTO `Orders` VALUES ('$userid', '$randomString', '$serviceValue', '$rentCargoValue ', '$categoryValue', '$deliveryValue', '$time', '$PriceValue', '$weightValue', '$to', '$from', '$ArrivalTime', '$departTime', '0);";
+$query = "INSERT INTO `Orders` VALUES ('$userid', '$randomString', '$serviceValue', '$rentCargoValue ', '$categoryValue', '$deliveryValue', '$time', '$PriceValue', '$weightValue', '$to', '$from', '$ArrivalTime', '$departTime', '0');";
 
 send_query($query, false, false, []);
 

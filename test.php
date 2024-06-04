@@ -37,31 +37,66 @@
 // $timestamp = time();
 // echo $timestamp;
 
-date_default_timezone_set('Asia/Beirut');
-$itemAdded = 1717339295;
-$timestampAfteronemonth =strtotime('+1 month', $itemAdded);
-$itemAdded =  date('d/m/Y h-i-s a', 1717339295);
-$timestampA = date('d/m/Y h-i-s a',  $timestampAfteronemonth);
-$timestampA = date('d/m/Y h-i-s a',  $timestampAfteronemonth);
+// date_default_timezone_set('Asia/Beirut');
+// $itemAdded = 1717339295;
+// $timestampAfteronemonth =strtotime('+1 month', $itemAdded);
+// $itemAdded =  date('d/m/Y h-i-s a', 1717339295);
+// $timestampA = date('d/m/Y h-i-s a',  $timestampAfteronemonth);
+// $timestampA = date('d/m/Y h-i-s a',  $timestampAfteronemonth);
 
-echo $itemAdded .' '. $timestampA;
-$chartData = array(); 
-$year = date("Y", time());
+// echo $itemAdded .' '. $timestampA;
+// $chartData = array(); 
+// $year = date("Y", time());
 
-for ($i = 1; $i <= 12; $i++) {
-    $query = "SELECT itemPrice FROM Items WHERE YEAR (itemAdded) = $year AND MONTH (itemAdded) = $i";
-    echo "Debug: SQL query: $query<br>"; 
-    $result = send_query($query, true, false, []);
+// for ($i = 1; $i <= 12; $i++) {
+//     $query = "SELECT itemPrice FROM Items WHERE YEAR (itemAdded) = $year AND MONTH (itemAdded) = $i";
+//     echo "Debug: SQL query: $query<br>"; 
+//     $result = send_query($query, true, false, []);
 
-    $totalPrice = 0; 
-    if ($result && isset($result[0]['total_price'])) {
-        $totalPrice = $result[0]['total_price']; 
-    }
-    echo "Debug: Total price for month $i: $totalPrice<br>"; 
-    $chartData[] = $totalPrice; 
+//     $totalPrice = 0; 
+//     if ($result && isset($result[0]['total_price'])) {
+//         $totalPrice = $result[0]['total_price']; 
+//     }
+//     echo "Debug: Total price for month $i: $totalPrice<br>"; 
+//     $chartData[] = $totalPrice; 
+// }
+
+
+// $chartDataJSON = json_encode($chartData);
+// echo "Debug: Chart data JSON: $chartDataJSON<br>";
+
+
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './PHPMailer-master/src/Exception.php';
+require './PHPMailer-master/src/PHPMailer.php';
+require './PHPMailer-master/src/SMTP.php';
+
+try {
+    $mail = new PHPMailer(true);
+    $mail->isSMTP(); 
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;   
+    $mail->Username = 'emailsenderotp@gmail.com';
+    $mail->Password = 'kkon ibin gwvu jckp';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
+
+    $mail->setFrom('emailsenderotp@gmail.com', 'PHPMailer');
+    $mail->addAddress('angelokh22@gmail.com');
+    
+    $mail->isHTML(true); 
+    $mail->Subject = 'Test Subject';
+    $mail->Body = 'Test Body';
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
 
 
-$chartDataJSON = json_encode($chartData);
-echo "Debug: Chart data JSON: $chartDataJSON<br>"; 
+
 ?>

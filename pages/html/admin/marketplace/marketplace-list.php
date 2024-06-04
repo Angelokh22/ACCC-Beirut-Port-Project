@@ -481,7 +481,7 @@
             var name = document.getElementById("name_add").value;
             var price = document.getElementById("price_add").value;
             var picture = document.getElementById("picture_add");
-            var description = document.getElementById("description_add").value;
+            var description = document.getElementById("description_add").value.replaceAll("\n", "<br />\r\n");
 
             const file = picture.files[0];
             const formData = new FormData();

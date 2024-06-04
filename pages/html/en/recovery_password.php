@@ -17,9 +17,9 @@
 
     </div>
     <div class="wrapper">
-        <form class="login">
+        <section class="login">
             <p class="title">Reset your password</p>
-            <input type="text" placeholder="Email" value="agelokh22@gmail.com" disabled style="color: white;" />
+            <input type="text" placeholder="Email" value="<?php echo $_GET['id']?>" disabled style="color: white;" />
             <input type="password" placeholder="Password" id="id_password1" />
             <i class="fa-solid fa-key"></i>
             <i class="fa-regular fa-eye" id="togglePassword1" style="font-size: 2.5ex" onclick="update_password_eye('togglePassword1', 'id_password1')"></i>
@@ -27,10 +27,15 @@
             <i class="fa-solid fa-key"></i>
             <i class="fa-regular fa-eye" id="togglePassword2" style="font-size: 2.5ex" onclick="update_password_eye('togglePassword2', 'id_password2')"></i>
             <input type="submit" value="Set new password">
-        </form>
+        </section>
     </div>
 
     <script src="../../static/js/credentials.js"></script>
+    <script>
+
+        
+
+    </script>
 </body>
 
 

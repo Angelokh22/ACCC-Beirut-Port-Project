@@ -193,46 +193,62 @@
             </div>
             <div class="single-product">
                 <div class="row">
-                    <div class="col-2">
-                        <!-- <div class="MainImg"> -->
-                            <img src="../../../../static/img/laptop.webp" width="100%" id="ShowP" />
-                        <!-- </div> -->
-    
-                        <div class="small-img-row">
-                            <div class="small-img-col">
-                                <img src="../../../../static/img/laptop.webp" class="small-img" />
-                            </div>
-                            <div class="small-img-col">
-                                <img src="../../../../static/img/4dacd94a2a84af94b8741b2962286286.jpg" class="small-img" />
-                            </div>
-                            <div class="small-img-col">
-                                <img src="../../../../static/img/macbook-air-15-pulgadas-3069042.webp" class="small-img" />
-                            </div>
-                            <div class="small-img-col">
-                                <img src="../../../../static/img/photo-1491472253230-a044054ca35f.avif" class="small-img" />
-                            </div>
-                            <div class="small-img-col">
-                                <img src="../../../../static/img/photo-1580522154071-c6ca47a859ad.avif" class="small-img" />
-                            </div>
-                        </div>
+                    <?php
 
-                    </div>
-                    <div class="col-2">
-                        <h1>Lenovo Ideapad 3950</h1>
-                        <h4>1999.99$</h4>
-                        <button class="btn buy">Buy</button>
-                        <div class="specs">
-                            <h3>Product Information</h3>
-                            <p>Processor: Intel Core i9 13900X</p>
-                            <p>Graphics Card: NVIDIA GeForce RTX 4090TI</p>
-                            <p>RAM: 64GB 7800</p>
-                            <p>Storage: 1x 512 NVME + 1x 2TB HDD</p>
+                        $itemid = $_GET['id'];
+                        $query = "SELECT * FROM `Items` WHERE `itemID` = $itemid";
+                        $result = send_query($query, true, false);
+                        if($result) {
+                            $picture = $result["itemPicture"];
+                            $name = $result["itemName"];
+                            $description = $result["itemDescription"];
+                            $price = $result["itemPrice"];
+
+
+                            echo "
+                            <div class='col-2'>
+                            <img src='../../../../static/img/items/$picture' width='100%' height='80%' id='ShowP' />
                         </div>
-                    </div>
+                        <div class='col-2'>
+                            <h1>$name</h1>
+                            <h4>$price$</h4>
+                            <button class='btn buy' onclick = 'Delete($itemid)'>Buy</button>
+                            <div class='specs'>
+                                <h3>Product Information</h3>
+                                <p>$description</p>
+                            </div>
+                        </div>
+                            ";
+
+
+                        }
+
+                    ?>
+                
                 </div>
             </div>
 
         </main>
+
+
+    <!-- Success Modal Start -->
+
+    <section>
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="refresh()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal End -->
     </section>
 
     
@@ -260,6 +276,35 @@
     <script src="../../../../static/js/admin/script.js"></script>
 
 
+    <script>
+        function refresh() {
+            window.location.href = "./marketplace-list.php";
+        }
+    </script>
+    <script>
+        function Delete(itemid) {
+
+                const formData = new FormData();
+                formData.append('item_id', itemid);
+
+                fetch(
+                    "../../../php/delete-item.php",
+                    {
+                        method: 'POST',
+                        body: formData
+                    }
+                )
+                .then((response) => response.json())
+                .then((response) => {
+                    if(response['success'] == true){
+                        var html = `<p>Item <span class="text-success">Purchased!</span></p>`;
+                        const successModal = document.getElementById("successModal");
+                        const body = successModal.getElementsByClassName("modal-body")[0].innerHTML = html;
+                        $("#successModal").modal('show');
+                    }
+                })
+}
+    </script>   
 </body>
 
 </html>
