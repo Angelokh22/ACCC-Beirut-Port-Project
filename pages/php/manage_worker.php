@@ -17,6 +17,7 @@ if (
     &&
     isset($_POST['password']) && !empty($_POST['password'])
 ) {
+
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
@@ -27,7 +28,7 @@ if (
     $result = send_query($query, true, false, []);
     if (!$result) {
         $query = "INSERT INTO Users (userRole, userName, userEmail, userPassword, userPhone, userStatus, userCreated)
-            VALUES (1, '$name', '$email', '$password', '$phone', 1, $created)";
+            VALUES (2, '$name', '$email', '$password', '$phone', 1, $created)";
         send_query($query, false, false, []);
         
         $query = "SELECT userID FROM Users ORDER BY userID DESC LIMIT 1;";

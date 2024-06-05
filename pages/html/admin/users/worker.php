@@ -225,7 +225,7 @@
         <main class="mt-5 pt-3">
 
             <div class="btn btn-add">
-                <button>
+                <button data-bs-toggle="modal" data-bs-target="#addAdmin">
                     Add Worker <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
@@ -250,6 +250,7 @@
                                     <?php
                                             $result = send_query("SELECT * FROM Users WHERE userRole = '2'");
                                             foreach ($result as $row) {
+                                                $userid = $row['userID'];
                                                 $name = $row['userName'];
                                                 $email = $row['userEmail'];
                                                 $date = date('Y/m/d', $row['userCreated']);
@@ -267,7 +268,7 @@
                                                 }
 
                                                 echo "
-                                                <tr>
+                                                <tr id='user-$userid'>
                                                     <td>
                                                         <img src='https://static-00.iconduck.com/assets.00/person-fill-icon-481x512-40cd90q6.png' alt=''>
                                                         <a href='#' class='user-link'>$name</a>
@@ -282,10 +283,10 @@
                                                     </td>
                                                     <td>$phone</td>
                                                     <td style='width: 20%;'>
-                                                        <button class='btn btn-primary'>
+                                                        <button class='btn btn-primary' onclick='edit_modal_fill(this)'>
                                                             <i class='fa fa-pencil fa-stack-1x fa-inverse' style='position: relative'></i>
                                                         </button>
-                                                        <button class='btn btn-danger'>
+                                                        <button class='btn btn-danger' onclick='delete_worker(this)'>
                                                             <i class='fa fa-trash fa-stack-1x fa-inverse' style='position: relative'></i>
                                                         </button>
                                                     </td>
@@ -305,6 +306,144 @@
     </section>
     <!-- Orders End -->
 
+    <!-- Add Worker Modal Start -->
+    <section>
+
+        <div class="modal fade" id="addAdmin" tabindex="-1" aria-labelledby="addAdminLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="fullnameinp">Full Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="emailinp">Email:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="fullnameinp">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="emailinp">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="passwrodinp">Password:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phoneinp">Phone Number:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="passwrodinp">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="phoneinp">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" onclick="add_worker()">
+                            <i class="fa-sharp fa-light fa-circle-check"></i>
+                        </button>
+                        <button class="btn btn-danger" data-bs-dismiss="modal">
+                            <i class="fa-sharp fa-light fa-circle-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Add Worker Modal End -->
+
+
+    <!-- Edit Worker Modal Start -->
+    <section>
+
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <input type="text" id="user-id" hidden>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="fullnameinpedit">Full Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="emailinpedit">Email:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="fullnameinpedit">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="emailinpedit">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="passwrodinpedit">Password:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phoneinpedit">Phone Number:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="passwrodinpedit">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="phoneinpedit">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-2">
+                                <label for="statusedit">Status:</label>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <button class="btn btn-success" onclick="change_status(this)" name="statusedit"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" onclick="edit_worker()">
+                            <i class="fa-sharp fa-light fa-circle-check"></i>
+                        </button>
+                        <button class="btn btn-danger" data-bs-dismiss="modal">
+                            <i class="fa-sharp fa-light fa-circle-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Edit Worker Modal End -->
+
+
+    <!-- POPUP Modal Start -->
+    <section>
+
+        <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog"> <!-- modal-dialog-centered"> -->
+            <div class="modal-content">
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+            </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+    <!-- POPUP Modal End -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -316,6 +455,230 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
+
+    <script>
+
+        function change_status(button) {
+            const statusBTN = button.classList[1];
+            if(statusBTN == "btn-success") {
+                button.classList.remove("btn-success");
+                button.classList.add("btn-danger");
+                button.innerText = "Banned";
+            }
+            else {
+                button.classList.remove("btn-danger");
+                button.classList.add("btn-success");
+                button.innerText = "Active";
+            }
+        }
+
+
+
+        function edit_modal_fill(button) {
+
+            const tableROW = button.parentNode.parentNode;
+            let userid = tableROW.getAttribute("id");
+
+            const Modal = document.getElementById("editModal");
+
+            var name = tableROW.getElementsByTagName("a")[0].innerText;
+            var status = tableROW.getElementsByTagName("span")[1].innerText;
+            var email = tableROW.getElementsByTagName("span")[2].innerText;
+            var phone = tableROW.getElementsByTagName("td")[4].innerText;
+
+            document.getElementById("user-id").value = userid;
+            document.getElementsByName("fullnameinpedit")[0].value = name;
+            document.getElementsByName("emailinpedit")[0].value = email;
+            document.getElementsByName("passwrodinpedit")[0].value = "";
+            document.getElementsByName("phoneinpedit")[0].value = phone;
+            
+            if(status == "Active"){
+                Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].classList.remove("btn-danger")
+                Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].classList.add("btn-success")
+                Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].innerText = "Active"
+            }
+            else{
+                Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].classList.remove("btn-success")
+                Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].classList.add("btn-danger")
+                Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].innerText = "Banned"
+            }
+
+            $("#editModal").modal('show');
+
+
+        }
+
+
+
+        function edit_worker() {
+
+            var userid = document.getElementById("user-id").value;
+            var name = document.getElementsByName("fullnameinpedit")[0].value
+            var email = document.getElementsByName("emailinpedit")[0].value
+            var password = document.getElementsByName("passwrodinpedit")[0].value
+            var phone = document.getElementsByName("phoneinpedit")[0].value
+            var statusBtn = document.getElementsByName("statusedit")[0].innerText;
+
+            var status = 0;
+            if (statusBtn == "Active"){
+                status= 1;
+            }
+            else {
+                status = 0;
+            }
+
+
+            fetch(
+                "../../../php/manage_worker.php",
+                {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'action': 'edit',
+                        'id': userid.split("-")[1],
+                        'name': name,
+                        'email': email,
+                        'phone': phone,
+                        'password': password,
+                        'status': status
+                    })
+                }
+            )
+            .then(response => (response.json()))
+            .then(response => {
+                if(response['success'] != true) {
+                    document.getElementById("popupModal").getElementsByClassName("modal-body")[0].innerText = response['error'];
+                    document.getElementById("popupModal").getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
+                    $("#editModal").modal("hide");
+                    $("#popupModal").modal('show');
+                }
+                else {
+
+                    if (statusBtn == "Active"){
+                        document.getElementById(userid).getElementsByTagName("span")[1].innerText = "Active";
+                    }
+                    else {
+                        document.getElementById(userid).getElementsByTagName("span")[1].innerText = "Banned";
+                    }
+
+                    document.getElementById(userid).getElementsByTagName("a")[0].innerText = name;
+                    document.getElementById(userid).getElementsByTagName("span")[2].innerText = email;
+                    document.getElementById(userid).getElementsByTagName("td")[4].innerText = phone;
+
+                    document.getElementById("popupModal").getElementsByClassName("modal-body")[0].innerText = response['message'];
+                    document.getElementById("popupModal").getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
+                    $("#editModal").modal("hide");
+                    $("#popupModal").modal('show');
+                }
+            })
+
+        }
+
+
+
+        function delete_worker(button) {
+
+            const tableROW = button.parentNode.parentNode
+            var email = tableROW.getElementsByTagName("span")[2].innerText;
+            
+            const table = document.getElementsByClassName("user-list")[0]
+            const body = table.getElementsByTagName("tbody")[0]
+
+            fetch(
+                "../../../php/manage_worker.php",
+                {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'email': email,
+                        'action': 'remove'
+                    })
+                }
+            )
+            .then(response => (response.json()))
+            .then(response => {
+                if(response['success'] != true) {
+                    document.getElementById("popupModal").getElementsByClassName("modal-body")[0].innerText = response['error'];
+                    document.getElementById("popupModal").getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
+                    $("#popupModal").modal('show');
+                }
+                else {
+                    document.getElementById("popupModal").getElementsByClassName("modal-body")[0].innerText = response['message'];
+                    document.getElementById("popupModal").getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
+                    $("#popupModal").modal('show');
+                    const table = document.getElementsByClassName("user-list")[0];
+                    const body = table.getElementsByTagName("tbody")[0];
+                    body.removeChild(document.getElementById(tableROW.getAttribute("id")));
+                }
+            })
+
+        }
+
+
+
+        function add_worker() {
+            var name = document.getElementsByName('fullnameinp')[0].value;
+            var email = document.getElementsByName('emailinp')[0].value;
+            var password = document.getElementsByName('passwrodinp')[0].value;
+            var phone = document.getElementsByName('phoneinp')[0].value;
+
+            fetch(
+                "../../../php/manage_worker.php",
+                {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'name': name,
+                        'email': email,
+                        'password': password,
+                        'phone': phone,
+                        'action': 'add'
+                    })
+                }
+            )
+            .then(response => (response.json()))
+            .then(response => {
+                $("#addAdmin").modal('hide');
+                if(response['success'] != true) {
+                    document.getElementById("popupModal").getElementsByClassName("modal-body")[0].innerText = response['error'];
+                    document.getElementById("popupModal").getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
+                    $("#popupModal").modal('show');
+                }
+                else {
+                    document.getElementById("popupModal").getElementsByClassName("modal-body")[0].innerText = response['message']
+                    document.getElementById("popupModal").getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
+                    $("#popupModal").modal('show');
+                    const table = document.getElementsByClassName("user-list")[0]
+                    const body = table.getElementsByTagName("tbody")[0]
+
+                    var date = response['created'];
+                    var userid = response['id']
+
+                    var html = `<tr id="user-${userid}">
+                                    <td>
+                                        <img src='https://icons.veryicon.com/png/o/miscellaneous/forestry-in-yiliang/person-fill.png' alt=''>
+                                        <a href='#' class='user-link'>${name}</a>
+                                        <span class='user-subhead'>Admin</span>
+                                    </td>
+                                    <td>${date}</td>
+                                    <td class='text-center'>
+                                        <span class='label label-default'>Active</span>
+                                    </td>
+                                    <td>
+                                        <a href='#'><span class=''>${email}</span></a>
+                                    </td>
+                                    <td>${phone}</td>
+                                    <td style='width: 20%;'>
+                                        <button class='btn btn-primary' onclick='edit_modal_fill(this)'>
+                                            <i class='fa fa-pencil fa-stack-1x fa-inverse' style='position: relative'></i>
+                                        </button>
+                                        <button class='btn btn-danger' onclick='delete_worker(this)'>
+                                            <i class='fa fa-trash fa-stack-1x fa-inverse' style='position: relative'></i>
+                                        </button>
+                                    </td>
+                                </tr>`
+                    body.innerHTML += html;
+                }
+            })
+        }
+    </script>
 
 
 </body>

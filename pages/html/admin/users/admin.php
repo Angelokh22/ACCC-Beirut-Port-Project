@@ -374,6 +374,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">
+                        <input type="text" id="user-id" hidden>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="fullnameinpedit">Full Name:</label>
@@ -411,7 +412,7 @@
                                 <label for="statusedit">Status:</label>
                             </div>
                             <div class="col-md-6 mt-2">
-                                <button class="btn btn-success" onclick="change_status(this)" name="statusedit"Active</button>
+                                <button class="btn btn-success" onclick="change_status(this)" name="statusedit"></button>
                             </div>
                         </div>
                     </div>
@@ -435,7 +436,7 @@
     <section>
 
         <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog"> <!-- modal-dialog-centered"> -->
             <div class="modal-content">
             <div class="modal-body">
             </div>
@@ -490,10 +491,11 @@
             var email = tableROW.getElementsByTagName("span")[2].innerText;
             var phone = tableROW.getElementsByTagName("td")[4].innerText;
 
-           document.getElementsByName("fullnameinpedit")[0].value = name;
-           document.getElementsByName("emailinpedit")[0].value = email;
-           document.getElementsByName("passwrodinpedit")[0].value = "";
-           document.getElementsByName("phoneinpedit")[0].value = phone;
+            document.getElementById("user-id").value = userid;
+            document.getElementsByName("fullnameinpedit")[0].value = name;
+            document.getElementsByName("emailinpedit")[0].value = email;
+            document.getElementsByName("passwrodinpedit")[0].value = "";
+            document.getElementsByName("phoneinpedit")[0].value = phone;
             
             if(status == "Active"){
                 Modal.getElementsByClassName("modal-body")[0].getElementsByClassName("btn")[0].classList.remove("btn-danger")
@@ -515,12 +517,20 @@
 
         function edit_admin() {
 
+            var userid = document.getElementById("user-id").value;
             var name = document.getElementsByName("fullnameinpedit")[0].value
             var email = document.getElementsByName("emailinpedit")[0].value
             var password = document.getElementsByName("passwrodinpedit")[0].value
             var phone = document.getElementsByName("phoneinpedit")[0].value
-            var statisBtn = document.getElementsByName("statusedit")[0].innerText;
-            var status= 0
+            var statusBtn = document.getElementsByName("statusedit")[0].innerText;
+
+            var status = 0;
+            if (statusBtn == "Active"){
+                status= 1;
+            }
+            else {
+                status = 0;
+            }
 
 
             fetch(
@@ -529,6 +539,7 @@
                     method: 'POST',
                     body: new URLSearchParams({
                         'action': 'edit',
+                        'id': userid.split("-")[1],
                         'name': name,
                         'email': email,
                         'phone': phone,
@@ -537,6 +548,33 @@
                     })
                 }
             )
+            .then(response => (response.json()))
+            .then(response => {
+                if(response['success'] != true) {
+                    document.getElementById("popupModal").getElementsByClassName("modal-body")[0].innerText = response['error'];
+                    document.getElementById("popupModal").getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
+                    $("#editModal").modal("hide");
+                    $("#popupModal").modal('show');
+                }
+                else {
+
+                    if (statusBtn == "Active"){
+                        document.getElementById(userid).getElementsByTagName("span")[1].innerText = "Active";
+                    }
+                    else {
+                        document.getElementById(userid).getElementsByTagName("span")[1].innerText = "Banned";
+                    }
+
+                    document.getElementById(userid).getElementsByTagName("a")[0].innerText = name;
+                    document.getElementById(userid).getElementsByTagName("span")[2].innerText = email;
+                    document.getElementById(userid).getElementsByTagName("td")[4].innerText = phone;
+
+                    document.getElementById("popupModal").getElementsByClassName("modal-body")[0].innerText = response['message'];
+                    document.getElementById("popupModal").getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
+                    $("#editModal").modal("hide");
+                    $("#popupModal").modal('show');
+                }
+            })
 
         }
 
@@ -633,10 +671,10 @@
                                     </td>
                                     <td>${phone}</td>
                                     <td style='width: 20%;'>
-                                        <button class='btn btn-primary'>
+                                        <button class='btn btn-primary' onclick='edit_modal_fill(this)'>
                                             <i class='fa fa-pencil fa-stack-1x fa-inverse' style='position: relative'></i>
                                         </button>
-                                        <button class='btn btn-danger'>
+                                        <button class='btn btn-danger' onclick='delete_admin(this)'>
                                             <i class='fa fa-trash fa-stack-1x fa-inverse' style='position: relative'></i>
                                         </button>
                                     </td>

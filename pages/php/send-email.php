@@ -6,7 +6,8 @@ require '../../PHPMailer-master/src/Exception.php';
 require '../../PHPMailer-master/src/PHPMailer.php';
 require '../../PHPMailer-master/src/SMTP.php';
 
-if (isset($_POST["email"])){
+
+function send_mail($to, $subject, $body) {
     try {
         $mail = new PHPMailer(true);
         $mail->isSMTP(); 
@@ -18,11 +19,11 @@ if (isset($_POST["email"])){
         $mail->Port       = 587; // Port for TLS encryption
 
         $mail->setFrom('emailsenderotp@gmail.com', 'ACCC Beirut Port');
-        $mail->addAddress($_POST["email"]);
+        $mail->addAddress($to);
         
         $mail->isHTML(true); 
-        $mail->Subject = $_POST["subject"];
-        $mail->Body    = $_POST["message"];
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
         $mail->send();
         echo json_encode(['success' => true, 'message' => 'email sent']);
     } catch (Exception $e) {
