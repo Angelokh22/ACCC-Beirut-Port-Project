@@ -1,4 +1,4 @@
-<ul?php 
+<?php 
     include ("./pages/php/tools.php");
 ?>
 
@@ -52,7 +52,7 @@
                                 <a class="nav-link" href="./pages/html/en/contactus.html">Contact Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./index_ar.html">AR</a>
+                                <a class="nav-link" href="./index_ar.php">AR</a>
                             </li>
                             <li class="nav-item">
                                 <!-- <a class="nav-link" href="./pages/html/en/login.php">Sign IN

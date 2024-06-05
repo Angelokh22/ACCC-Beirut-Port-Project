@@ -1,3 +1,7 @@
+<?php 
+    include ("./pages/php/tools.php");
+?>
+
 <!doctype html>
 <html lang="ar">
 
@@ -12,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
@@ -56,11 +60,45 @@
                                 <a class="nav-link" href="./pages/html/ar/contactus.html">اتصل بنا</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./index.html">EN</a>
+                                <a class="nav-link" href="./index.php">EN</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./pages/html/ar/login.html">تسجيل الدخول <i
-                                        class="fa-solid fa-sign-in"></i></a>
+                                <!-- <a class="nav-link" href="./pages/html/ar/login.html">تسجيل الدخول <i
+                                        class="fa-solid fa-sign-in"></i></a> -->
+                                        <?php 
+                                    session_start();
+
+                                    $jwt = $_SESSION['Authorisation'];
+
+                                    if($jwt) {
+                                        $result = send_query("SELECT userID FROM Sessions WHERE sessionToken = '$jwt'", true, false);
+                                        if($result) {
+                                            $userid = $result['userID'];
+                                            $result = send_query("SELECT userRole FROM Users WHERE userID = '$userid'", true, false);
+                                            if($result) {
+                                                $userrole = $result["userRole"];
+                                                $result = send_query("SELECT roleName FROM Roles WHERE roleID = '$userrole'", true, false);
+                                                $page = $result["roleName"];
+                                                echo "<a class='nav-link' href='./pages/html/$page/dashboard.php'>لوحة التحكم</a>";
+                                            }
+                                            else {
+                                                echo '<a class="nav-link" href="./pages/html/ar/login.php">تسجيل الدخول 
+                                                <i class="fa-solid fa-sign-in"></i>
+                                            </a>';
+                                            }
+                                        }
+                                        else {
+                                            echo '<a class="nav-link" href="./pages/html/ar/login.php">تسجيل الدخول 
+                                            <i class="fa-solid fa-sign-in"></i>
+                                        </a>';
+                                        }
+                                    }
+                                    else {
+                                        echo '<a class="nav-link" href="./pages/html/ar/login.php">تسجيل الدخول 
+                                        <i class="fa-solid fa-sign-in"></i>
+                                    </a>';
+                                    }
+                                ?>
                             </li>
                         </ul>
                     </div>

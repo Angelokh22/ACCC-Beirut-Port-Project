@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 
 <head>
     <meta charset="UTF-8">
@@ -10,29 +10,27 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../../static/css/credentials.css">
     <link rel="stylesheet" href="../../../static/css/login.css">
-    <link rel="shortcut icon" href="../../../static/img/favicon.ico" type="image/x-icon">
-    <title>ACCC Beirut Port</title>
+    <title>مرفأ بيروت لشركة ACCC</title>
 </head>
 
 <body>
 
-    
     <div class="wrapper">
         <form class="login" method="post" action="../../php/login.php">
-            <p class="title">Sign IN</p>
+            <p class="title">تسجيل الدخول</p>
             <p class="email_alert"><?php if(isset($_GET['email_msg'])) {echo $_GET['email_msg'];} ?></p>
-            <input type="text" placeholder="Email" name="email" autofocus />
+            <input type="text" placeholder="البريد الإلكتروني" name="email" autofocus />
             <i class="fa-solid fa-envelope"></i>
             <p class="password_alert"><?php if(isset($_GET['password_msg'])) {echo $_GET['password_msg'];} ?></p>
-            <input type="password" placeholder="Password" name="pass" id="id_password" />
+            <input type="password" placeholder="كلمة المرور" name="pass" id="id_password" />
             <i class="fa-solid fa-key"></i>
             <i class="fa-regular fa-eye" id="togglePassword" style="font-size: 2.5ex" onclick="update_password_eye('togglePassword', 'id_password')"></i>
             <input type="text" name="lang" value="en" hidden>
-            <a href="./forgot-password.html" style="float: left;">Forgot your password?</a>
-            <p style="float: right;">Don't have an account <a href="./register.php">Register</a>.</p>
-            <input type="submit" value="login" />
+            <a href="./forgot-password.html" style="float: left;">هل نسيت كلمة المرور؟</a>
+            <p style="float: right;">ليس لديك حساب؟ <a href="./register.php">سجل الآن</a>.</p>
+            <input type="submit" value="تسجيل الدخول" />
         </form>
-        <a href="../../../index.php" style="margin-top: 2.5ex; font-size: 3ex; color: var(--main-color);"><i
+        <a href="../../../index_ar.php" style="margin-top: 2.5ex; font-size: 3ex; color: var(--main-color);"><i
                 class="fa-solid fa-arrow-left"></i> Home</a>
     </div>
 
