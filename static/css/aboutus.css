@@ -90,3 +90,7 @@ h2{
     letter-spacing: 4px;
     color:var(--main-color);
 }
+
+#privacy-modal{
+    color: black;
+}

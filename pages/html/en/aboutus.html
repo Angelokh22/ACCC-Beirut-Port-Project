@@ -9,6 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -200,7 +205,7 @@
                                         <a href="./contactus.html" class="link-secondary text-decoration-none">Contact</a>
                                     </li>
                                     <li class="mb-0">
-                                        <a href="#!" class="link-secondary text-decoration-none">Privacy Policy</a>
+                                        <a data-bs-toggle="modal" data-bs-target="#privacy-modal" class="link-secondary text-decoration-none">Privacy Policy</a>
                                     </li>
                                 </ul>
                             </div>
@@ -278,9 +283,86 @@
         <!-- Footer 2 - Bootstrap Brain Component -->
     </section>
 
+    <!-- Privacy Policy Modal Start -->
+    <section>
+
+        <div class="modal fade" id="privacy-modal" tabindex="-1" aria-labelledby="privacy-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Privacy Policy</h5>
+              </div>
+            <div class="modal-body">
+                <p><b>Introduction:</b> This privacy policy outlines how ACCC Beirut Port collects, uses, shares, and protects personal information. We are committed to maintaining the trust and confidence of our visitors and users.<hr>
+        
+        <b>What Information We Collect:</b> We collect personal information, including but not limited to:<br>
+        <ul>
+            <li>Contact information (name, email, phone number)</li>
+            <li>Location information (IP address, geolocation)</li>
+            <li>Device information (browser type, operating system)</li>
+            <li>Usage information (pages visited, search queries)</li>
+        </ul>
+        <hr>
+        
+        <b>How We Collect Information:</b> We collect information through:<br>
+        <ul>
+            <li>Direct input from users (e.g., contact forms, surveys)</li>
+            <li>Cookies and other tracking technologies</li>
+            <li>Third-party services (e.g., analytics providers)</li>
+        </ul><hr>
+        <b>Why We Collect Information:</b> We collect information to:
+        <ul>
+            <li>Provide and improve our services</li>
+            <li>Enhance user experience</li>
+            <li>Communicate with users</li>
+            <li>Comply with legal requirements</li>
+        </ul><hr>
+        
+        
+        <b>How We Share Information:</b> We share information with:
+        <ul>
+            <li>Third-party service providers (e.g., analytics providers, payment processors)</li>
+            <li>Law enforcement agencies (as required by law)</li>
+            <li>Other parties (with user consent)</li>
+        </ul><hr>
+        
+        
+        <b>User Rights:</b> Users have the right to:
+        <ul>
+            <li>Request access to their personal information</li>
+            <li>Request correction or deletion of their personal information</li>
+            <li>Object to processing of their personal information</li>
+            <li>Request restriction of processing of their personal information</li>
+            <li>Request data portability</li>
+        </ul><hr>
+        
+        <b>Security:</b> We take reasonable measures to protect personal information from unauthorized access, disclosure, or destruction. <br><hr>
+        
+        <b>Changes to This Policy:</b> We reserve the right to modify this privacy policy at any time. Changes will be posted on this page.<br><hr>
+        
+        <b>Contact Us:</b> If you have any questions or concerns about this privacy policy, please contact us at [contact email or address].<br><hr>
+        
+        By using our website, you consent to the collection, use, and sharing of your personal information as described in this privacy policy.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>
+            </div>
+            </div>
+        </div>
+        </div>
+        
+        </section>
+        <!-- Privacy Policy Modal End -->  
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>
+        <script>
+            function showPPmodal(){
+                $("#privacy-modal").modal();
+            }
+        
+        </script> 
 </body>
 
 </html>

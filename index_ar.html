@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./static/css/index.css">
     <link rel="stylesheet" href="./static/css/main-colors.css">
@@ -242,19 +247,13 @@
                                 <h4 class="widget-title mb-4">تعلم أكثر</h4>
                                 <ul class="list-unstyled">
                                     <li class="mb-2">
-                                        <a href="#!" class="link-secondary text-decoration-none">حول</a>
+                                        <a href="./pages/html/ar/aboutus.html" class="link-secondary text-decoration-none">حول</a>
                                     </li>
                                     <li class="mb-2">
-                                        <a href="#!" class="link-secondary text-decoration-none">اتصل</a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a href="#!" class="link-secondary text-decoration-none">اعلن</a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a href="#!" class="link-secondary text-decoration-none">شروط الخدمة</a>
+                                        <a href="./pages/html/ar/contactus.html" class="link-secondary text-decoration-none">اتصل</a>
                                     </li>
                                     <li class="mb-0">
-                                        <a href="#!" class="link-secondary text-decoration-none">سياسة الخصوصية</a>
+                                        <a data-bs-toggle="modal" data-bs-target="#privacy-modal" class="link-secondary text-decoration-none">سياسة الخصوصية</a>
                                     </li>
                                 </ul>
                             </div>
@@ -331,6 +330,74 @@
         </footer>
         <!-- Footer 2 - Bootstrap Brain Component -->
     </section>
+     <!-- Privacy Policy Modal Start -->
+     <section>
+
+        <div class="modal fade" id="privacy-modal" tabindex="-1" aria-labelledby="privacy-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">سياسة الخصوصية</h5>
+              </div>
+              <div class="modal-body">
+                <p><b>مقدمة:</b> تحدد سياسة الخصوصية هذه كيفية جمع واستخدام ومشاركة وحماية المعلومات الشخصية في ACCC مرفأ بيروت. نحن ملتزمون بالحفاظ على الثقة والاحترام لزوارنا ومستخدمينا.<hr>
+                
+                <b>ما هي المعلومات التي نجمعها:</b> نجمع المعلومات الشخصية، بما في ذلك على سبيل المثال لا الحصر:<br>
+                <ul>
+                    <li>معلومات الاتصال (الاسم، البريد الإلكتروني، رقم الهاتف)</li>
+                    <li>معلومات الموقع (عنوان IP، الموقع الجغرافي)</li>
+                    <li>معلومات الجهاز (نوع المتصفح، نظام التشغيل)</li>
+                    <li>معلومات الاستخدام (الصفحات التي تمت زيارتها، استعلامات البحث)</li>
+                </ul>
+                <hr>
+                
+                <b>كيفية جمع المعلومات:</b> نجمع المعلومات من خلال:<br>
+                <ul>
+                    <li>إدخال مباشر من المستخدمين (مثل نماذج الاتصال، الاستبيانات)</li>
+                    <li>الكوكيز والتقنيات الأخرى للتتبع</li>
+                    <li>الخدمات المقدمة من الأطراف الثالثة (مثل مزودي التحليلات)</li>
+                </ul>
+                <hr>
+                <b>لماذا نجمع المعلومات:</b> نجمع المعلومات من أجل:
+                <ul>
+                    <li>تقديم وتحسين خدماتنا</li>
+                    <li>تحسين تجربة المستخدم</li>
+                    <li>التواصل مع المستخدمين</li>
+                    <li>الامتثال للمتطلبات القانونية</li>
+                </ul>
+                <hr>
+                
+                <b>كيفية مشاركة المعلومات:</b> نشارك المعلومات مع:
+                <ul>
+                    <li>مقدمي الخدمات من الأطراف الثالثة (مثل مزودي التحليلات، معالجي الدفع)</li>
+                    <li>وكالات إنفاذ القانون (كما هو مطلوب بموجب القانون)</li>
+                    <li>أطراف أخرى (بموافقة المستخدم)</li>
+                </ul>
+                <hr>
+                
+                <b>حقوق المستخدمين:</b> للمستخدمين الحق في:
+                <ul>
+                    <li>طلب الوصول إلى معلوماتهم الشخصية</li>
+                    <li>طلب تصحيح أو حذف معلوماتهم الشخصية</li>
+                    <li>الاعتراض على معالجة معلوماتهم الشخصية</li>
+                    <li>طلب تقييد معالجة معلوماتهم الشخصية</li>
+                    <li>طلب نقل البيانات</li>
+                </ul>
+                <hr>
+                
+                <b>الأمان:</b> نتخذ تدابير معقولة لحماية المعلومات الشخصية من الوصول غير المصرح به أو الكشف أو التدمير. <br><hr>
+                
+                <b>التغييرات على هذه السياسة:</b> نحتفظ بالحق في تعديل سياسة الخصوصية هذه في أي وقت. سيتم نشر التغييرات على هذه الصفحة.<br><hr>
+                
+                <b>اتصل بنا:</b> إذا كانت لديك أي أسئلة أو مخاوف بشأن سياسة الخصوصية هذه، يرجى الاتصال بنا على [بريد الاتصال الإلكتروني أو العنوان].<br><hr>
+                
+                باستخدام موقعنا الإلكتروني، فإنك توافق على جمع واستخدام ومشاركة معلوماتك الشخصية كما هو موضح في سياسة الخصوصية هذه.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>
+            </div>
+             <!-- Privacy Policy Modal End -->  
+
 </body>
 
 </html>
@@ -340,6 +407,12 @@
     integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
     crossorigin="anonymous"></script>
 <script src="./static/js/home_translate.js"></script>
+<script>
+    function showPPmodal(){
+        $("#privacy-modal").modal();
+    }
+
+</script>  
 
 
 </body>

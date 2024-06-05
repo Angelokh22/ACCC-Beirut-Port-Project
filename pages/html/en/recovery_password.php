@@ -1,3 +1,23 @@
+<?php 
+
+    include "../../php/tools.php";
+
+    if(isset($_GET['token']) && !empty($_GET['token'])) {
+        $jwt = $_GET['token'];
+
+        $result = send_query("SELECT * FROM `UserReset` WHERE resetToken = '$jwt'", true, false, []);
+        if(!$result) {
+            header("location: /");
+        }
+
+        $userid = read_jwt($jwt)['user'];
+
+        $email = send_query("SELECT `userEmail` FROM `Users` WHERE userID = '$userid'", true, false, [])['userEmail'];
+    }
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +39,7 @@
     <div class="wrapper">
         <section class="login">
             <p class="title">Reset your password</p>
-            <input type="text" placeholder="Email" value="<?php echo $_GET['id']?>" disabled style="color: white;" />
+            <input type="text" placeholder="Email" value="<?php echo $email ?>" disabled style="color: white;" />
             <input type="password" placeholder="Password" id="id_password1" />
             <i class="fa-solid fa-key"></i>
             <i class="fa-regular fa-eye" id="togglePassword1" style="font-size: 2.5ex" onclick="update_password_eye('togglePassword1', 'id_password1')"></i>
@@ -33,7 +53,12 @@
     <script src="../../static/js/credentials.js"></script>
     <script>
 
-        
+        var password = document.getElementById("togglePassword1").value;
+        var confirmPassword = document.getElementById("togglePassword2").value;
+
+        fetch(
+            ""
+        )
 
     </script>
 </body>
