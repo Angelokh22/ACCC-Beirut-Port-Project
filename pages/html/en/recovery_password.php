@@ -24,7 +24,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
@@ -45,7 +45,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
             <input type="password" placeholder="Password" id="id_password1" />
             <i class="fa-solid fa-key"></i>
             <i class="fa-regular fa-eye" id="togglePassword1" style="font-size: 2.5ex" onclick="update_password_eye('togglePassword1', 'id_password1')"></i>
-            <input type="password" placeholder="Password" id="id_password2" />
+            <input type="password" placeholder="Confirm Password" id="id_password2" />
             <i class="fa-solid fa-key"></i>
             <i class="fa-regular fa-eye" id="togglePassword2" style="font-size: 2.5ex" onclick="update_password_eye('togglePassword2', 'id_password2')"></i>
             <input type="submit" value="Set new password" onclick="change_password()">
@@ -55,7 +55,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
     <!-- POPUP Modal Start -->
     <section>
 
-        <div class="modal fade" id="popupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal fade" id="popupModal" data-backdrop="false" data-keyboard="false" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -73,8 +73,6 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
 
 
     <script>

@@ -40,6 +40,30 @@
 
     }
     else if (
+        isset($_POST["action"]) && $_POST['action'] == 'otp'
+        &&
+        isset($_POST['code']) && !empty($_POST['code'])
+        &&
+        isset($_POST['id']) && !empty($_POST['id'])
+    )
+    {
+
+        $id = $_POST['id'];
+        $otp = $_POST['code'];
+
+        $query = "SELECT `resetToken` FROM `UserReset` WHERE resetID = '$id' AND resetOTP = '$otp'";
+        $result = send_query($query, true, false, []);
+        if(!$result) {
+            echo json_encode(["success" => false, "error" => "Incorrect Code"]);
+            exit;
+        }
+
+        $jwt = $result['resetToken'];
+        echo json_encode(["success" => true, "redirect" => "./recovery_password?token=$jwt"]);
+        exit;
+
+    }
+    else if (
         isset($_POST["action"]) && $_POST['action'] == 'edit'
         &&
         isset($_POST['password']) && !empty($_POST['password'])
@@ -77,8 +101,8 @@
         SET userPassword = '$password' WHERE userID = '$userid'";
         send_query($query, false, false, []);
 
-        // $query = "DELETE FROM `UserReset` WHERE `resetToken` = '$jwt'";
-        // send_query($query, false);
+        $query = "DELETE FROM `UserReset` WHERE `resetToken` = '$jwt'";
+        send_query($query, false);
 
         echo json_encode(['success' => true, 'message' => "Password Reseted Successfully!"]);
 
