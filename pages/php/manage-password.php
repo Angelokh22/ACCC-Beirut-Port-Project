@@ -18,7 +18,7 @@
 
         $query = "SELECT `userID` FROM `Users` WHERE `userEmail` = :email";
         $result = send_query($query, true, false, ["email" => $email]);
-        // print_r($result['userID']);
+        
         if($result) {
             $userid = $result['userID'];
             $jwt = create_jwt(json_encode(['user' => $userid, 'time' => time()]));
@@ -59,7 +59,7 @@
         }
 
         $jwt = $result['resetToken'];
-        echo json_encode(["success" => true, "redirect" => "./recovery_password?token=$jwt"]);
+        echo json_encode(["success" => true, "redirect" => "./recovery_password.php?token=$jwt"]);
         exit;
 
     }

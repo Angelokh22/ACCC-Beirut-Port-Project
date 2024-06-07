@@ -11,6 +11,9 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     }
     $id = $_GET['id'];
 }
+else {
+    header("location: /");
+}
 ?>
 
 
@@ -22,7 +25,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <link rel="stylesheet" href="../../../static/css/credentials.css">
     <title>ACCC Beirut Port</title>
@@ -72,14 +79,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <!-- POPUP Modal Start -->
     <section>
 
-        <div class="modal fade" id="popupModal" data-backdrop="false" data-keyboard="false" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>
                     </div>
                 </div>
             </div>
@@ -95,19 +102,19 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <script>
         function send_otp() {
             var id = document.getElementById("id").value;
-            var code1 = document.getElementsByTagName("input")[0].value;
-            var code2 = document.getElementsByTagName("input")[1].value;
-            var code3 = document.getElementsByTagName("input")[2].value;
-            var code4 = document.getElementsByTagName("input")[3].value;
-            var code5 = document.getElementsByTagName("input")[4].value;
-            var code6 = document.getElementsByTagName("input")[5].value;
+            var code1 = document.getElementsByTagName("input")[1].value;
+            var code2 = document.getElementsByTagName("input")[2].value;
+            var code3 = document.getElementsByTagName("input")[3].value;
+            var code4 = document.getElementsByTagName("input")[4].value;
+            var code5 = document.getElementsByTagName("input")[5].value;
+            var code6 = document.getElementsByTagName("input")[6].value;
 
             var full_code = code1 + code2 + code3 + code4 + code5 + code6;
 
             fetch(
                     "../../php/manage-password.php", {
                         method: 'POST',
-                        body: new UrLsearchParams({
+                        body: new URLSearchParams({
                             "action": "otp",
                             "code": full_code,
                             "id": id
