@@ -788,9 +788,7 @@
                     $("#successModal").modal('show');
                 }
             })
-            
         });
-
 
     </script>
     </script>

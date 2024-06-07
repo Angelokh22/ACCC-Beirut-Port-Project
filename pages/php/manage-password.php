@@ -29,13 +29,42 @@
             $url = $_POST['root'];
             $url .= "/pages/html/en/recovery_password.php?token=".$jwt;
 
-            send_mail($email,"Password Recovery Email", $url);    
+            send_mail($email,"Password Recovery Email", $url);
 
+            echo json_encode(["success" => true, "message" => "Email Sent Successfully!"]);
+            exit;
         }
-        else {
-            echo "No results";
+    
+        echo json_encode(["success" => false, "error" => "Account does not exist!"]);
+
+
+
+    }
+    else if (
+        isset($_POST["action"]) && $_POST['action'] == 'sms'
+        &&
+        isset($_POST['to']) && !empty($_POST['to'])
+    )
+    {
+
+        $email = $_POST['to'];
+        $query = "SELECT `userID` FROM `Users` WHERE `userEmail` = '$email'";
+        $result = send_query($query, true, false, []);
+
+        if($result) {
+
+            $otp_code = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6)), 0, 6);
+
+            $userid = $result['userID'];
+            $jwt = create_jwt(json_encode(['user' => $userid, 'time' => time()]));
+            $query = "INSERT INTO `UserReset` VALUES (NULL, :token, :code)";
+            send_query($query, false, false, ['token' => $jwt, 'code' => $otp_code]);
+
+            echo json_encode(['success' => true, 'message' => 'SMS Sent!']);
+            exit;
         }
 
+        echo json_encode(["success" => false, "error" => "Account does not exist!"]);
 
 
     }
