@@ -109,20 +109,48 @@
     <section class="counter">
         <div class="counter-container">
             <div class="counter-item">
-                <h2 class="num" data-val="15"></h2>
+                <h2 id="num" data-val="15">1</h2>
                 <p>Ships Today</p>
             </div>
+            <script>
+                    let count = 1;
+                    if (localStorage.getItem('counterValue')) {
+                        count = parseInt(localStorage.getItem('counterValue'), 10);
+                    }
+
+                    const counterElement = document.getElementById('num');
+                    function updateCounter() {
+                        count+=0;
+                        counterElement.textContent = formatNumber(count);
+                        localStorage.setItem('counterValue', count);
+                    }
+
+                    function formatNumber(num) {
+                        if (num >= 1e9) {
+                            return (num / 1e9).toFixed(1) + 'B'; // Billion
+                        } else if (num >= 1e6) {
+                            return (num / 1e6).toFixed(1) + 'M'; // Million
+                        } else if (num >= 1e3) {
+                            return (num / 1e3).toFixed(1) + 'K'; // Thousand
+                        } else {
+                            return num; // Less than thousand
+                        }
+                    }
+                    setInterval(updateCounter, 1000);
+                    counterElement.textContent = formatNumber(count);
+            </script>
+
             <div class="counter-item">
                 <h2 class="num" data-val="1223"></h2>
                 <p>Ships Served</p>
             </div>
             <div class="counter-item">
-                <h2 class="num" data-val="5654"></h2>
+                <h2 class="num">45</h2>
                 <p>Trusted Members</p>
             </div>
-            <div class="counter-item">
-                <h2 class="num" data-val="10054"></h2>
-                <p>Total Income</p>
+            <div class="counter-item1">
+                <h2 class="num" data-val="0" style="color: #E6B30E;"></h2>
+                <p style="color: #E6B30E;">Total Income</p>
             </div>
         </div>
     </section>
@@ -444,7 +472,7 @@ By using our website, you consent to the collection, use, and sharing of your pe
     <script src="./static/js/home_translate.js"></script>
 
     <script>
-        const elements = document.querySelectorAll('.num');
+        /*const elements = document.querySelectorAll('.num');
 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
@@ -497,7 +525,8 @@ By using our website, you consent to the collection, use, and sharing of your pe
 
         elements.forEach((element) => {
             observer.observe(element);
-        });
+        });*/
+
     </script>
 
     <script>
