@@ -3,6 +3,7 @@
     // include "check_login.php";
     include "tools.php";
     include "send-email.php";
+    include "send-sms.php";
 
 
     if(
@@ -48,7 +49,7 @@
     {
 
         $email = $_POST['to'];
-        $query = "SELECT `userID` FROM `Users` WHERE `userEmail` = '$email'";
+        $query = "SELECT `userID`, `userPhone` FROM `Users` WHERE `userEmail` = '$email'";
         $result = send_query($query, true, false, []);
 
         if($result) {
@@ -56,11 +57,24 @@
             $otp_code = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6)), 0, 6);
 
             $userid = $result['userID'];
+            $phone = $result['userPhone'];
             $jwt = create_jwt(json_encode(['user' => $userid, 'time' => time()]));
             $query = "INSERT INTO `UserReset` VALUES (NULL, :token, :code)";
             send_query($query, false, false, ['token' => $jwt, 'code' => $otp_code]);
 
-            echo json_encode(['success' => true, 'message' => 'SMS Sent!']);
+            $modified_phone = str_replace("-", "", $phone);
+            if (substr($modified_phone, 0, 1) == "0") {
+                $modified_phone = substr($modified_phone, 1);
+            }
+            $final_phone = "+961" . $modified_phone;
+
+            // echo ($final_phone);
+            send_sms($otp_code, $final_phone);
+
+            $query = "SELECT `resetID` FROM  `UserReset` WHERE `resetToken` = :jwt";
+            $resetid = send_query($query, true, false, ["jwt" => $jwt])['resetID'];
+
+            echo json_encode(['success' => true, 'message' => 'SMS Sent!', 'id' => $resetid]);
             exit;
         }
 

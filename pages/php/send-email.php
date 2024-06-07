@@ -25,10 +25,10 @@ function send_mail($to, $subject, $body) {
         $mail->Subject = $subject;
         $mail->Body    = $body;
         $mail->send();
-        echo json_encode(['success' => true, 'message' => 'email sent']);
+        // echo json_encode(['success' => true, 'message' => 'email sent']);
     } catch (Exception $e) {
         // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        echo json_encode(['success' => false, 'error' => $mail->ErrorInfo]);
+        // echo json_encode(['success' => false, 'error' => $mail->ErrorInfo]);
     }
 }
 ?>
