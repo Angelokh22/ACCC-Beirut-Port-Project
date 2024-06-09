@@ -218,7 +218,7 @@
                                 <span class="me-2">
                                 <i class="fa-regular fa-paper-plane"></i>
                                 </span>
-                                <span>Send News Letters</span>
+                                <span>Send News Letter</span>
                             </a>
                         </li>
                     </ul>
