@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+main {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.bd {
+    width: fit-content;
+    margin: 0 auto 50px;
+}
+
+.bd > h2{
+    margin-top: 70px;
+    text-decoration: underline;
+    text-underline-offset: 7px;
+}
+
+.text_area {
+
+    margin-top: 45px;
+
+    textarea {
+        width: 95%;
+        display: block;
+        margin: 0 auto;
+        resize: none;
+        border: 3px solid rgb(58, 58, 58);
+        border-radius: 10px;
+        font-size: 20px;
+        color: black;
+    }
+}
+#text_area{
+    overflow: hidden;
+    overflow-y: auto;
+}

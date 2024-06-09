@@ -14,8 +14,8 @@ $pattern = "/^[A-Z0-9]{12}$/";
 
 // Check if the tracking number matches the pattern
 if (preg_match($pattern, $orderid)) {
-    $query1 = "SELECT * FROM Tracking WHERE orderID = '$orderid'";
-    $query2 = "SELECT * FROM Orders WHERE orderID = '$orderid'";
+    $query1 = "SELECT * FROM `Tracking` WHERE `orderID` = '$orderid'";
+    $query2 = "SELECT * FROM `Orders` WHERE `orderID` = '$orderid'";
 
     $result1 = send_query($query1, true, false);
     $result2 = send_query($query2, true, false);
@@ -63,10 +63,10 @@ if (preg_match($pattern, $orderid)) {
         ));
     }
     else {
-        echo "NO";
+        echo "NO1";
     }
 } else {
-    echo "NO";
+    echo "NO2";
 }
 
 

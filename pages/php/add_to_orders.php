@@ -9,7 +9,10 @@ $rentCargoValue = $_POST['rentCargoValue'];
 $customcategorieValue = $_POST['customcategorieValue'];
 $categoryValue = $_POST['categoryValue'];
 $PriceValue = $_POST['finalPrice'];
+$latitude = $_POST['latitude'];
+$longitude = $_POST['longitude'];
 
+$location = $latitude.",".$longitude;
 
 $from = "";
 $to = "";
@@ -51,7 +54,10 @@ $departTime = strtotime('+2 days', $time);
 $ArrivalTime = strtotime('+5 days', $time);
 
 $query = "INSERT INTO `Orders` VALUES ('$userid', '$randomString', '$serviceValue', '$rentCargoValue ', '$categoryValue', '$deliveryValue', '$time', '$PriceValue', '$weightValue', '$to', '$from', '$ArrivalTime', '$departTime', '0');";
+send_query($query, false, false, []);
 
+$status = rand(0, 5);
+$query = "INSERT INTO `Tracking` VALUES ('$randomString', '$departTime', '$ArrivalTime', '$location', '$status')";
 send_query($query, false, false, []);
 
 echo "Order placed successfully!";

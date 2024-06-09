@@ -1,3 +1,4 @@
+
 <?php include "../../../php/check_login.php"; ?>
 
 <!DOCTYPE html>
@@ -9,15 +10,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
         integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css" />
     <link rel="stylesheet" href="../../../../static/css/admin/panel.css">
     <link rel="stylesheet" href="../../../../static/css/admin/export-order.css">
+    <link rel="stylesheet" href="../../../../static/css/admin/newsletter.css">
     <title>ACCC Beirut Port Prject</title>
 </head>
 
@@ -49,9 +51,16 @@
                                     alt="PFP" id="pfp-logo">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><span class="dropdown-item greatings" href="#">Hello, <span
-                                            id="name">Admin</span></span></li>
-                                <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a></li>
+                                <li><span class="dropdown-item greatings" href="#">Hello, <span id="name">
+                                            <?php
+                                            $result = send_query("SELECT userID from Sessions WHERE sessionToken = '$jwt'", true, false);
+                                            $userid = $result['userID'];
+                                            $username = send_query("SELECT userName from Users WHERE userID = '$userid'", true, false)['userName'];
+                                            echo $username;
+                                            ?>
+                                        </span></span></li>
+                                <li><a class="dropdown-item" href="../edit profile/editprofile.php">Edit Profile</a>
+                                </li>
                                 <li>
                                     <a class="dropdown-item" href="../../../php/logout.php">Log Out</a>
                                 </li>
@@ -103,20 +112,18 @@
                                     </span>
                                 </span>
                             </a>
-                            <div class="collapse show" id="orders">
+                            <div class="collapse" id="orders">
                                 <ul class="navbar-nav ps-3">
                                     <li>
-                                        <a href="import-order.php" class="nav-link px-3">
+                                        <a href="../orders/import-order.php" class="nav-link px-3">
                                             <span class="me-2">
-                                                <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-arrow-left fa-xs"></i>
                                                 <i class="fa-solid fa-box"></i>
                                             </span>
                                             <span>Imported Orders</span>
                                         </a>
-                                        <a href="export-order.php" class="nav-link px-3 active">
+                                        <a href="../orders/export-order.php" class="nav-link px-3">
                                             <span class="me-2">
-                                                <!-- <i class="bi bi-card-list"></i> -->
                                                 <i class="fa-solid fa-box"></i>
                                                 <i class="fa-solid fa-arrow-right fa-xs"></i>
                                             </span>
@@ -221,7 +228,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="../newsletter/newsletter.php" class="nav-link px-3">
+                            <a href="newsletter.php" class="nav-link px-3 active">
                                 <span class="me-2">
                                 <i class="fa-regular fa-paper-plane"></i>
                                 </span>
@@ -236,138 +243,47 @@
     </section>
     <!-- SideBar End -->
 
-    <!-- Orders Start -->
+    <!-- Send Query Start -->
     <section>
         <main>
-            <div id="canvas">
-                <canvas id="LineChart" width="400" height="100"></canvas>
+
+            <div class="bd">
+                <h2 class="tc">Send News Letters</h2>
             </div>
+            <!-- <div class="query_input">
+                <input type="text" name="query" placeholder="SELECT * FROM table_name;" id="inq">
+                <button onclick="send_sql()" id="toogle_modal">
+                    <i class="bi bi-send"></i>
+                </button>
+            </div> -->
 
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <span>
-                                <i class="bi bi-table me-2"></i>
-                            </span>
-                            Exported orders in progress
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example" class="table table-striped data-table" style="width: 100%">
-                                <thead>
-                                        <tr>
-                                            <th>User ID</th>
-                                            <th>Tracking Number</th>
-                                            <th>Service</th>
-                                            <th>Rent Cargo</th>
-                                            <th>Category</th>
-                                            <th>Delivery type</th>
-                                            <th>Price</th>
-                                            <th>Weight</th>
-                                            <th>From</th>
-                                            <th>Destination</th>
-                                            <th>Depart Time</th>
-                                            <th>Arrival Time</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <?php
-                                        $query = "SELECT * FROM Orders WHERE `From`  = 'Lebanon';";
-                                        $result = send_query($query, true, true, []);
-                                        if ($result) {
-                                            foreach ($result as $row) {
-                                                $userid = $row['userID'];
-                                                $destination = $row['Destination'];
-                                                $from = $row['From'];
-                                                $service = $row['Service'];
-                                                $rent_Cargo = $row['Rent Cargo'];
-                                                $type = $row['Categorie'];
-                                                $deliveryType = $row['deliveryProvider'];
-                                                $weight = $row['weight'];
-                                                $price = $row['calculatedPrice'];
-                                                $orderID = $row['orderID'];
-                                                date_default_timezone_set('Asia/Beirut');
-                                                $ArrivalTime =  date('d/m/Y h-i-s a', $row['ArrivalTime']);
-                                                $DepartTime = date('d/m/Y h-i-s a', $row['DepartTime']);
-                                                $stopped = $row['Stopped'];
-                                                if ($stopped == "0") {
-                                                    $button = "<button class='btn bg-danger' onclick = 'stop_item(this)'>Stop</button>";
-                                                } else {
-                                                    $button = "<button class='btn bg-success' onclick = 'unstop_item(this)'>Unstop</button>";
-                                                }
-
-                                                echo "<tr>
-                                                    <th>$userid</th>
-                                                    <th>$orderID</th>
-                                                    <th>$service</th>
-                                                    <th>$rent_Cargo</th>
-                                                    <th>$type</th>
-                                                    <th>$deliveryType</th>
-                                                    <th>$price</th>
-                                                    <th>$weight</th>
-                                                    <th>$from</th>    
-                                                    <th>$destination</th>                                                                
-                                                    <th>$DepartTime</th>  
-                                                    <th>$ArrivalTime</th>
-                                                    <th>$button</th>                                                    
-
-                                                </tr>";
-                                            }
-                                        }
-
-                                        ?>
-
-                                    </tbody>
-
-                                    <tfoot>
-                                        <tr>
-                                            <th>User ID</th>
-                                            <th>Tracking Number</th>
-                                            <th>Service</th>
-                                            <th>Rent Cargo</th>
-                                            <th>Category</th>
-                                            <th>Delivery type</th>
-                                            <th>Price</th>
-                                            <th>Weight</th>
-                                            <th>From</th>
-                                            <th>Destination</th>
-                                            <th>Depart Time</th>
-                                            <th>Arrival Time</th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="text_area">
+                <textarea name="letter_text" id="text_area" rows="15" placeholder="News Letter Body"></textarea>
+            </div>
+            <div class="d-flex justify-content-center mt-3 mb-3">
+                <button class="btn btn-primary" onclick="send_letter()">Send News Letter</button>
             </div>
 
         </main>
     </section>
-    <!-- Orders End -->
+    <!-- Send Query End -->
 
-    <!-- Success Modal Start -->
+    <!-- Send Email Modal Start -->
     <section>
 
-        <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal fade" id="sendEmail" tabindex="-1" aria-labelledby="sendEmailLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
                     </div>
                     <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button> -->
                     </div>
                 </div>
             </div>
         </div>
 
     </section>
-    <!-- Success Modal End -->
-
+    <!-- Send Email Modal End -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         integrity="sha512-pax4MlgXjHEPfCwcJLQhigY7+N8rt6bVvWLFyUMuxShv170X53TRzGPmPkZmGBhk+jikR8WBM4yl7A9WMHHqvg=="
@@ -380,121 +296,50 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script src="../../../../static/js/admin/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script>
-        const ctx = document.getElementById('LineChart');
 
-        fetch(
-            "../../../php/chart_export.php",
-            {
-                method: 'GET'
-            }
-        )
-        .then(response => (response.json()))
-        .then(response => {
-            if(response['success'] == true){
-                var chartValue = response['value'];
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['january', 'february', 'march', 'april', 'may', 'june', 'jully', 'august', 'september', 'october', 'november','december'],
-                        datasets: [{
-                            label: '# Exported Orders',
-                            data: chartValue,
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.2
-                        }]
-                    }
-                });
-            }
-        })
-    </script>
-
-
-<script>
-        function stop_item(button) {
-
-            const orderDIV = button.parentNode.parentNode;
-            let orderid = orderDIV.getElementsByTagName("th")[1].innerText;
-
+        function send_letter() {
+            var text_area = document.getElementById("text_area").value;
 
             fetch(
-                    "../../../php/stop_item.php", {
-                        method: "POST",
-                        body: new URLSearchParams({
-                            orderID: orderid
-                        })
-                    }
-                )
-                .then(response => (response.json()))
-                .then(response => {
-                    if (response['success'] == true) {
-                        button.classList.remove("bg-danger")
-                        button.classList.add("bg-success")
-                        button.innerText = "Unstop"
+                "../../../php/send_letter.php",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        body: text_area,
+                    })
+                }
+            )
+            .then((response) => response.json())
+            .then((response) => {
+                var sendemailModal = document.getElementById("sendEmail");
 
-                        let message = response['message'];
+                if(response['success']) {
+                    var body = `<p>${response['message']}</p>`;
+                    sendemailModal.getElementsByClassName("modal-body")[0].innerHTML = body;
 
-                        let popup = document.getElementById("popupModal")
-                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${message}</p>`
-                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
-                        button.onclick = function () { unstop_item(this); };
-                        $("#popupModal").modal('show')
-                    } else {
-                        let error = response['error'];
+                    var button = `<button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </button>`
+                    sendemailModal.getElementsByClassName("modal-footer")[0].innerHTML = button;
+                }
+                else {
+                    var body = `<p>${response['error']}</p>`;
+                    sendemailModal.getElementsByClassName("modal-body")[0].innerHTML = body;
 
-                        let popup = document.getElementById("popupModal")
-                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${error}</p>`
-                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
-                        $("#popupModal").modal('show')
-                    }
+                    var button = `<button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </button>`
+                    sendemailModal.getElementsByClassName("modal-footer")[0].innerHTML = button;
+                }
 
-                })
-
+                $("#sendEmail").modal('show');
+            })
         }
 
-        function unstop_item(button) {
-
-            const orderDIV = button.parentNode.parentNode;
-            let orderid = orderDIV.getElementsByTagName("th")[1].innerText;
-
-
-            fetch(
-                    "../../../php/unstop_item.php", {
-                        method: "POST",
-                        body: new URLSearchParams({
-                            orderID: orderid
-                        })
-                    }
-                )
-                .then(response => (response.json()))
-                .then(response => {
-                    if (response['success'] == true) {
-                        button.classList.remove("bg-success")
-                        button.classList.add("bg-danger")
-                        button.innerText = "Stop"
-
-                        let message = response['message'];
-
-                        let popup = document.getElementById("popupModal")
-                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${message}</p>`
-                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`;
-                        button.onclick = function () { stop_item(this); };
-                        $("#popupModal").modal('show')
-                    } else {
-                        let error = response['error'];
-
-                        let popup = document.getElementById("popupModal")
-                        popup.getElementsByClassName("modal-body")[0].innerHTML = `<p>${error}</p>`
-                        popup.getElementsByClassName("modal-footer")[0].innerHTML = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`;
-                        $("#popupModal").modal('show')
-                    }
-
-                })
-
-        }
     </script>
 
 

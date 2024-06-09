@@ -1,5 +1,5 @@
-<?php 
-    include ("./pages/php/tools.php");
+<?php
+include("./pages/php/tools.php");
 ?>
 
 <!doctype html>
@@ -8,8 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css">
@@ -29,9 +28,7 @@
                     <img src="./static/img/logo-only.png" alt="" style="width: 7ex;">
                     <a class="navbar-brand theme-text" href="#">
                         ACCC beirut Port</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -58,39 +55,36 @@
                                 <!-- <a class="nav-link" href="./pages/html/en/login.php">Sign IN
                                     <i class="fa-solid fa-sign-in"></i>
                                 </a> -->
-                                <?php 
-                                    session_start();
+                                <?php
+                                session_start();
 
-                                    $jwt = $_SESSION['Authorisation'];
+                                $jwt = $_SESSION['Authorisation'];
 
-                                    if($jwt) {
-                                        $result = send_query("SELECT userID FROM Sessions WHERE sessionToken = '$jwt'", true, false);
-                                        if($result) {
-                                            $userid = $result['userID'];
-                                            $result = send_query("SELECT userRole FROM Users WHERE userID = '$userid'", true, false);
-                                            if($result) {
-                                                $userrole = $result["userRole"];
-                                                $result = send_query("SELECT roleName FROM Roles WHERE roleID = '$userrole'", true, false);
-                                                $page = $result["roleName"];
-                                                echo "<a class='nav-link' href='./pages/html/$page/dashboard.php'>Dashboard</a>";
-                                            }
-                                            else {
-                                                echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN
+                                if ($jwt) {
+                                    $result = send_query("SELECT userID FROM Sessions WHERE sessionToken = '$jwt'", true, false);
+                                    if ($result) {
+                                        $userid = $result['userID'];
+                                        $result = send_query("SELECT userRole FROM Users WHERE userID = '$userid'", true, false);
+                                        if ($result) {
+                                            $userrole = $result["userRole"];
+                                            $result = send_query("SELECT roleName FROM Roles WHERE roleID = '$userrole'", true, false);
+                                            $page = $result["roleName"];
+                                            echo "<a class='nav-link' href='./pages/html/$page/dashboard.php'>Dashboard</a>";
+                                        } else {
+                                            echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN
                                                 <i class="fa-solid fa-sign-in"></i>
                                             </a>';
-                                            }
                                         }
-                                        else {
-                                            echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN
+                                    } else {
+                                        echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN
                                             <i class="fa-solid fa-sign-in"></i>
                                         </a>';
-                                        }
                                     }
-                                    else {
-                                        echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN
+                                } else {
+                                    echo '<a class="nav-link" href="./pages/html/en/login.php">Sign IN
                                         <i class="fa-solid fa-sign-in"></i>
                                     </a>';
-                                    }
+                                }
                                 ?>
                             </li>
                         </ul>
@@ -109,48 +103,47 @@
     <section class="counter">
         <div class="counter-container">
             <div class="counter-item">
-                <h2 id="num" data-val="15">1</h2>
+                <h2 class="num" data-val="<?php
+                                            $year = date("Y", time());
+                                            $month = date("m", time());
+                                            $day = date("d", time());
+
+                                            $query = "SELECT count(*) FROM Ships WHERE DAY(FROM_UNIXTIME(shipArrival)) = $day OR DAY(FROM_UNIXTIME(shipDepartment)) = $day AND MONTH(FROM_UNIXTIME(shipArrival)) = $month OR MONTH(FROM_UNIXTIME(shipDepartment)) = $month AND YEAR(FROM_UNIXTIME(shipArrival)) = $year OR YEAR(FROM_UNIXTIME(shipDepartment)) = $year";
+                                            echo send_query($query, true, false, [0])[0];
+                                            ?>"></h2>
                 <p>Ships Today</p>
             </div>
-            <script>
-                    let count = 1;
-                    if (localStorage.getItem('counterValue')) {
-                        count = parseInt(localStorage.getItem('counterValue'), 10);
-                    }
-
-                    const counterElement = document.getElementById('num');
-                    function updateCounter() {
-                        count+=0;
-                        counterElement.textContent = formatNumber(count);
-                        localStorage.setItem('counterValue', count);
-                    }
-
-                    function formatNumber(num) {
-                        if (num >= 1e9) {
-                            return (num / 1e9).toFixed(1) + 'B'; // Billion
-                        } else if (num >= 1e6) {
-                            return (num / 1e6).toFixed(1) + 'M'; // Million
-                        } else if (num >= 1e3) {
-                            return (num / 1e3).toFixed(1) + 'K'; // Thousand
-                        } else {
-                            return num; // Less than thousand
-                        }
-                    }
-                    setInterval(updateCounter, 1000);
-                    counterElement.textContent = formatNumber(count);
-            </script>
-
             <div class="counter-item">
-                <h2 class="num" data-val="1223"></h2>
+                <h2 class="num" data-val="<?php
+                                            $year = date("Y", time());
+                                            $month = date("m", time());
+                                            $day = date("d", time());
+
+                                            $query = "SELECT count(*) FROM Ships WHERE DAY(FROM_UNIXTIME(shipDepartment)) = $day AND MONTH(FROM_UNIXTIME(shipDepartment)) = $month AND YEAR(FROM_UNIXTIME(shipDepartment)) = $year";
+                                            echo send_query($query, true, false, [0])[0];
+                                            ?>"></h2>
                 <p>Ships Served</p>
             </div>
             <div class="counter-item">
-                <h2 class="num">45</h2>
+                <h2 class="num" data-val="<?php
+                                            $query = "SELECT count(*) FROM Users WHERE userRole = 3";
+                                            echo send_query($query, true, false, [])[0];
+                                            ?>"></h2>
                 <p>Trusted Members</p>
             </div>
-            <div class="counter-item1">
-                <h2 class="num" data-val="0" style="color: #E6B30E;"></h2>
-                <p style="color: #E6B30E;">Total Income</p>
+            <div class="counter-item">
+                <h2 class="num" data-val="<?php
+                                            $income = 0;
+                                            $result1 = send_query("SELECT itemPrice From Items;");
+                                            if ($result1) {
+
+                                                foreach ($result1 as $row) {
+                                                    $income += $row['itemPrice'];
+                                                }
+                                            }
+                                            echo $income;
+                                            ?>"></h2>
+                <p>Total Income</p>
             </div>
         </div>
     </section>
@@ -197,8 +190,7 @@
             </div>
 
             <div class="card w-card">
-                <img src="./static/img/gps-tracking-icon-logo-illustration-tracking-symbol-template-for-graphic-and-web-design-collection-free-vector_1.jpg"
-                    class="card-img-top" alt="...">
+                <img src="./static/img/gps-tracking-icon-logo-illustration-tracking-symbol-template-for-graphic-and-web-design-collection-free-vector_1.jpg" class="card-img-top" alt="...">
                 <div class="card-body text-center">
                     <h5 class="card-title">Tracking</h5>
                     <p class="card-text">Stay informed every step of the way with our Tracking category.
@@ -293,8 +285,7 @@
                                         211</a>
                                 </p>
                                 <p class="mb-0">
-                                    <a class="link-secondary text-decoration-none"
-                                        href="mailto:info@acccbeirutport.gov.lb">info@acccbeirutport.gov.lb</a>
+                                    <a class="link-secondary text-decoration-none" href="mailto:info@acccbeirutport.gov.lb">info@acccbeirutport.gov.lb</a>
                                 </p>
                             </div>
                         </div>
@@ -309,7 +300,7 @@
                                         <a href="./pages/html/en/contactus.html" class="link-secondary text-decoration-none">Contact</a>
                                     </li>
                                     <li class="mb-0">
-                                        <a  data-bs-toggle="modal" data-bs-target="#privacy-modal" class="link-secondary text-decoration-none">Privacy Policy</a>
+                                        <a data-bs-toggle="modal" data-bs-target="#privacy-modal" class="link-secondary text-decoration-none">Privacy Policy</a>
                                     </li>
                                 </ul>
                             </div>
@@ -320,27 +311,23 @@
                                 <p class="mb-4 off-white">Subscribe to our newsletter to get our news &
                                     discounts delivered to you.
                                 </p>
-                                <form action="#!">
-                                    <div class="row gy-4">
-                                        <div class="col-12">
-                                            <div class="input-group">
-                                                <span class="input-group-text transparent-bg"
-                                                    id="email-newsletter-addon">
-                                                    <i class="fa-regular fa-envelope fa-white"></i>
-                                                </span>
-                                                <input type="email" class="form-control transparent-bg off-white"
-                                                    id="email-newsletter" value="" placeholder="Email Address"
-                                                    aria-label="email-newsletter"
-                                                    aria-describedby="email-newsletter-addon" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="d-grid">
-                                                <button class="btn btn-primary" type="submit">Subscribe</button>
-                                            </div>
+                                <!-- <form action="#!"> -->
+                                <div class="row gy-4">
+                                    <div class="col-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text transparent-bg" id="email-newsletter-addon">
+                                                <i class="fa-regular fa-envelope fa-white"></i>
+                                            </span>
+                                            <input type="email" class="form-control transparent-bg off-white" id="email-newsletter" value="" placeholder="Email Address" aria-label="email-newsletter" aria-describedby="email-newsletter-addon" required>
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="col-12">
+                                        <div class="d-grid">
+                                            <button class="btn btn-primary" type="submit" onclick="subscribe_newsletter()">Subscribe</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- </form> -->
                             </div>
                         </div>
                     </div>
@@ -360,20 +347,17 @@
                         <div class="col-xs-12 col-md-5 order-0 order-md-1">
                             <ul class="nav justify-content-center justify-content-md-end">
                                 <li class="nav-item">
-                                    <a class="nav-link link-dark" href="https://www.facebook.com/portdebeyrouth"
-                                        target="_blank">
+                                    <a class="nav-link link-dark" href="https://www.facebook.com/portdebeyrouth" target="_blank">
                                         <i class="fa-brands fa-facebook fa-xl fa-white"></i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link link-dark" href="https://twitter.com/portdebeyrouth"
-                                        target="_blank">
+                                    <a class="nav-link link-dark" href="https://twitter.com/portdebeyrouth" target="_blank">
                                         <i class="fa-brands fa-twitter fa-xl fa-white"></i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link link-dark" href="https://www.instagram.com/portdebeyrouth"
-                                        target="_blank">
+                                    <a class="nav-link link-dark" href="https://www.instagram.com/portdebeyrouth" target="_blank">
                                         <i class="fa-brands fa-instagram fa-xl fa-white"></i>
                                     </a>
                                 </li>
@@ -390,89 +374,114 @@
 
 
 
-      <!-- Privacy Policy Modal Start -->
+    <!-- Privacy Policy Modal Start -->
     <section>
 
-<div class="modal fade" id="privacy-modal" tabindex="-1" aria-labelledby="privacy-modalLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title">Privacy Policy</h5>
-      </div>
-    <div class="modal-body">
-        <p><b>Introduction:</b> This privacy policy outlines how ACCC Beirut Port collects, uses, shares, and protects personal information. We are committed to maintaining the trust and confidence of our visitors and users.<hr>
+        <div class="modal fade" id="privacy-modal" tabindex="-1" aria-labelledby="privacy-modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Privacy Policy</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p><b>Introduction:</b> This privacy policy outlines how ACCC Beirut Port collects, uses, shares, and protects personal information. We are committed to maintaining the trust and confidence of our visitors and users.
+                            <hr>
 
-<b>What Information We Collect:</b> We collect personal information, including but not limited to:<br>
-<ul>
-    <li>Contact information (name, email, phone number)</li>
-    <li>Location information (IP address, geolocation)</li>
-    <li>Device information (browser type, operating system)</li>
-    <li>Usage information (pages visited, search queries)</li>
-</ul>
-<hr>
+                            <b>What Information We Collect:</b> We collect personal information, including but not limited to:<br>
+                        <ul>
+                            <li>Contact information (name, email, phone number)</li>
+                            <li>Location information (IP address, geolocation)</li>
+                            <li>Device information (browser type, operating system)</li>
+                            <li>Usage information (pages visited, search queries)</li>
+                        </ul>
+                        <hr>
 
-<b>How We Collect Information:</b> We collect information through:<br>
-<ul>
-    <li>Direct input from users (e.g., contact forms, surveys)</li>
-    <li>Cookies and other tracking technologies</li>
-    <li>Third-party services (e.g., analytics providers)</li>
-</ul><hr>
-<b>Why We Collect Information:</b> We collect information to:
-<ul>
-    <li>Provide and improve our services</li>
-    <li>Enhance user experience</li>
-    <li>Communicate with users</li>
-    <li>Comply with legal requirements</li>
-</ul><hr>
-
-
-<b>How We Share Information:</b> We share information with:
-<ul>
-    <li>Third-party service providers (e.g., analytics providers, payment processors)</li>
-    <li>Law enforcement agencies (as required by law)</li>
-    <li>Other parties (with user consent)</li>
-</ul><hr>
+                        <b>How We Collect Information:</b> We collect information through:<br>
+                        <ul>
+                            <li>Direct input from users (e.g., contact forms, surveys)</li>
+                            <li>Cookies and other tracking technologies</li>
+                            <li>Third-party services (e.g., analytics providers)</li>
+                        </ul>
+                        <hr>
+                        <b>Why We Collect Information:</b> We collect information to:
+                        <ul>
+                            <li>Provide and improve our services</li>
+                            <li>Enhance user experience</li>
+                            <li>Communicate with users</li>
+                            <li>Comply with legal requirements</li>
+                        </ul>
+                        <hr>
 
 
-<b>User Rights:</b> Users have the right to:
-<ul>
-    <li>Request access to their personal information</li>
-    <li>Request correction or deletion of their personal information</li>
-    <li>Object to processing of their personal information</li>
-    <li>Request restriction of processing of their personal information</li>
-    <li>Request data portability</li>
-</ul><hr>
+                        <b>How We Share Information:</b> We share information with:
+                        <ul>
+                            <li>Third-party service providers (e.g., analytics providers, payment processors)</li>
+                            <li>Law enforcement agencies (as required by law)</li>
+                            <li>Other parties (with user consent)</li>
+                        </ul>
+                        <hr>
 
-<b>Security:</b> We take reasonable measures to protect personal information from unauthorized access, disclosure, or destruction. <br><hr>
 
-<b>Changes to This Policy:</b> We reserve the right to modify this privacy policy at any time. Changes will be posted on this page.<br><hr>
+                        <b>User Rights:</b> Users have the right to:
+                        <ul>
+                            <li>Request access to their personal information</li>
+                            <li>Request correction or deletion of their personal information</li>
+                            <li>Object to processing of their personal information</li>
+                            <li>Request restriction of processing of their personal information</li>
+                            <li>Request data portability</li>
+                        </ul>
+                        <hr>
 
-<b>Contact Us:</b> If you have any questions or concerns about this privacy policy, please contact us at [contact email or address].<br><hr>
+                        <b>Security:</b> We take reasonable measures to protect personal information from unauthorized access, disclosure, or destruction. <br>
+                        <hr>
 
-By using our website, you consent to the collection, use, and sharing of your personal information as described in this privacy policy.</p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>
-    </div>
-    </div>
-</div>
-</div>
+                        <b>Changes to This Policy:</b> We reserve the right to modify this privacy policy at any time. Changes will be posted on this page.<br>
+                        <hr>
 
-</section>
-<!-- Privacy Policy Modal End -->                               
+                        <b>Contact Us:</b> If you have any questions or concerns about this privacy policy, please contact us at [contact email or address].<br>
+                        <hr>
+
+                        By using our website, you consent to the collection, use, and sharing of your personal information as described in this privacy policy.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Privacy Policy Modal End -->
+
+
+    <!-- Email Modal Start -->
+    <section>
+
+        <div class="modal fade" id="NewsLetter" tabindex="-1" aria-labelledby="NewsLetterLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Email Modal End -->
 
 
 
 
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-        crossorigin="anonymous"></script>
-    <script src="./static/js/home_translate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src = "./static/js/home_translate.js" ></script>
 
     <script>
-        /*const elements = document.querySelectorAll('.num');
+        const elements = document.querySelectorAll('.num');
 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
@@ -504,7 +513,7 @@ By using our website, you consent to the collection, use, and sharing of your pe
                         let increment = Math.ceil(endValue / 10); // Calculate increment value
                         let counter = 0;
 
-                        let intervalId = setInterval(function () {
+                        let intervalId = setInterval(function() {
                             startValue += increment;
                             valueDisplay.textContent = formatNumber(startValue);
                             counter++;
@@ -517,41 +526,72 @@ By using our website, you consent to the collection, use, and sharing of your pe
                     });
                 }
             });
-        },
-            {
-                threshold: 1.0,
-            }
-        );
+        }, {
+            threshold: 1.0,
+        });
 
         elements.forEach((element) => {
             observer.observe(element);
-        });*/
-
-    </script>
-
-    <script>
-        fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(response => {
-            
-            fetch(
-                "./pages/php/add_visits.php",
-                {
-                    method: 'POST',
-                    body: new URLSearchParams({
-                        IPaddress: response['ip'],
-                    })
-                }
-            )
         });
     </script>
 
     <script>
-        function showPPmodal(){
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(response => {
+
+                fetch(
+                    "./pages/php/add_visits.php", {
+                        method: 'POST',
+                        body: new URLSearchParams({
+                            IPaddress: response['ip'],
+                        })
+                    }
+                )
+            });
+    </script>
+
+    <script>
+        function showPPmodal() {
             $("#privacy-modal").modal();
         }
-    
-    </script>    
+    </script>
+
+    <script>
+        function subscribe_newsletter() {
+            var email = document.getElementById("email-newsletter").value;
+
+            fetch(
+                    "./pages/php/subscribe_letter.php", {
+                        method: 'POST',
+                        body: new URLSearchParams({
+                            email: email
+                        })
+                    }
+                )
+                .then(response => (response.json()))
+                .then(response => {
+
+                    var newletterModal = document.getElementById("NewsLetter");
+
+                    if (response['success'] == true) {
+                        var body = `<p>${response['message']}</p>`;
+                        newletterModal.getElementsByClassName("modal-body")[0].innerHTML = body;
+
+                        var button = `<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-check"></i></button>`
+                        newletterModal.getElementsByClassName("modal-footer")[0].innerHTML = button;
+                    } else {
+                        var body = `<p>${response['error']}</p>`;
+                        newletterModal.getElementsByClassName("modal-body")[0].innerHTML = body;
+
+                        var button = `<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-sharp fa-light fa-circle-xmark"></i></button>`
+                        newletterModal.getElementsByClassName("modal-footer")[0].innerHTML = button;
+                    }
+
+                    $('#NewsLetter').modal('show');
+                })
+        }
+    </script>
 </body>
 
 </html>

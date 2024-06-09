@@ -12,12 +12,12 @@
     function send_sms($code, $to){
 
         $sid = "ACf837d1407e959d322c92af63df7a916c";
-        $token = "5d98393ba1c0f093efd1877e80d2657f";
+        $token = "7226513140fa667df42ffd42cce34e08";
 
         $client = new Services_Twilio($sid, $token);
         $message = $client->account->messages->sendMessage(
         '+14239272158', // From a valid Twilio number
-        "+9613875684", // Text this number
+        "$to", // Text this number
         "Please use this code to verify: $code"
         );
 

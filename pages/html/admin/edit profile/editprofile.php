@@ -6,7 +6,7 @@
         session_destroy();
         header("Location:../../../../index.php");
     }
-    $userid = $session_result[0]['userID'];
+    $userid = $session_result['userID'];
     $user_result = send_query("SELECT * FROM Users WHERE userID = $userid", true, true)[0];
 
 
@@ -236,6 +236,22 @@
                                     <i class="fa-regular fa-keyboard"></i>
                                 </span>
                                 <span>Send Query</span>
+                            </a>
+                        </li>
+                        <li class="my-4">
+                            <hr class="dropdown-divider bg-light" />
+                        </li>
+                        <li>
+                            <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+                                News Letters
+                            </div>
+                        </li>
+                        <li>
+                            <a href="../newsletter/newsletter.php" class="nav-link px-3">
+                                <span class="me-2">
+                                <i class="fa-regular fa-paper-plane"></i>
+                                </span>
+                                <span>Send News Letters</span>
                             </a>
                         </li>
                     </ul>

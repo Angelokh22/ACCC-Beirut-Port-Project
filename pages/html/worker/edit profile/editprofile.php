@@ -6,7 +6,7 @@
         session_destroy();
         header("Location:../../../../index.php");
     }
-    $userid = $session_result[0]['userID'];
+    $userid = $session_result['userID'];
     $user_result = send_query("SELECT * FROM Users WHERE userID = $userid", true, true)[0];
 
 

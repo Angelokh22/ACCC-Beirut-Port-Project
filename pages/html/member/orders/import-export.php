@@ -763,31 +763,50 @@
             var finalprice = table2.querySelector("#finalPrice").innerText;
             var categoryValue = categoryValueElement ? categoryValueElement.innerText : '';
 
-            const formData = new FormData();
-            formData.append('weightValue', weightValue);
-            formData.append('typeValue', typeValue);
-            formData.append('destinationValue', destinationValue);
-            formData.append('serviceValue', serviceValue);
-            formData.append('deliveryValue', deliveryValue);
-            formData.append('rentCargoValue', rentCargoValue);
-            formData.append('customcategorieValue', customcategorieValue);
-            formData.append('categoryValue', categoryValue);
-            formData.append('finalPrice', finalprice)
-            
+            let lat = null;
+            let lon = null;
 
-            fetch(
-                "../../../php/add_to_orders.php",
-                {
-                    method: 'POST',
-                    body: formData
-                }
-            )
-            .then((response) => response.text())
-            .then((response) => {
-                if(response == "Order placed successfully!") {
-                    $("#successModal").modal('show');
-                }
-            })
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    lat = pos.coords.latitude;
+                    lon = pos.coords.longitude;
+                    send(lat, lon);
+                }, (err) => {console.log(err.message)}, {enableHighAccuracy: true, timeout: 10000});
+            } else {
+                lat = 33.902970918564996;
+                lon = 35.51771813153476;
+                send(lat, lon);
+            }
+
+            function send(lat, lon) {
+                const formData = new FormData();
+                formData.append('weightValue', weightValue);
+                formData.append('typeValue', typeValue);
+                formData.append('destinationValue', destinationValue);
+                formData.append('serviceValue', serviceValue);
+                formData.append('deliveryValue', deliveryValue);
+                formData.append('rentCargoValue', rentCargoValue);
+                formData.append('customcategorieValue', customcategorieValue);
+                formData.append('categoryValue', categoryValue);
+                formData.append('finalPrice', finalprice);
+                formData.append('latitude', lat);
+                formData.append('longitude', lon);
+                
+
+                fetch(
+                    "../../../php/add_to_orders.php",
+                    {
+                        method: 'POST',
+                        body: formData
+                    }
+                )
+                .then((response) => response.text())
+                .then((response) => {
+                    if(response == "Order placed successfully!") {
+                        $("#successModal").modal('show');
+                    }
+                })
+            }
         });
 
     </script>

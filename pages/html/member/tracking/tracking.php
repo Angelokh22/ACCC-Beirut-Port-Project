@@ -74,107 +74,123 @@
     </section>
     <!-- NavBar End -->
 
-    <!-- SideBar Start -->
-    <section>
+      <!-- SideBar Start -->
+      <section>
 
-        <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
-            <div class="offcanvas-body p-0">
-                <nav class="navbar-dark">
-                    <ul class="navbar-nav">
-                        <li>
-                            <div class="text-muted small fw-bold text-uppercase px-3 mt-3">
-                                Dashboard
-                            </div>
-                        </li>
-                        <li class="mt-3">
-                            <a href="../dashboard.php" class="nav-link px-3">
-                                <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="mb-4">
-                            <hr class="dropdown-divider bg-light" />
-                        </li>
-                        <li>
-                            <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-                                Services
-                            </div>
-                        </li>
-                        <li>
-                            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#orders">
-                                <span class="me-2">
-                                    <i class="fa-regular fa-truck-fast"></i>
-                                </span>
-                                <span>Orders</span>
-                                <span class="ms-auto">
-                                    <span class="right-icon">
-                                        <i class="bi bi-chevron-down"></i>
+<div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
+    <div class="offcanvas-body p-0">
+        <nav class="navbar-dark">
+            <ul class="navbar-nav">
+                <li>
+                    <div class="text-muted small fw-bold text-uppercase px-3 mt-3">
+                        Dashboard
+                    </div>
+                </li>
+                <li class="mt-3">
+                    <a href="../dashboard.php" class="nav-link px-3">
+                        <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <hr class="dropdown-divider bg-light" />
+                </li>
+                <li>
+                    <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+                        Services
+                    </div>
+                </li>
+                <li>
+                    <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#orders">
+                        <span class="me-2">
+                            <i class="fa-regular fa-truck-fast"></i>
+                        </span>
+                        <span>Orders</span>
+                        <span class="ms-auto">
+                            <span class="right-icon">
+                                <i class="bi bi-chevron-down"></i>
+                            </span>
+                        </span>
+                    </a>
+                    <div class="collapse" id="orders">
+                        <ul class="navbar-nav ps-3">
+                            <li>
+                                <a href="../orders/import-export.php" class="nav-link px-3">
+                                    <span class="me-2">
+                                        <i class="fa-regular fa-ferry"></i>
                                     </span>
-                                </span>
-                            </a>
-                            <div class="collapse" id="orders">
-                                <ul class="navbar-nav ps-3">
-                                    <li>
-                                        <a href="../orders/import-order.php" class="nav-link px-3">
-                                            <span class="me-2">
-                                                <!-- <i class="bi bi-card-list"></i> -->
-                                                <i class="fa-solid fa-arrow-left fa-xs"></i>
-                                                <i class="fa-solid fa-box"></i>
-                                            </span>
-                                            <span>Imported Orders</span>
-                                        </a>
-                                        <a href="../orders/export-order.php" class="nav-link px-3">
-                                            <span class="me-2">
-                                                <!-- <i class="bi bi-card-list"></i> -->
-                                                <i class="fa-solid fa-box"></i>
-                                                <i class="fa-solid fa-arrow-right fa-xs"></i>
-                                            </span>
-                                            <span>Exported Orders</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#marketplace">
-                                <span class="me-2">
-                                    <i class="bi bi-cart3"></i>
-                                </span>
-                                <span>MarketPlace</span>
-                                <span class="ms-auto">
-                                    <span class="right-icon">
-                                        <i class="bi bi-chevron-down"></i>
+                                    <span>Import / Export</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#marketplace">
+                        <span class="me-2">
+                            <i class="bi bi-cart3"></i>
+                        </span>
+                        <span>MarketPlace</span>
+                        <span class="ms-auto">
+                            <span class="right-icon">
+                                <i class="bi bi-chevron-down"></i>
+                            </span>
+                        </span>
+                    </a>
+                    <div class="collapse" id="marketplace">
+                        <ul class="navbar-nav ps-3">
+                            <li>
+                                <a href="../marketplace/marketplace-list.php" class="nav-link px-3">
+                                    <span class="me-2">
+                                        <i class="bi bi-card-list"></i>
                                     </span>
-                                </span>
-                            </a>
-                            <div class="collapse" id="marketplace">
-                                <ul class="navbar-nav ps-3">
-                                    <li>
-                                        <a href="../marketplace/marketplace-list.php" class="nav-link px-3">
-                                            <span class="me-2">
-                                                <i class="bi bi-card-list"></i>
-                                            </span>
-                                            <span>View Market List</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="tracking.php" class="nav-link px-3 active">
-                                <span class="me-2">
-                                    <i class="bi bi-geo-alt-fill"></i>
-                                </span>
-                                <span>Tracking</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+                                    <span>View Market List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../marketplace/marketplace-items.php" class="nav-link px-3">
+                                    <span class="me-2">
+                                        <i class="bi bi-card-list"></i>
+                                    </span>
+                                    <span>View your items</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
-    </section>
-    <!-- SideBar End -->
+                <li>
+                    <a href="tracking.php" class="nav-link px-3 active">
+                        <span class="me-2">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </span>
+                        <span>Tracking</span>
+                    </a>
+                </li>
+                <li class="my-4">
+                    <hr class="dropdown-divider bg-light" />
+                </li>
+                <li>
+                    <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+                        Services
+                    </div>
+                </li>
+                <li>
+                    <a href=mailto:"angelokh22@gmail.com" class="nav-link px-3">
+                        <span class="me-2">
+                            <i class="bi bi-envelope-fill"></i>
+                        </span>
+                        <span>Contact US</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+</section>
+<!-- SideBar End -->
+
 
     <!-- Tracking Start -->
     <section>
@@ -287,11 +303,8 @@
     <!-- Tracking End -->
 
     <!-- Live Map Start -->
-    <section>
+    <section id="map_tracking">
         <main class="mt-1 text-center">
-            <iframe
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4iE2xVSpkLLOXoyqT-RuPwURN3ddScAI&q=33.902970918564996,35.51771813153476&zoom=19&maptype=satellite"
-                width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
         </main>
 
     </section>
@@ -363,6 +376,13 @@
                         document.getElementById("delivery_time").innerText = result['deleveryTime'];
                         document.getElementById("delivery_type").innerText = result['deliveryProvider'];
                         document.getElementById("status").innerText = result['status'];
+                        var location = result['location'];
+
+                        var html = `<iframe
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4iE2xVSpkLLOXoyqT-RuPwURN3ddScAI&q=${location}&zoom=19&maptype=satellite"
+                width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>`
+
+                        document.getElementById("map_tracking").getElementsByTagName("main")[0].innerHTML = html;
 
                         var steps = document.getElementsByClassName("step");
                         for (var i = 0; i <= result['statusIndex']; i++) {
