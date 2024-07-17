@@ -27,13 +27,20 @@ if(
 
 
     if(!$result) {
-        header("Location:../html/$lang/login.php?email_msg=Email or Password is incorrect");
+        header("Location: ../html/$lang/login.php?email_msg=Email or Password is incorrect");
     }
     
     $id = $result['userID'];
     $role = $result['userRole'];
     $name = $result['userName'];
     $email = $result['userEmail'];
+    $status = $result['userStatus'];
+
+    if($status == "2") {
+        header("Location: ../html/$lang/login.php?email_msg=Your Account is Banned");
+        exit();
+    }
+
     $startTime = time();
     $expTime = $startTime + 2.628e+6;
 
