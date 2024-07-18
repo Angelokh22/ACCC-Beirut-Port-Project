@@ -26,21 +26,25 @@ if(
 
     if(check_input($username, false, true) != 1) {
         header("Location:../html/$lang/register.php?username_msg=Username isn't your full name!");
+        exit();
     }
 
     $query = "SELECT * FROM Users WHERE userEmail = '$email';";
     $result = send_query($query, true, false);
 
-    if($result){
+    if($result) {
         header("Location:../html/$lang/register.php?email_msg=This Email is already in use!");
+        exit();
     }
 
     if(check_input($password, false, false) != 1) {
         header("Location:../html/$lang/register.php?password_msg=The Password is incorrect!");
+        exit();
     }
 
     if($check_password != $password) {
         header("Location:../html/$lang/register.php?check_password_msg=The Confirmation Password doesn't match!");
+        exit();
     }
 
     $query = "INSERT INTO Users (userName, userRole, userEmail, userPassword, userStatus, userCreated) VALUES ('$username', 3, '$email', '$password', '$status', '$created');";

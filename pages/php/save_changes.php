@@ -27,6 +27,7 @@
         $jwt = $_SESSION["Authorisation"];
         if(!$jwt){
             header("Location:../../../../index.php");
+            exit();
         }
 
 
@@ -34,11 +35,9 @@
         if(!$session_result){
             session_destroy();
             header("Location:../../../../index.php");
+            exit();
         }
-        $userid = $session_result[0]['userID'];
-
-
-
+        $userid = $session_result['userID'];
         $fullname = $_POST['fullname'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];

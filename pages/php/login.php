@@ -16,9 +16,11 @@ if(
     
     if(check_input($email) != 1){
         header("Location: ../html/$lang/login.php?email_msg=Invalid Email");
+        exit();
     }
     if(check_input($pass, false) != 1){
         header("Location: ../html/$lang/login.php?password_msg=Invalid Password");
+        exit();
 
     }
 
@@ -28,6 +30,7 @@ if(
 
     if(!$result) {
         header("Location: ../html/$lang/login.php?email_msg=Email or Password is incorrect");
+        exit();
     }
     
     $id = $result['userID'];
@@ -38,6 +41,10 @@ if(
 
     if($status == "2") {
         header("Location: ../html/$lang/login.php?email_msg=Your Account is Banned");
+        exit();
+    }
+    if($status == "0") {
+        header("Location: ../html/$lang/login.php?email_msg=Your Account is still pending Activation");
         exit();
     }
 

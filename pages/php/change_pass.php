@@ -16,13 +16,15 @@
         $jwt = $_SESSION["Authorisation"];
         if(!$jwt){
             header("Location:../../../../index.php");
+            exit();
         }
         $session_result = send_query("SELECT * FROM Sessions WHERE sessionToken = '$jwt'", true, false);
         if(!$session_result){
             session_destroy();
             header("Location:../../../../index.php");
+            exit();
         }
-        $userid = $session_result[0]['userID'];
+        $userid = $session_result['userID'];
 
 
         $OldPass = $_POST['oldPass'];
@@ -39,11 +41,8 @@
         }
 
         $oldpassword = send_query("SELECT userPassword FROM Users WHERE userID = '$userid';", true, false)[0];
-        // echo "<script>alert('$oldpassword')</script>";
-        // echo "<script>alert('$OldPass')</script>";
         if($oldpassword != $OldPass){
-            echo $oldpassword;
-            // print_r($oldpassword);
+            echo "NO";
             return;
         }
 
