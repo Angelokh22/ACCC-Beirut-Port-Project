@@ -26,9 +26,10 @@
 
         send_query($query, false, false, ["cfname" => $fname, "clname" => $lname, "cemail" => $email, "cphone" => $phone, "cmessage" => $message]);
 
-        return json_encode(['success' => true, 'message' => 'Message sent successfully!']);
+        echo json_encode(['success' => true, 'message' => 'Message sent successfully!']);
 
     }
-    return json_encode(['success' => false, 'error' => 'Some parameters are required!']);
-
+    else{
+    echo json_encode(['success' => false, 'error' => 'Some parameters are required!']);
+    }
 ?>
