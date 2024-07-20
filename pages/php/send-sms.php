@@ -12,7 +12,7 @@
     function send_sms($code, $to){
 
         $sid = "ACf837d1407e959d322c92af63df7a916c";
-        $token = "fb742ef18cbcc45c5c89743c02e18482";
+        $token = "ba743cd4432a8eeaa55ad52f5f2fea1b";
 
         $client = new Services_Twilio($sid, $token);
         $message = $client->account->messages->sendMessage(
