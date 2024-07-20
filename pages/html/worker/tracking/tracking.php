@@ -287,11 +287,18 @@
     <!-- Tracking End -->
 
     <!-- Live Map Start -->
-    <section>
+    <!-- <section>
         <main class="mt-1 text-center">
             <iframe
                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4iE2xVSpkLLOXoyqT-RuPwURN3ddScAI&q=33.902970918564996,35.51771813153476&zoom=19&maptype=satellite"
                 width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </main>
+
+    </section> -->
+    <!-- Live Map End -->
+     <!-- Live Map Start -->
+    <section id="map_tracking">
+        <main class="mt-1 text-center">
         </main>
 
     </section>
@@ -363,6 +370,13 @@
                         document.getElementById("delivery_time").innerText = result['deleveryTime'];
                         document.getElementById("delivery_type").innerText = result['deliveryProvider'];
                         document.getElementById("status").innerText = result['status'];
+                        var location = result['location'];
+
+                        var html = `<iframe
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4iE2xVSpkLLOXoyqT-RuPwURN3ddScAI&q=${location}&zoom=19&maptype=satellite"
+                width="95%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>`
+
+                        document.getElementById("map_tracking").getElementsByTagName("main")[0].innerHTML = html;
 
                         var steps = document.getElementsByClassName("step");
                         for (var i = 0; i <= result['statusIndex']; i++) {
