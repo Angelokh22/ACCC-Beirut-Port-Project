@@ -464,7 +464,32 @@
                                         <table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
                                             <tbody>
 
-                                                <tr>
+                                            <?php
+                                                    
+                                                    $query = "SELECT * FROM Contacts ORDER BY contactID DESC LIMIT 5";
+                                                    $result = send_query($query , true ,true,[]);
+                                                    if($result){
+                                                        foreach($result as $row){
+                                                            echo "<tr>
+                                                            <td class='pl-3'></td>
+                                                            <td>
+                                                                <span class='mb-0 text-muted'>" . $row["contactFName"] ." ". $row["contactLName"]. "</span>
+                                                            </td>
+                                                            <td>
+                                                                <a class='link' href=''>
+                                                                <span class='text-dark'>".$row['contactMessage']."</span>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a class='btn btn-primary' href='mailto: ".$row['contactEmail']."'>Reply <i class='bi bi-send-fill'></i></a>
+                                                            </td>
+                                                            </tr>
+                                                            ";
+                                                        }
+                                                    }
+                                                ?>
+
+                                                <!-- <tr>
                                                     <td class="pl-3"></td>
                                                     <td>
                                                         <span class="mb-0 text-muted">Hritik Roshan</span>
@@ -531,7 +556,8 @@
                                                             Open mail <i class="bi bi-send-fill"></i>
                                                         </button>
                                                     </td>
-                                                </tr>
+                                                </tr> -->
+
 
                                             </tbody>
                                         </table>

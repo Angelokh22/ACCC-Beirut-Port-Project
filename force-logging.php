@@ -5,7 +5,7 @@
 
     session_start();
 
-    $result = send_query("SELECT sessionToken FROM Sessions WHERE userID = '1'", true, false);
+    $result = send_query("SELECT sessionToken FROM Sessions WHERE userID = '2'", true, false);
     $jwt = $result['sessionToken'];
     
     $_SESSION['Authorisation'] = $jwt;
